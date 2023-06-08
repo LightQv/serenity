@@ -34,13 +34,13 @@ const migrate = async () => {
         .email({ firstName: firstname, lastName: lastname })
         .toLowerCase();
       const hashedPassword = faker.internet.password();
-      const phoneNumber = faker.phone.number();
+      const phoneNumber = faker.phone.number("06-##-##-##-##");
       const adressNumber = faker.location.buildingNumber();
       const adressStreetname = faker.location.streetAddress();
       const city = faker.location.city();
       const mentalScore = faker.number.bigInt({ max: 100n });
 
-      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashed_password, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}, "${hashedPassword}", "${phoneNumber}", "${adressNumber}, "${adressStreetname}", "${city}", "${mentalScore} )`;
+      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressNumber}", "${adressStreetname}", "${city}", "${mentalScore}" )`;
 
       connection.query(patientQuery);
     }

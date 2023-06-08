@@ -5,7 +5,7 @@ CREATE TABLE patient (
   lastname VARCHAR(50) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   hashedPassword VARCHAR(255) NOT NULL,
-  phone_number INT,
+  phone_number TEXT,
   adress_number INT,
   adress_streetname TEXT,
   city VARCHAR(100),

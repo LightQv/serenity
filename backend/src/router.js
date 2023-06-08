@@ -10,4 +10,8 @@ router.put("/items/:id", itemControllers.edit);
 router.post("/items", itemControllers.add);
 router.delete("/items/:id", itemControllers.destroy);
 
+const patientControllers = require("./controllers/patientControllers");
+
+router.get("/api/Serenity", patientControllers.browse);
+
 module.exports = router;
