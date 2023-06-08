@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const { fakerFR: faker } = require("@faker-js/faker")
+
 const fs = require("fs");
 const mysql = require("mysql2/promise");
 
