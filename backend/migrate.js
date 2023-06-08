@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const { fakerFR: faker } = require("@faker-js/faker")
+//extrait la valeur de la propriété fakerFR du module @faker-js/faker dans la variable faker
+const { fakerFR: faker } = require("@faker-js/faker");
 
 const fs = require("fs");
 const mysql = require("mysql2/promise");
@@ -23,6 +24,27 @@ const migrate = async () => {
   const sql = fs.readFileSync("./database.sql", "utf8");
 
   await connection.query(sql);
+
+  // creation des fakers patients
+  const generateRandomPatients = (number) => {
+    for (let i = 0; i < number; i += 1) {
+      const firstname = faker.person.firstName();
+      const lastname = faker.person.lastName();
+      const email = faker.internet
+        .email({ firstName: firstname, lastName: lastname })
+        .toLowerCase();
+      const hashedPassword = faker.internet.password();
+      const phoneNumber = faker.phone.number();
+      const adressNumber = faker.location.buildingNumber();
+      const adressStreetname = faker.location.streetAddress();
+      const city = faker.location.city();
+      const mentalScore = faker.number.bigInt({ max: 100n });
+
+      const patientQuery =  `INSERT INTO user (firstname, lastname, email, hashed_password, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}, "${hashedPassword}", "${phoneNumber}", "${adressNumber}, "${adressStreetname}", "${city}", "${mentalScore} )`;
+
+      connection.query(userQuery);
+    }
+  };
 
   connection.end();
 };
