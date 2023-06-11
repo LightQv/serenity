@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-// extrait la valeur de la propriété fakerFR du module @faker-js/faker dans la variable faker
+// extrait la valeur de la propriété fakerFR (fakerFRANCE) du module @faker-js/faker dans la variable faker
 const { fakerFR: faker } = require("@faker-js/faker");
 
 const fs = require("fs");
@@ -25,7 +25,7 @@ const migrate = async () => {
 
   await connection.query(sql);
 
-  // creation des fakers patients
+  // creation des fake datas patient
   const generateRandomPatients = (number) => {
     for (let i = 0; i < number; i += 1) {
       const firstname = faker.person.firstName();
@@ -35,13 +35,11 @@ const migrate = async () => {
         .toLowerCase();
       const hashedPassword = faker.internet.password();
       const phoneNumber = faker.phone.number("06-##-##-##-##");
-      const adressNumber = faker.location.buildingNumber();
       const adressStreetname = faker.location.streetAddress();
       const city = faker.location.city();
-      const mentalScore = faker.number.bigInt({ max: 100n });
-
-      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressNumber}", "${adressStreetname}", "${city}", "${mentalScore}" )`;
-
+      // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
+      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
+      // connection à la bdd avec envoi d'une query
       connection.query(patientQuery);
     }
   };

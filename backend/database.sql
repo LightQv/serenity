@@ -6,10 +6,8 @@ CREATE TABLE patient (
   email VARCHAR(255) UNIQUE NOT NULL,
   hashedPassword VARCHAR(255) NOT NULL,
   phone_number TEXT,
-  adress_number INT,
   adress_streetname TEXT,
-  city VARCHAR(100),
-  mental_score INT
+  city VARCHAR(100)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE intervention (

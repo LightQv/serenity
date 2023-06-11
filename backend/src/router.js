@@ -12,6 +12,10 @@ router.delete("/items/:id", itemControllers.destroy);
 
 const patientControllers = require("./controllers/patientControllers");
 
-router.get("/api/Serenity", patientControllers.browse);
+router.get("/api/patients", patientControllers.browse);
+router.get("/api/patients/:id", patientControllers.read);
+router.put("/api/patients/:id", itemControllers.edit);
+router.post("/api/patients", itemControllers.add);
+router.delete("/api/patients/:id", itemControllers.destroy);
 
 module.exports = router;
