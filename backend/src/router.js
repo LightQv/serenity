@@ -10,4 +10,12 @@ router.put("/items/:id", itemControllers.edit);
 router.post("/items", itemControllers.add);
 router.delete("/items/:id", itemControllers.destroy);
 
+const patientControllers = require("./controllers/patientControllers");
+
+router.get("/api/patients", patientControllers.browse);
+router.get("/api/patients/:id", patientControllers.read);
+router.put("/api/patients/:id", patientControllers.edit);
+router.post("/api/patients", patientControllers.add);
+router.delete("/api/patients/:id", patientControllers.destroy);
+
 module.exports = router;

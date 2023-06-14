@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+// extrait la valeur de la propriété fakerFR (fakerFRANCE) du module @faker-js/faker dans la variable faker
+const { fakerFR: faker } = require("@faker-js/faker");
+
 const fs = require("fs");
 const mysql = require("mysql2/promise");
 
@@ -22,7 +25,46 @@ const migrate = async () => {
 
   await connection.query(sql);
 
-  connection.end();
+  // creation des fake datas patient
+  const generateRandomPatients = (number) => {
+    for (let i = 0; i < number; i += 1) {
+      const firstname = faker.person.firstName();
+      const lastname = faker.person.lastName();
+      const email = faker.internet
+        .email({ firstName: firstname, lastName: lastname })
+        .toLowerCase();
+      const hashedPassword = faker.internet.password();
+      const phoneNumber = faker.phone.number("06-##-##-##-##");
+      const adressStreetname = faker.location.streetAddress();
+      const city = faker.location.city();
+      // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
+      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
+      // connection à la bdd avec envoi d'une query
+      connection.query(patientQuery);
+    }
+  };
+
+  generateRandomPatients(20);
+
+  // création des fakes table intervention
+
+  // const generateRandomInterventions = (number) => {
+  //   for (let i = 0; i < number; i += 1) {
+  //     const dateFaked = faker.date.between({
+  //       from: "2020-01-01",
+  //       to: "2020-02-01",
+  //     });
+  //     const dateToInsert = `${dateFaked.getFullYear()}-${dateFaked.getMonth()+1}-${dateFaked.getDate()}`;
+  //     const patientId = faker.number.int({ min: 1, max: 20 });
+
+  //     const interventionQuery = `INSERT INTO intervention (date, patient_id) VALUES ("${dateToInsert}", "${patientId}" )`;
+
+  //     connection.query(interventionQuery);
+  //   }
+  // };
+
+  // generateRandomInterventions(20);
+  // connection.end();
 };
 
 try {
