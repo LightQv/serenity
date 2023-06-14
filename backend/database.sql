@@ -20,7 +20,7 @@ CREATE TABLE intervention (
   REFERENCES patient(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE practicioner (
+CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(50) NOT NULL,
   lastname VARCHAR(50) NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE practicioner (
 CREATE TABLE operation (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   operation_name VARCHAR(100) NOT NULL,
-  practicioner_id INT NOT NULL,
-  CONSTRAINT fk_operation_practicioner
-  FOREIGN KEY (practicioner_id)
-  REFERENCES practicioner(id)
+  practitioner_id INT NOT NULL,
+  CONSTRAINT fk_operation_practitioner
+  FOREIGN KEY (practitioner_id)
+  REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE protocol (
@@ -53,10 +53,10 @@ CREATE TABLE protocol (
   CONSTRAINT fk_protocol_intervention
   FOREIGN KEY(intervention_id)
   REFERENCES intervention(id),
-  practicioner_id INT(11) NOT NULL,
-  CONSTRAINT fk_protocol_practicioner
-  FOREIGN KEY(practicioner_id)
-  REFERENCES practicioner(id)
+  practitioner_id INT(11) NOT NULL,
+  CONSTRAINT fk_protocol_practitioner
+  FOREIGN KEY(practitioner_id)
+  REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE protocol_item (
