@@ -39,6 +39,11 @@ const PatientManager = require("./PatientManager");
 models.patient = new PatientManager();
 models.patient.setDatabase(pool);
 
+const InterventionManager = require("./InterventionManager");
+
+models.intervention = new InterventionManager();
+models.intervention.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
