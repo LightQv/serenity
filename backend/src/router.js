@@ -14,8 +14,8 @@ const patientControllers = require("./controllers/patientControllers");
 
 router.get("/api/patients", patientControllers.browse);
 router.get("/api/patients/:id", patientControllers.read);
-router.put("/api/patients/:id", itemControllers.edit);
-router.post("/api/patients", itemControllers.add);
-router.delete("/api/patients/:id", itemControllers.destroy);
+router.put("/api/patients/:id", patientControllers.edit);
+router.post("/api/patients", patientControllers.add);
+router.delete("/api/patients/:id", patientControllers.destroy);
 
 module.exports = router;

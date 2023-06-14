@@ -33,8 +33,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const patient = req.body;
 
-  // TODO validations (length, format...)
-
   patient.id = parseInt(req.params.id, 10);
 
   models.patient

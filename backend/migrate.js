@@ -38,14 +38,33 @@ const migrate = async () => {
       const adressStreetname = faker.location.streetAddress();
       const city = faker.location.city();
       // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
-      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_number, adress_streetname, city, mental_score) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
+      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
       // connection à la bdd avec envoi d'une query
       connection.query(patientQuery);
     }
   };
 
   generateRandomPatients(20);
-  connection.end();
+
+  // création des fakes table intervention
+
+  // const generateRandomInterventions = (number) => {
+  //   for (let i = 0; i < number; i += 1) {
+  //     const dateFaked = faker.date.between({
+  //       from: "2020-01-01",
+  //       to: "2020-02-01",
+  //     });
+  //     const dateToInsert = `${dateFaked.getFullYear()}-${dateFaked.getMonth()+1}-${dateFaked.getDate()}`;
+  //     const patientId = faker.number.int({ min: 1, max: 20 });
+
+  //     const interventionQuery = `INSERT INTO intervention (date, patient_id) VALUES ("${dateToInsert}", "${patientId}" )`;
+
+  //     connection.query(interventionQuery);
+  //   }
+  // };
+
+  // generateRandomInterventions(20);
+  // connection.end();
 };
 
 try {
