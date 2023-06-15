@@ -18,4 +18,12 @@ router.put("/api/patients/:id", patientControllers.edit);
 router.post("/api/patients", patientControllers.add);
 router.delete("/api/patients/:id", patientControllers.destroy);
 
+const protocolControllers = require("./controllers/protocolControllers");
+
+router.get("/api/protocols", protocolControllers.browse);
+router.get("/api/protocols/:id", protocolControllers.read);
+router.put("/api/protocols/:id", protocolControllers.edit);
+router.post("/api/protocols", protocolControllers.add);
+router.delete("/api/protocols/:id", protocolControllers.destroy);
+
 module.exports = router;
