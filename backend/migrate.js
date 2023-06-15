@@ -64,7 +64,7 @@ const migrate = async () => {
   // };
 
   // generateRandomInterventions(20);
-  // connection.end();
+  connection.end();
 };
 
 try {
