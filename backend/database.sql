@@ -22,15 +22,7 @@ CREATE TABLE intervention (
 
 CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  firstname VARCHAR(50) NOT NULL,
-  lastname VARCHAR(50) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  hashedPassword VARCHAR(255) NOT NULL,
-  phone_number INT,
-  roles VARCHAR(100),
-  intervention_id INT NOT NULL,
-  FOREIGN KEY (intervention_id)
-  REFERENCES intervention(id)
+  surname VARCHAR(50) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE operation (
