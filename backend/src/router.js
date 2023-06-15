@@ -18,12 +18,12 @@ router.put("/api/patients/:id", patientControllers.edit);
 router.post("/api/patients", patientControllers.add);
 router.delete("/api/patients/:id", patientControllers.destroy);
 
-const interventionControllers = require("./controllers/interventionControllers");
+const operationControllers = require("./controllers/operationControllers");
 
-router.get("/api/interventions", interventionControllers.browse);
-router.get("/api/interventions/:id", interventionControllers.read);
-router.put("/api/interventions/:id", interventionControllers.edit);
-router.post("/api/interventions", interventionControllers.add);
-router.delete("/api/interventions/:id", interventionControllers.destroy);
+router.get("/api/operations", operationControllers.browse);
+router.get("/api/operations/:id", operationControllers.read);
+router.put("/api/operations/:id", operationControllers.edit);
+router.post("/api/operations", operationControllers.add);
+router.delete("/api/operations/:id", operationControllers.destroy);
 
 module.exports = router;
