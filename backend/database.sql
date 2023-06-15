@@ -11,10 +11,10 @@ CREATE TABLE patient (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE intervention (
-  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   intervention_name VARCHAR(100) NOT NULL,
   date DATE NOT NULL,
-  patient_id  INT NOT NULL,
+  patient_id INT NOT NULL,
   CONSTRAINT fk_intervention_patient
   FOREIGN KEY (patient_id)
   REFERENCES patient(id)
@@ -50,6 +50,7 @@ CREATE TABLE protocol (
   FOREIGN KEY(practitioner_id)
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
