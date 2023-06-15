@@ -46,6 +46,18 @@ const migrate = async () => {
 
   generateRandomPatients(20);
 
+  // création des fakes datas practitioner
+
+  const generateRandomPractitioner = (number) => {
+    for (let i = 0; i < number; i += 1) {
+      const surname = faker.person.lastName();
+      const practitionerQuery = `INSERT INTO practitioner (surname) VALUES ("${surname}")`;
+      connection.query(practitionerQuery);
+    }
+  };
+
+  generateRandomPractitioner(10);
+
   // création des fakes table intervention
 
   // const generateRandomInterventions = (number) => {
@@ -64,7 +76,7 @@ const migrate = async () => {
   // };
 
   // generateRandomInterventions(20);
-  // connection.end();
+  connection.end();
 };
 
 try {
