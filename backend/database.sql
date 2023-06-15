@@ -7,18 +7,8 @@ CREATE TABLE user (
   hashedPassword VARCHAR(255) NOT NULL,
   phone_number TEXT,
   adress_streetname TEXT,
+  city VARCHAR(100),
   roles VARCHAR(100)
-  city VARCHAR(100)
-)ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE intervention (
-  id INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  intervention_name VARCHAR(100) NOT NULL,
-  date DATE NOT NULL,
-  patient_id INT NOT NULL,
-  CONSTRAINT fk_intervention_patient
-  FOREIGN KEY (patient_id)
-  REFERENCES patient(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE practitioner (
