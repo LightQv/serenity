@@ -10,13 +10,13 @@ router.put("/items/:id", itemControllers.edit);
 router.post("/items", itemControllers.add);
 router.delete("/items/:id", itemControllers.destroy);
 
-const patientControllers = require("./controllers/patientControllers");
+const userControllers = require("./controllers/userControllers");
 
-router.get("/api/patients", patientControllers.browse);
-router.get("/api/patients/:id", patientControllers.read);
-router.put("/api/patients/:id", patientControllers.edit);
-router.post("/api/patients", patientControllers.add);
-router.delete("/api/patients/:id", patientControllers.destroy);
+router.get("/api/users", userControllers.browse);
+router.get("/api/users/:id", userControllers.read);
+router.put("/api/users/:id", userControllers.edit);
+router.post("/api/users", userControllers.add);
+router.delete("/api/users/:id", userControllers.destroy);
 
 const operationControllers = require("./controllers/operationControllers");
 

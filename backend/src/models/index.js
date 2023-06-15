@@ -34,10 +34,10 @@ const ItemManager = require("./ItemManager");
 models.item = new ItemManager();
 models.item.setDatabase(pool);
 
-const PatientManager = require("./PatientManager");
+const UserManager = require("./UserManager");
 
-models.patient = new PatientManager();
-models.patient.setDatabase(pool);
+models.user = new UserManager();
+models.user.setDatabase(pool);
 
 const OperationManager = require("./OperationManager");
 

@@ -25,8 +25,9 @@ const migrate = async () => {
 
   await connection.query(sql);
 
-  // creation des fake datas patient
-  const generateRandomPatients = (number) => {
+  // creation des fake datas user
+
+  const generateRandomusers = (number) => {
     for (let i = 0; i < number; i += 1) {
       const firstname = faker.person.firstName();
       const lastname = faker.person.lastName();
@@ -37,14 +38,15 @@ const migrate = async () => {
       const phoneNumber = faker.phone.number("06-##-##-##-##");
       const adressStreetname = faker.location.streetAddress();
       const city = faker.location.city();
+
       // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
-      const patientQuery = `INSERT INTO patient (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
+      const userQuery = `INSERT INTO user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
       // connection à la bdd avec envoi d'une query
-      connection.query(patientQuery);
+      connection.query(userQuery);
     }
   };
 
-  generateRandomPatients(20);
+  generateRandomusers(20);
 
   // création des fakes table intervention
 
@@ -55,9 +57,9 @@ const migrate = async () => {
   //       to: "2020-02-01",
   //     });
   //     const dateToInsert = `${dateFaked.getFullYear()}-${dateFaked.getMonth()+1}-${dateFaked.getDate()}`;
-  //     const patientId = faker.number.int({ min: 1, max: 20 });
+  //     const userId = faker.number.int({ min: 1, max: 20 });
 
-  //     const interventionQuery = `INSERT INTO intervention (date, patient_id) VALUES ("${dateToInsert}", "${patientId}" )`;
+  //     const interventionQuery = `INSERT INTO intervention (date, user_id) VALUES ("${dateToInsert}", "${userId}" )`;
 
   //     connection.query(interventionQuery);
   //   }

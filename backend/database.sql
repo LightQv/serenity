@@ -1,5 +1,5 @@
 
-CREATE TABLE patient (
+CREATE TABLE user (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(50) NOT NULL,
   lastname VARCHAR(50) NOT NULL,
@@ -7,39 +7,18 @@ CREATE TABLE patient (
   hashedPassword VARCHAR(255) NOT NULL,
   phone_number TEXT,
   adress_streetname TEXT,
-  city VARCHAR(100)
-)ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE intervention (
-  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  intervention_name VARCHAR(100) NOT NULL,
-  date DATE NOT NULL,
-  patient_id  INT NOT NULL,
-  CONSTRAINT fk_intervention_patient
-  FOREIGN KEY (patient_id)
-  REFERENCES patient(id)
+  city VARCHAR(100),
+  roles VARCHAR(100)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  firstname VARCHAR(50) NOT NULL,
-  lastname VARCHAR(50) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  hashedPassword VARCHAR(255) NOT NULL,
-  phone_number INT,
-  roles VARCHAR(100),
-  intervention_id INT NOT NULL,
-  FOREIGN KEY (intervention_id)
-  REFERENCES intervention(id)
+  surname VARCHAR(50) NOT NULL 
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE operation (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  operation_name VARCHAR(100) NOT NULL,
-  practitioner_id INT NOT NULL,
-  CONSTRAINT fk_operation_practitioner
-  FOREIGN KEY (practitioner_id)
-  REFERENCES practitioner(id)
+  operation_name VARCHAR(100) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE protocol (
@@ -48,14 +27,24 @@ CREATE TABLE protocol (
   operation_id INT(11) NOT NULL,
   CONSTRAINT fk_protocol_operation
   FOREIGN KEY (operation_id)
-  REFERENCES operation(id),
-  intervention_id INT(11) NOT NULL,
-  CONSTRAINT fk_protocol_intervention
-  FOREIGN KEY(intervention_id)
-  REFERENCES intervention(id),
-  practitioner_id INT(11) NOT NULL,
-  CONSTRAINT fk_protocol_practitioner
-  FOREIGN KEY(practitioner_id)
+  REFERENCES operation(id)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE intervention (
+  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  intervention_name VARCHAR(100) NOT NULL,
+  date DATE NOT NULL,
+  user_id  INT NOT NULL,
+  CONSTRAINT fk_intervention_user
+  FOREIGN KEY (user_id)
+  REFERENCES user(id),
+  protocol_id INT(11) NOT NULL,
+  CONSTRAINT fk_intervention_protocol
+  FOREIGN KEY (protocol_id)
+  REFERENCES protocol(id),
+  practitioner_id INT NOT NULL,
+  CONSTRAINT fk_intervention_practitioner
+  FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
