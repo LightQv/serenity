@@ -1,20 +1,20 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
-import { useUserContext } from "../contexts/UserContext";
+// import { useUserContext } from "../contexts/UserContext";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function Login() {
-  const { user, setUser, token, setToken } = useUserContext();
+  // const { user, setUser, token, setToken } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
-  console.log(userInfos);
+  // console.log(userInfos);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post(`${BACKEND_URL}/login`, userInfos).then((res) => {});
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios.post(`${BACKEND_URL}/login`, userInfos).then((res) => {});
+  // };
 
   const handleChange = (e) => {
     setUserInfos({
@@ -38,7 +38,7 @@ export default function Login() {
         <form
           action="login"
           className="space-y-4 rounded-lg bg-slate-100 p-4 lg:p-8"
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           <div className="flex flex-col">
             <label htmlFor="email" className="mb-2 text-base">
