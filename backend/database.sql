@@ -11,6 +11,41 @@ CREATE TABLE user (
   roles VARCHAR(100)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO
+user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city, roles)
+VALUES
+(
+  'John',
+  'Doe',
+  'john.doe@gmail.com',
+  '2xiPi8t_59QldYO',
+  '06-43-67-90-32',
+  '140 Rue Montesquieu',
+  'Lyon',
+  'admin'
+),
+(
+  'Christiane',
+  'Roux', 
+  'christiane_roux@hotmail.fr', 
+  'cBLjrvB7xmCEX1n', 
+  '06-80-26-77-13', 
+  '4 Avenue de Rivoli', 
+  'Besançon', 
+  'user'
+),
+(
+  'Jocelyne', 
+  'Muller', 
+  'jocelyne_muller26@hotmail.fr', 
+  'AiR19i_0SIrYMWX', 
+  '06-98-02-06-93', 
+  '8692 Avenue du Bac', 
+  'Champigny-sur-Marne', 
+  'user'
+);
+
+
 CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   surname VARCHAR(50) NOT NULL
@@ -47,7 +82,6 @@ CREATE TABLE intervention (
   FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,

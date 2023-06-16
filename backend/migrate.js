@@ -27,26 +27,26 @@ const migrate = async () => {
 
   // creation des fake datas user
 
-  const generateRandomusers = (number) => {
-    for (let i = 0; i < number; i += 1) {
-      const firstname = faker.person.firstName();
-      const lastname = faker.person.lastName();
-      const email = faker.internet
-        .email({ firstName: firstname, lastName: lastname })
-        .toLowerCase();
-      const hashedPassword = faker.internet.password();
-      const phoneNumber = faker.phone.number("06-##-##-##-##");
-      const adressStreetname = faker.location.streetAddress();
-      const city = faker.location.city();
+  // const generateRandomusers = (number) => {
+  //   for (let i = 0; i < number; i += 1) {
+  //     const firstname = faker.person.firstName();
+  //     const lastname = faker.person.lastName();
+  //     const email = faker.internet
+  //       .email({ firstName: firstname, lastName: lastname })
+  //       .toLowerCase();
+  //     const hashedPassword = faker.internet.password();
+  //     const phoneNumber = faker.phone.number("06-##-##-##-##");
+  //     const adressStreetname = faker.location.streetAddress();
+  //     const city = faker.location.city();
 
-      // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
-      const userQuery = `INSERT INTO user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
-      // connection à la bdd avec envoi d'une query
-      connection.query(userQuery);
-    }
-  };
+  //     // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
+  //     const userQuery = `INSERT INTO user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
+  //     // connection à la bdd avec envoi d'une query
+  //     connection.query(userQuery);
+  //   }
+  // };
 
-  generateRandomusers(20);
+  // generateRandomusers(20);
 
   // création des fakes datas practitioner
 
