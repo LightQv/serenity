@@ -1,7 +1,7 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.patient
+  models.user
     .findAll()
     .then(([result]) => {
       res.send(result);
@@ -15,7 +15,7 @@ const browse = (req, res) => {
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.patient
+  models.user
     .find(id)
     .then(([rows]) => {
       if (rows[0]) {
@@ -31,12 +31,12 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const patient = req.body;
+  const user = req.body;
 
-  patient.id = parseInt(req.params.id, 10);
+  user.id = parseInt(req.params.id, 10);
 
-  models.patient
-    .update(patient)
+  models.user
+    .update(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -51,12 +51,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const newPatient = req.body;
+  const newuser = req.body;
 
-  models.patient
-    .insert(newPatient)
+  models.user
+    .insert(newuser)
     .then(([result]) => {
-      res.location(`/patients/${result.insertId}`).sendStatus(201);
+      res.location(`/users/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -67,7 +67,7 @@ const add = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.patient
+  models.user
     .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
