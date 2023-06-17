@@ -8,6 +8,7 @@ const hashingOptions = {
   parallelism: 1,
 };
 
+// Hash le password en clair soumis dans la rêquete avant de l'insérer dans la BDD
 const hashPassword = (req, res, next) => {
   argon2
     .hash(req.body.password, hashingOptions)
@@ -23,9 +24,10 @@ const hashPassword = (req, res, next) => {
     });
 };
 
+// Verifie si le password hashé dans la BDD correspond au password en clair founit par la requête
 const verifyPassword = (req, res) => {
   argon2
-    .verify(req.user.hashedPassword, req.body.password)
+    .verify(req.user.hashedPassword, req.body.password, hashingOptions)
     .then((isVerified) => {
       if (isVerified) {
         const payload = {

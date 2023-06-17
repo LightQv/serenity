@@ -1,20 +1,30 @@
-// import axios from "axios";
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
-// import { useUserContext } from "../contexts/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 
-// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function Login() {
-  // const { user, setUser, token, setToken } = useUserContext();
+  const { setUser, setToken } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
-  // console.log(userInfos);
+  const navigate = useNavigate();
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios.post(`${BACKEND_URL}/login`, userInfos).then((res) => {});
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`${BACKEND_URL}/api/login`, userInfos);
+      if (res) {
+        setUser(res.data.user);
+        setToken(res.data.token);
+        navigate("/dashboard");
+      } else throw new Error();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleChange = (e) => {
     setUserInfos({
@@ -38,7 +48,7 @@ export default function Login() {
         <form
           action="login"
           className="space-y-4 rounded-lg bg-slate-100 p-4 lg:p-8"
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
           <div className="flex flex-col">
             <label htmlFor="email" className="mb-2 text-base">
@@ -70,7 +80,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-center">
             <button
-              type="button"
+              type="submit"
               className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0"
             >
               Connexion

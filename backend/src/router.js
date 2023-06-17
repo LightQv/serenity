@@ -2,16 +2,17 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/api/login");
+const {
+  register,
+  getUserByEmailMiddleware,
+} = require("./controllers/authControllers");
+const { hashPassword, verifyPassword } = require("./services/auth");
 
-const itemControllers = require("./controllers/itemControllers");
+// Public Routes
+router.post("/api/register", hashPassword, register);
+router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
-
+// Private Routes
 const userControllers = require("./controllers/userControllers");
 
 router.get("/api/users", userControllers.browse);
@@ -19,6 +20,14 @@ router.get("/api/users/:id", userControllers.read);
 router.put("/api/users/:id", userControllers.edit);
 router.post("/api/users", userControllers.add);
 router.delete("/api/users/:id", userControllers.destroy);
+
+const practitionerControllers = require("./controllers/practitionerControllers");
+
+router.get("/api/practitioners", practitionerControllers.browse);
+router.get("/api/practitioners/:id", practitionerControllers.read);
+router.put("/api/practitioners/:id", practitionerControllers.edit);
+router.post("/api/practitioners", practitionerControllers.add);
+router.delete("/api/practitioners/:id", practitionerControllers.destroy);
 
 const interventionControllers = require("./controllers/interventionControllers");
 
