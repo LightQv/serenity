@@ -29,15 +29,20 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
-
-models.item = new ItemManager();
-models.item.setDatabase(pool);
-
 const UserManager = require("./UserManager");
 
 models.user = new UserManager();
 models.user.setDatabase(pool);
+
+const PractitionerManager = require("./PractitionerManager");
+
+models.practitioner = new PractitionerManager();
+models.practitioner.setDatabase(pool);
+
+const InterventionManager = require("./InterventionManager");
+
+models.intervention = new InterventionManager();
+models.intervention.setDatabase(pool);
 
 const OperationManager = require("./OperationManager");
 

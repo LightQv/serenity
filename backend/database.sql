@@ -6,13 +6,13 @@ CREATE TABLE user (
   email VARCHAR(255) UNIQUE NOT NULL,
   hashedPassword VARCHAR(255) NOT NULL,
   phone_number TEXT,
-  adress_streetname TEXT,
+  address_streetname TEXT,
   city VARCHAR(100),
   roles VARCHAR(100)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
-user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city, roles)
+user (firstname, lastname, email, hashedPassword, phone_number, address_streetname, city, roles)
 VALUES
 (
   'John',
