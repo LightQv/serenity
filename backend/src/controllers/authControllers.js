@@ -2,7 +2,6 @@ const models = require("../models");
 
 const register = (req, res) => {
   const user = req.body;
-  console.warn(user);
 
   models.user
     .insert(user)

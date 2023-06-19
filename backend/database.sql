@@ -6,13 +6,14 @@ CREATE TABLE user (
   email VARCHAR(255) UNIQUE NOT NULL,
   hashedPassword VARCHAR(255) NOT NULL,
   phone_number TEXT,
-  address_streetname TEXT,
+  address_number TEXT,
+  address_streetname VARCHAR(255),
   city VARCHAR(100),
   roles VARCHAR(100)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
-user (firstname, lastname, email, hashedPassword, phone_number, address_streetname, city, roles)
+user (firstname, lastname, email, hashedPassword, phone_number, address_number, address_streetname, city, roles)
 VALUES
 (
   'John',
@@ -20,7 +21,8 @@ VALUES
   'john.doe@gmail.com',
   '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A',
   '06 43 67 90 32',
-  '140 Rue Montesquieu',
+  '140',
+  'Rue Montesquieu',
   'Lyon',
   'admin'
 ),
@@ -29,8 +31,9 @@ VALUES
   'Roux', 
   'christiane_roux@hotmail.fr', 
   '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
-  '06 80 26 77 13', 
-  '4 Avenue de Rivoli', 
+  '06 80 26 77 13',
+  '4',
+  'Avenue de Rivoli', 
   'Besançon', 
   'user'
 ),
@@ -39,8 +42,9 @@ VALUES
   'Muller', 
   'jocelyne_muller26@hotmail.fr', 
   '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
-  '06 98 02 06 93', 
-  '8692 Avenue du Bac', 
+  '06 98 02 06 93',
+  '8692',
+  'Avenue du Bac', 
   'Champigny-sur-Marne', 
   'user'
 );
