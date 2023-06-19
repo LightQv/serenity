@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
 import { useUserContext } from "../contexts/UserContext";
+import "react-toastify/dist/ReactToastify.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -24,7 +26,21 @@ export default function Login() {
         } else navigate("/dashboard");
       } else throw new Error();
     } catch (error) {
-      console.error(error);
+      if (error.request.status === 401) {
+        toast.error(
+          `Erreur ${error.request.status} : Email et/ou Mot de passe invalide.`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 1,
+            theme: "colored",
+          }
+        );
+      }
     }
   };
 
@@ -90,6 +106,7 @@ export default function Login() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </main>
   );
 }
