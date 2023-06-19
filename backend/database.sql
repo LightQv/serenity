@@ -18,8 +18,8 @@ VALUES
   'John',
   'Doe',
   'john.doe@gmail.com',
-  '2xiPi8t_59QldYO',
-  '06-43-67-90-32',
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A',
+  '06 43 67 90 32',
   '140 Rue Montesquieu',
   'Lyon',
   'admin'
@@ -28,8 +28,8 @@ VALUES
   'Christiane',
   'Roux', 
   'christiane_roux@hotmail.fr', 
-  'cBLjrvB7xmCEX1n', 
-  '06-80-26-77-13', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '06 80 26 77 13', 
   '4 Avenue de Rivoli', 
   'Besançon', 
   'user'
@@ -38,8 +38,8 @@ VALUES
   'Jocelyne', 
   'Muller', 
   'jocelyne_muller26@hotmail.fr', 
-  'AiR19i_0SIrYMWX', 
-  '06-98-02-06-93', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '06 98 02 06 93', 
   '8692 Avenue du Bac', 
   'Champigny-sur-Marne', 
   'user'
