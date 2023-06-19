@@ -4,7 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 export default function Dashboard() {
   const { user } = useUserContext();
   return (
-    <main className="min-w-screen min-h-screen bg-slate-100 font-poppins">
+    <main className="min-w-screen min-h-screen bg-slate-50 font-poppins lg:ml-60">
       <h1>
         {user.firstname} {user.lastname}
       </h1>

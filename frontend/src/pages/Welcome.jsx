@@ -4,7 +4,7 @@ import practitioner from "../assets/images/welcome.jpg";
 
 export default function Login() {
   return (
-    <main className="flex h-screen w-screen flex-col bg-gradient-to-bl from-turquoise-light-0 to-turquoise-dark-0 font-poppins lg:flex-row-reverse">
+    <main className="relative z-10 flex h-screen w-screen flex-col bg-gradient-to-bl from-turquoise-light-0 to-turquoise-dark-0 font-poppins lg:flex-row-reverse">
       <img
         src={practitioner}
         alt="practitioner"
