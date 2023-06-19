@@ -2,21 +2,40 @@ const express = require("express");
 
 const router = express.Router();
 
-const itemControllers = require("./controllers/itemControllers");
+const { validateUser } = require("./services/validators");
+const {
+  register,
+  getUserByEmailMiddleware,
+} = require("./controllers/authControllers");
+const { hashPassword, verifyPassword } = require("./services/auth");
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+// Public Routes
+router.post("/api/register", validateUser, hashPassword, register);
+router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-const patientControllers = require("./controllers/patientControllers");
+// Private Routes
+const userControllers = require("./controllers/userControllers");
 
-router.get("/api/patients", patientControllers.browse);
-router.get("/api/patients/:id", patientControllers.read);
-router.put("/api/patients/:id", patientControllers.edit);
-router.post("/api/patients", patientControllers.add);
-router.delete("/api/patients/:id", patientControllers.destroy);
+router.get("/api/users", userControllers.browse);
+router.get("/api/users/:id", userControllers.read);
+router.put("/api/users/:id", userControllers.edit);
+router.post("/api/users", validateUser, hashPassword, userControllers.add);
+
+const practitionerControllers = require("./controllers/practitionerControllers");
+
+router.get("/api/practitioners", practitionerControllers.browse);
+router.get("/api/practitioners/:id", practitionerControllers.read);
+router.put("/api/practitioners/:id", practitionerControllers.edit);
+router.post("/api/practitioners", practitionerControllers.add);
+router.delete("/api/practitioners/:id", practitionerControllers.destroy);
+
+const interventionControllers = require("./controllers/interventionControllers");
+
+router.get("/api/interventions", interventionControllers.browse);
+router.get("/api/interventions/:id", interventionControllers.read);
+router.put("/api/interventions/:id", interventionControllers.edit);
+router.post("/api/interventions", interventionControllers.add);
+router.delete("/api/interventions/:id", interventionControllers.destroy);
 
 const protocolControllers = require("./controllers/protocolControllers");
 

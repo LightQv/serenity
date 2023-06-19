@@ -1,7 +1,7 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.patient
+  models.practitioner
     .findAll()
     .then(([result]) => {
       res.send(result);
@@ -11,11 +11,10 @@ const browse = (req, res) => {
       res.status(500);
     });
 };
-
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.patient
+  models.practitioner
     .find(id)
     .then(([rows]) => {
       if (rows[0]) {
@@ -29,14 +28,13 @@ const read = (req, res) => {
       res.status(500);
     });
 };
-
 const edit = (req, res) => {
-  const patient = req.body;
+  const practitioner = req.body;
 
-  patient.id = parseInt(req.params.id, 10);
+  practitioner.id = parseInt(req.params.id, 10);
 
-  models.patient
-    .update(patient)
+  models.practitioner
+    .update(practitioner)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -49,25 +47,23 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const add = (req, res) => {
-  const newPatient = req.body;
+  const newPractitioner = req.body;
 
-  models.patient
-    .insert(newPatient)
+  models.practitioner
+    .insert(newPractitioner)
     .then(([result]) => {
-      res.location(`/patients/${result.insertId}`).sendStatus(201);
+      res.location(`/practitioners/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
 };
-
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.patient
+  models.practitioner
     .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -81,6 +77,7 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 module.exports = {
   browse,
   read,
