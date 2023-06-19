@@ -3,14 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 const { validateUser } = require("./services/validators");
-const {
-  register,
-  getUserByEmailMiddleware,
-} = require("./controllers/authControllers");
+const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const { hashPassword, verifyPassword } = require("./services/auth");
 
 // Public Routes
-router.post("/api/register", validateUser, hashPassword, register);
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
 // Private Routes
