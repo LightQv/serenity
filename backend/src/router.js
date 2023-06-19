@@ -26,4 +26,12 @@ router.put("/api/protocols/:id", protocolControllers.edit);
 router.post("/api/protocols", protocolControllers.add);
 router.delete("/api/protocols/:id", protocolControllers.destroy);
 
+const operationControllers = require("./controllers/operationControllers");
+
+router.get("/api/operations", operationControllers.browse);
+router.get("/api/operations/:id", operationControllers.read);
+router.put("/api/operations/:id", operationControllers.edit);
+router.post("/api/operations", operationControllers.add);
+router.delete("/api/operations/:id", operationControllers.destroy);
+
 module.exports = router;
