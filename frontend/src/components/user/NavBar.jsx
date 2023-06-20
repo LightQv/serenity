@@ -80,7 +80,7 @@ export default function NavBar() {
           <p className="hidden lg:block lg:text-sm">Dossier administratif</p>
         </NavLink>
         <NavLink
-          to="checklist"
+          to="/checklist"
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"

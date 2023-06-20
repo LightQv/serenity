@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
 import { useUserContext } from "../contexts/UserContext";
@@ -12,43 +13,91 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export default function Login() {
   const { setUser, setToken } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
+  // const [errorMsg, setErrorMsg] = useState({ email: "" });
+  // const [errorPw, setErrorPw] = useState({ password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+
+  console.log(errors);
+
+  // console.log(userInfos);
+  // console.log("pw", errorPw);
+
+  const loginSchema = Yup.object({
+    email: Yup.string()
+      .email("Un email valide est requit")
+      .required("Un email valide est requit"),
+    password: Yup.string()
+      .min(7, "Minimum 7 caractères")
+      .max(30, "Maximum 30 caractères")
+      .required("Mot de passe est requit"),
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(`${BACKEND_URL}/api/login`, userInfos);
-      if (res) {
-        setUser(res.data.user);
-        setToken(res.data.token);
-        if (res.data.user.roles === "admin") {
-          navigate("/admin/dashboard");
-        } else navigate("/dashboard");
-      } else throw new Error();
-    } catch (error) {
-      if (error.request.status === 401) {
-        toast.error(
-          `Erreur ${error.request.status} : Email et/ou Mot de passe invalide.`,
-          {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 1,
-            theme: "colored",
-          }
-        );
+    if (loginSchema.isValid)
+      try {
+        const res = await axios.post(`${BACKEND_URL}/api/login`, userInfos);
+        if (res) {
+          setUser(res.data.user);
+          setToken(res.data.token);
+          if (res.data.user.roles === "admin") {
+            navigate("/admin/dashboard");
+          } else navigate("/dashboard");
+        } else throw new Error();
+      } catch (error) {
+        if (error.request.status === 401) {
+          toast.error(
+            `Erreur ${error.request.status} : Email et/ou Mot de passe invalide.`,
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: 0,
+              theme: "colored",
+            }
+          );
+        }
       }
-    }
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     setUserInfos({
       ...userInfos,
       [e.target.name]: e.target.value,
     });
+    try {
+      const isValid = await loginSchema.validate(userInfos, {
+        abortEarly: false,
+      });
+      if (isValid) return;
+      throw new Error();
+    } catch (error) {
+      error.inner.forEach((err) =>
+        setErrors({ ...errors, [err.path]: err.message })
+      );
+      console.log(error.inner);
+    }
+    // loginSchema
+    //   .validate(userInfos, { abortEarly: false })
+    //   .then(() => {})
+    //   .catch((err) => {
+    //     if (err.inner[0]?.path === "email") {
+    //       setErrorMsg({ email: err.inner[0].message });
+    //     } else setErrorMsg({ email: "" });
+    //     if (err.inner[1]?.path === "password") {
+    //       setErrorPw({
+    //         password: err.inner[1].message,
+    //       });
+    //     } else if (err.inner[0]?.path === "password") {
+    //       setErrorPw({
+    //         password: err.inner[0].message,
+    //       });
+    //     } else setErrorPw({ password: "" });
+    //   });
   };
 
   return (
@@ -69,9 +118,17 @@ export default function Login() {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 text-base">
-              Email
-            </label>
+            <div className="flex items-center justify-between">
+              <label htmlFor="email" className="mb-2 text-base">
+                Email
+              </label>
+              {/* {errorMsg.email !== "" ? (
+                <p className="mb-2 text-xs text-red-500">{errorMsg.email}</p>
+              ) : null} */}
+              {errors.email !== "" ? (
+                <p className="mb-2 text-xs text-red-500">{errors.email}</p>
+              ) : null}
+            </div>
             <input
               type="email"
               name="email"
@@ -83,9 +140,17 @@ export default function Login() {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="password" className="mb-2 text-base">
-              Mot de passe
-            </label>
+            <div className="flex items-center justify-between">
+              <label htmlFor="password" className="mb-2 text-base">
+                Mot de passe
+              </label>
+              {/* {errorPw.password !== "" ? (
+                <p className="mb-2 text-xs text-red-500">{errorPw.password}</p>
+              ) : null} */}
+              {errors.password !== "" ? (
+                <p className="mb-2 text-xs text-red-500">{errors.password}</p>
+              ) : null}
+            </div>
             <input
               type="password"
               name="password"
@@ -98,15 +163,16 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-center">
             <button
+              disabled={loginSchema.isValid}
               type="submit"
-              className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0"
+              className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
             >
               Connexion
             </button>
           </div>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer limit={1} />
     </main>
   );
 }
