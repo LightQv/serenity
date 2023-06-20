@@ -18,7 +18,7 @@ export default function Login() {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  console.log(errors);
+  // console.log(errors);
 
   // console.log(userInfos);
   // console.log("pw", errorPw);
@@ -79,7 +79,7 @@ export default function Login() {
       error.inner.forEach((err) =>
         setErrors({ ...errors, [err.path]: err.message })
       );
-      console.log(error.inner);
+      // console.log(error.inner);
     }
     // loginSchema
     //   .validate(userInfos, { abortEarly: false })
