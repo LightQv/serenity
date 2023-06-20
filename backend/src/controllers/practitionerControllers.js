@@ -4,7 +4,7 @@ const browse = (req, res) => {
   models.practitioner
     .findAll()
     .then(([result]) => {
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.error(err);
@@ -15,12 +15,12 @@ const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.practitioner
-    .find(id)
-    .then(([rows]) => {
-      if (rows[0]) {
-        res.send(rows[0]);
+    .findByPk(id)
+    .then((practitioner) => {
+      if (practitioner) {
+        res.send(practitioner);
       } else {
-        res.status(404).send("User not found");
+        res.status(404).send("Practitioner not found");
       }
     })
     .catch((err) => {
