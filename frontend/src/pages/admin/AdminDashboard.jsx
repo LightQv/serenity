@@ -1,7 +1,7 @@
 import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   const { user } = useUserContext();
   return (
     <main className="min-w-screen min-h-screen bg-slate-50 font-poppins lg:ml-60">
