@@ -13,20 +13,14 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export default function Login() {
   const { setUser, setToken } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
-  // const [errorMsg, setErrorMsg] = useState({ email: "" });
-  // const [errorPw, setErrorPw] = useState({ password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [errorMsg, setErrorMsg] = useState({ email: "" });
+  const [errorPw, setErrorPw] = useState({ password: "" });
   const navigate = useNavigate();
-
-  // console.log(errors);
-
-  // console.log(userInfos);
-  // console.log("pw", errorPw);
 
   const loginSchema = Yup.object({
     email: Yup.string()
       .email("Un email valide est requit")
-      .required("Un email valide est requit"),
+      .required("Un email est requit"),
     password: Yup.string()
       .min(7, "Minimum 7 caractères")
       .max(30, "Maximum 30 caractères")
@@ -48,7 +42,7 @@ export default function Login() {
       } catch (error) {
         if (error.request.status === 401) {
           toast.error(
-            `Erreur ${error.request.status} : Email et/ou Mot de passe invalide.`,
+            `${error.request.status} : Email et/ou Mot de passe invalide.`,
             {
               position: "top-right",
               autoClose: 5000,
@@ -75,29 +69,20 @@ export default function Login() {
       });
       if (isValid) return;
       throw new Error();
-    } catch (error) {
-      error.inner.forEach((err) =>
-        setErrors({ ...errors, [err.path]: err.message })
-      );
-      // console.log(error.inner);
+    } catch (err) {
+      if (err.inner[0]?.path === "email") {
+        setErrorMsg({ email: err.inner[0].message });
+      } else setErrorMsg({ email: "" });
+      if (err.inner[1]?.path === "password") {
+        setErrorPw({
+          password: err.inner[1].message,
+        });
+      } else if (err.inner[0]?.path === "password") {
+        setErrorPw({
+          password: err.inner[0].message,
+        });
+      } else setErrorPw({ password: "" });
     }
-    // loginSchema
-    //   .validate(userInfos, { abortEarly: false })
-    //   .then(() => {})
-    //   .catch((err) => {
-    //     if (err.inner[0]?.path === "email") {
-    //       setErrorMsg({ email: err.inner[0].message });
-    //     } else setErrorMsg({ email: "" });
-    //     if (err.inner[1]?.path === "password") {
-    //       setErrorPw({
-    //         password: err.inner[1].message,
-    //       });
-    //     } else if (err.inner[0]?.path === "password") {
-    //       setErrorPw({
-    //         password: err.inner[0].message,
-    //       });
-    //     } else setErrorPw({ password: "" });
-    //   });
   };
 
   return (
@@ -122,11 +107,8 @@ export default function Login() {
               <label htmlFor="email" className="mb-2 text-base">
                 Email
               </label>
-              {/* {errorMsg.email !== "" ? (
+              {errorMsg.email !== "" ? (
                 <p className="mb-2 text-xs text-red-500">{errorMsg.email}</p>
-              ) : null} */}
-              {errors.email !== "" ? (
-                <p className="mb-2 text-xs text-red-500">{errors.email}</p>
               ) : null}
             </div>
             <input
@@ -144,11 +126,8 @@ export default function Login() {
               <label htmlFor="password" className="mb-2 text-base">
                 Mot de passe
               </label>
-              {/* {errorPw.password !== "" ? (
+              {errorPw.password !== "" ? (
                 <p className="mb-2 text-xs text-red-500">{errorPw.password}</p>
-              ) : null} */}
-              {errors.password !== "" ? (
-                <p className="mb-2 text-xs text-red-500">{errors.password}</p>
               ) : null}
             </div>
             <input
@@ -163,7 +142,6 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-center">
             <button
-              disabled={loginSchema.isValid}
               type="submit"
               className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
             >
