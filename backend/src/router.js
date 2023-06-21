@@ -4,10 +4,16 @@ const router = express.Router();
 
 const { validateUser } = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
-const { hashPassword, verifyPassword } = require("./services/auth");
+const {
+  hashPassword,
+  verifyPassword,
+  // verifyToken,
+} = require("./services/auth");
 
 // Public Routes
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
+
+// router.use(verifyToken);
 
 // Private Routes
 const userControllers = require("./controllers/userControllers");

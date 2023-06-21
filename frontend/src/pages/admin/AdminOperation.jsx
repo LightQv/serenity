@@ -1,218 +1,89 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import notifySuccess, {
+  notifyDuplicate,
+  notifyError,
+} from "../../services/ToastNotificationService";
 
-const backEndUrl = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function AdminOperation() {
-  const [operations, setOperations] = useState([]);
-  const [operationName, setOperationName] = useState({ operation_name: "" });
-  const [showInput, setShowInput] = useState(false);
-  const [operationToDelete, setOperationToDelete] = useState(null);
-  const [operationToEdit, setOperationToEdit] = useState(null);
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [operations, setOperations] = useState({
+    operation_name: "",
+  });
 
-  const fetchOperations = async () => {
-    try {
-      const response = await axios.get(`${backEndUrl}/api/operations`);
-      setOperations(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const navigate = useNavigate();
 
-  const addOperation = async () => {
-    if (operationName.trim() === "") {
-      return;
-    }
+  const handlesubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(`${backEndUrl}/api/operations`, {
-        operationName,
-      });
-      if (response.status === 201) {
-        setOperationName("");
-        fetchOperations();
-        setShowInput(false);
+      const res = await axios.post(`${BACKEND_URL}/api/operations`, operations);
+      if (res.status === 201) {
+        notifySuccess("L'opération a été ajouté").then(
+          navigate("/admin/operation")
+        );
       }
     } catch (error) {
-      console.error(error);
-    }
-  };
-  const confirmDelete = (operation) => {
-    setOperationToDelete(operation);
-  };
-
-  const cancelDelete = () => {
-    setOperationToDelete(null);
-  };
-
-  const deleteOperation = async () => {
-    if (!operationToDelete) {
-      return;
-    }
-
-    try {
-      const response = await axios.delete(
-        `${backEndUrl}/api/operations/${operationToDelete.id}`
-      );
-      if (response.status === 200) {
-        toast.success("Operation deleted successfully !");
-        fetchOperations();
-        setOperationToDelete(null);
+      if (error.request.status === 500) {
+        notifyDuplicate("Opération déjà existant");
+      } else {
+        notifyError("Erreur dans l'ajout d'une opération");
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
-  const editOperation = (operation) => {
-    setOperationToEdit(operation);
-    setShowEditForm(true);
+  const handleChange = (e) => {
+    setOperations({
+      ...operations,
+      [e.target.name]: e.target.value,
+    });
   };
-
-  const saveEditedOperation = async () => {
-    if (!operationToEdit) {
-      return;
-    }
-    try {
-      const response = await axios.put(
-        `${backEndUrl}/api/operations/${operationToEdit.id}`,
-        operationToEdit
-      );
-      if (response.status === 200) {
-        fetchOperations();
-        setShowEditForm(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const cancelEdit = () => {
-    setOperationToEdit(null);
-    setShowEditForm(false);
-  };
-  useEffect(() => {
-    fetchOperations();
-  }, []);
 
   return (
-    <main className="min-w-screen min-h-screen bg-slate-50 font-poppins lg:ml-60">
-      <h1 className="absolue h-72 text-[30px] font-semibold leading-[72px]">
-        Gestion des opérations
+    <main className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-50 p-10 font-poppins lg:ml-60">
+      <h1 className="mb-2 flex items-start text-lg font-extrabold text-violet-dark-0">
+        Ajouter une opération
       </h1>
-      <div className="flex">
+      <h1 className="mb-4 text-xl font-black">{operations.operation_name}</h1>
+      <div className="hidden lg:absolute lg:bottom-6 lg:left-0 lg:flex lg:w-full lg:items-center lg:justify-center lg:gap-2 lg:text-slate-900">
         <svg
-          width="24"
-          height="24"
           viewBox="0 0 24 24"
-          fill="none"
+          fill="currentColor"
+          className="h-7 w-7"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
-            d="M11.6115 2C6.30323 2 2 6.20819 2 11.3993C2 16.5903 6.30323 20.7985 11.6115 20.7985C13.8819 20.7985 15.9684 20.0287 17.613 18.7415L20.7371 21.7886L20.8202 21.8586C21.1102 22.0685 21.5214 22.0446 21.7839 21.7873C22.0726 21.5043 22.072 21.0459 21.7825 20.7636L18.6952 17.7523C20.2649 16.0794 21.2231 13.8487 21.2231 11.3993C21.2231 6.20819 16.9198 2 11.6115 2ZM11.6115 3.44774C16.1022 3.44774 19.7426 7.00776 19.7426 11.3993C19.7426 15.7908 16.1022 19.3508 11.6115 19.3508C7.12086 19.3508 3.48044 15.7908 3.48044 11.3993C3.48044 7.00776 7.12086 3.44774 11.6115 3.44774Z"
-            fill="black"
+            d="M17.5 7.5C17.5 4.46243 15.0376 2 12 2C8.96243 2 6.5 4.46243 6.5 7.5V10.2C6.5 13.2376 8.96243 15.7 12 15.7C15.0376 15.7 17.5 13.2376 17.5 10.2V7.5ZM6.94257 15.8463C6.83726 15.8089 6.79237 15.7695 6.82249 15.7262C6.33308 15.2275 5.92625 14.6577 5.62217 14.0352C3.21131 15.1678 2 17.5534 2 21V22H21.9371L21.9862 21.0518C22.1458 17.9739 20.9108 15.6044 18.3557 14.0807C18.0445 14.7043 17.6299 15.2744 17.1336 15.7717C17.1287 15.8148 17.0865 15.8544 17.0101 15.891C15.7389 17.0996 13.9639 17.85 12 17.85C10.0123 17.85 8.21802 17.0813 6.94257 15.8463Z"
           />
         </svg>
+      </div>
 
-        <input
-          type="operation_name"
-          name="operation_name"
-          id="operation_name"
-          placeholder="Search"
-          required=""
-          className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
-        />
-      </div>
-      <div>
-        <div className="columns">
-          {operations.map((operation) => (
-            <div key={operation.id} className="column">
-              <p>{operation.operation_name}</p>
-              {operation.id && (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => confirmDelete(operation)}
-                  >
-                    Supprimer
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => editOperation(operation)}
-                  >
-                    Edit
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
+      <form className="flex flex-col" onSubmit={handlesubmit}>
+        <div className="flex flex-col">
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            required="required"
+            className="lg:w-74 mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+            onChange={handleChange}
+          />
         </div>
-        {!showInput && (
-          <button type="button" onClick={() => setShowInput(true)}>
-            <span className="visually-hidden">Ajouter un operation</span>
-          </button>
-        )}
-        {showInput && (
-          <div>
-            <label htmlFor="operation_nameInput">Nom de l'opération:</label>
-            <input
-              type="text"
-              value={operationName}
-              onChange={(e) => setOperationName(e.target.value)}
-              placeholder="Nom de l'opération"
-            />
-            <button
-              className="ml-8 mr-8 mt-4 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
-              type="button"
-              onClick={addOperation}
-            >
-              Ajouter une opération
-            </button>
-          </div>
-        )}
-        {operationToDelete && (
-          <div className="modal">
-            <div className="modal-content">
-              <p>Êtes-vous sûr de vouloir effacer cette opération ?</p>
-              <div>
-                <button type="button" onClick={deleteOperation}>
-                  Oui
-                </button>
-                <button type="button" onClick={cancelDelete}>
-                  Non
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {showEditForm && operationToEdit && (
-          <div className="edit-form">
-            <h2>Edit</h2>
-            <label htmlFor="editOperationNameInput">Nom de l'opération:</label>
-            <input
-              type="text"
-              id="editOperationNameInput"
-              value={operationToEdit.operation_name}
-              onChange={(e) => {
-                setOperationToEdit({
-                  ...operationToEdit,
-                  operation_name: e.target.value,
-                });
-              }}
-            />
-            <button type="button" onClick={saveEditedOperation}>
-              Save
-            </button>
-            <button type="button" onClick={cancelEdit}>
-              Cancel
-            </button>
-          </div>
-        )}
-      </div>
+
+        <button
+          type="submit"
+          className="lg:w-78 ml-8 mr-8 mt-4 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
+        >
+          Ajouter
+        </button>
+      </form>
+
+      <ToastContainer limit={1} />
     </main>
   );
 }
