@@ -1,24 +1,34 @@
 import { Routes, Route } from "react-router-dom";
+import Layout from "./components/routes/Layout";
+import RequireAuth from "./components/routes/RequireAuth";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Dashboard from "./pages/user/Dashboard";
-import NavBar from "./components/user/NavBar";
 import PatientsManagement from "./pages/admin/PatientsManagement";
 import PatientsRegister from "./pages/admin/PatientsRegister";
 
 function App() {
   return (
-    <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/patient" element={<PatientsManagement />} />
-        <Route path="/admin/register" element={<PatientsRegister />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* Public routes */}
+        <Route path="" element={<Welcome />} />
+        <Route path="login" element={<Login />} />
+
+        {/* Private routes */}
+        {/* Admin routes */}
+        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+          <Route path="admin/dashboard" element={<AdminDashboard />} />
+          <Route path="admin/patient" element={<PatientsManagement />} />
+          <Route path="admin/register" element={<PatientsRegister />} />
+        </Route>
+        {/* User routes */}
+        <Route element={<RequireAuth allowedRoles={["user"]} />}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
