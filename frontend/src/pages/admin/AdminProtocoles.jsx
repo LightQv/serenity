@@ -14,7 +14,7 @@ export default function AdminProtocoles() {
     axios
       .get(`${BACKEND_URL}/api/protocols`)
       .then((res) => setProtocols(res.data))
-      .catch((error) => );
+      .catch((error) => console.warn(error));
   }, [isShow]);
 
   if (!protocols) return null;

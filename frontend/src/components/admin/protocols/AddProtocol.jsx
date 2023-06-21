@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import PropTypes from "prop-types";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -12,8 +12,8 @@ export default function AddProtocol({ setIsShow }) {
     protocol_name: "",
     operation_id: "",
   });
-  const [errorMsg, setErrorMsg] = useState({ email: "" });
-  const [errorPw, setErrorPw] = useState({ password: "" });
+  //   const [errorMsg, setErrorMsg] = useState({ email: "" });
+  //   const [errorPw, setErrorPw] = useState({ password: "" });
 
   useEffect(() => {
     axios
@@ -111,9 +111,9 @@ export default function AddProtocol({ setIsShow }) {
             <label htmlFor="name" className="mb-2 text-base">
               Nom du protocole
             </label>
-            {errorMsg.email !== "" ? (
+            {/* {errorMsg.email !== "" ? (
               <p className="mb-2 text-xs text-red-500">{errorMsg.email}</p>
-            ) : null}
+            ) : null} */}
           </div>
           <input
             type="text"
@@ -130,9 +130,9 @@ export default function AddProtocol({ setIsShow }) {
             <label htmlFor="operation_name" className="mb-2 text-base">
               Sélectionner une opération
             </label>
-            {errorPw.password !== "" ? (
+            {/* {errorPw.password !== "" ? (
               <p className="mb-2 text-xs text-red-500">{errorPw.password}</p>
-            ) : null}
+            ) : null} */}
           </div>
           <select
             name="operation_name"
