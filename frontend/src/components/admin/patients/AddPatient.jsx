@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
-} from "../../services/ToastNotificationService";
+} from "../../../services/ToastNotificationService";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export default function PatientsRegister() {
+export default function AddPatient() {
+  const [passwordVerify, setPasswordVerify] = useState("");
   const [patientRegister, setPatientRegister] = useState({
     firstname: "",
     lastname: "",
@@ -23,16 +23,16 @@ export default function PatientsRegister() {
     roles: "user",
   });
 
-  const navigate = useNavigate();
-
   const handlesubmit = async (e) => {
     e.preventDefault();
+    if (patientRegister.password !== passwordVerify) {
+      notifyError("Les mots de passe ne correspondent pas");
+      return;
+    }
     try {
       const res = await axios.post(`${BACKEND_URL}/api/users`, patientRegister);
       if (res.status === 201) {
-        notifySuccess("Le patient a été ajouté").then(
-          navigate("/admin/patient")
-        );
+        notifySuccess("Le patient a été ajouté");
       }
     } catch (error) {
       if (error.request.status === 500) {
@@ -44,20 +44,21 @@ export default function PatientsRegister() {
   };
 
   const handleChange = (e) => {
-    setPatientRegister({
-      ...patientRegister,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "password_verify") {
+      setPasswordVerify(e.target.value);
+    } else {
+      setPatientRegister({
+        ...patientRegister,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   return (
-    <div className="  flex flex-col bg-slate-50 p-10 font-poppins lg:ml-60">
-      <div className="flex justify-center">
+    <div className="flex flex-col justify-center bg-slate-50 p-10 align-middle font-poppins">
+      <div className="flex">
         <h1 className="mb-2 text-lg font-extrabold text-violet-dark-0">
           Ajouter un patient
-        </h1>
-        <h1 className="mb-4 text-xl font-black">
-          {patientRegister.firstname} {patientRegister.lastname}
         </h1>
         <div className="hidden lg:ml-5 lg:block">
           <svg
@@ -76,10 +77,10 @@ export default function PatientsRegister() {
       </div>
       <div>
         <form
-          className="grid grid-cols-1 content-center lg:w-2/3 lg:grid-cols-2 lg:gap-8"
+          className="grid grid-cols-1 content-center lg:w-3/4 lg:grid-cols-2  lg:gap-8"
           onSubmit={handlesubmit}
         >
-          <div className="flex flex-col">
+          <div className="order-1 flex flex-col">
             <label htmlFor="name" className="text-base font-bold">
               Nom
             </label>
@@ -92,7 +93,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-2 flex flex-col">
             <label htmlFor="firstname" className="text-base font-bold">
               Prénom
             </label>
@@ -105,7 +106,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-3 flex flex-col">
             <label htmlFor="email" className="text-base font-bold">
               Email
             </label>
@@ -118,7 +119,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-5 flex flex-col ">
             <label htmlFor="password" className="text-base font-bold">
               Mot de passe
             </label>
@@ -131,7 +132,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-6 flex flex-col">
             <label htmlFor="password_verify" className="text-base font-bold">
               Confirmation mot de passe
             </label>
@@ -144,8 +145,8 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="téléphone" className="text-base font-bold">
+          <div className="order-4 flex flex-col">
+            <label htmlFor="téléphone" className=" grid text-base font-bold">
               Téléphone
             </label>
             <input
@@ -157,7 +158,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-7 flex flex-col">
             <label htmlFor="address_number" className="text-base font-bold">
               Numéro de rue
             </label>
@@ -170,7 +171,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-8 flex flex-col">
             <label htmlFor="address_streetname" className="text-base font-bold">
               Adresse
             </label>
@@ -183,7 +184,7 @@ export default function PatientsRegister() {
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-9 flex flex-col">
             <label htmlFor="city" className="text-base font-bold">
               Ville
             </label>
@@ -199,7 +200,7 @@ export default function PatientsRegister() {
 
           <button
             type="submit"
-            className="ml-8 mr-8 mt-4 h-10 w-40 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
+            className="order-10 ml-8 mr-8 mt-4 h-10 w-40 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
           >
             Ajouter
           </button>
