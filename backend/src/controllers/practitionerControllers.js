@@ -60,28 +60,25 @@ const add = (req, res) => {
       res.sendStatus(500);
     });
 };
-const destroy = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+const destroy = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const affectedRows = await models.practitioner.delete(id);
 
-  models.practitioner
-    .delete(id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 };
-
 module.exports = {
   browse,
   read,
   edit,
   add,
-  destroy,
+  delete: destroy,
 };
