@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ListPatients from "../../components/admin/ListPatients";
+import { Link } from "react-router-dom";
 // import PatientsRegisterModal from "../../components/admin/PatientsRegisterModal";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -25,6 +26,7 @@ export default function PatientsManagement() {
       >
         Ajouter un patient
       </button>
+
       <div>
         {listPatients.map((listPatient) => (
           <ListPatients key={listPatient.id} listPatient={listPatient} />

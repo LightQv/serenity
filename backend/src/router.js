@@ -7,13 +7,13 @@ const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const {
   hashPassword,
   verifyPassword,
-  verifyToken,
+  // verifyToken,
 } = require("./services/auth");
 
 // Public Routes
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
 // Private Routes
 const userControllers = require("./controllers/userControllers");

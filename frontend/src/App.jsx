@@ -20,7 +20,7 @@ function App() {
         {/* Admin routes */}
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
-          <Route path="admin/patient" element={<PatientsManagement />} />
+          <Route path="admin/patients" element={<PatientsManagement />} />
           <Route path="admin/register" element={<PatientsRegister />} />
         </Route>
         {/* User routes */}
