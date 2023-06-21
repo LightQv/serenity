@@ -9,6 +9,8 @@ import Dashboard from "./pages/user/Dashboard";
 import PatientsManagement from "./pages/admin/PatientsManagement";
 import PatientsRegister from "./pages/admin/PatientsRegister";
 
+import PractitionersManagement from "./pages/admin/PractitionersManagement";
+
 function App() {
   return (
     <Routes>
@@ -22,6 +24,10 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
           <Route path="admin/patient" element={<PatientsManagement />} />
+          <Route
+            path="admin/practitioners"
+            element={<PractitionersManagement />}
+          />
           <Route path="admin/register" element={<PatientsRegister />} />
         </Route>
         {/* User routes */}
