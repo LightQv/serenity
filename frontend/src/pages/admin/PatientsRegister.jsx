@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
-} from "../../ToastNotificationService";
+} from "../../services/ToastNotificationService";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
