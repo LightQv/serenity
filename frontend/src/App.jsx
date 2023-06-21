@@ -5,6 +5,8 @@ import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Dashboard from "./pages/user/Dashboard";
+import PatientsManagement from "./pages/admin/PatientsManagement";
+import PatientsRegister from "./pages/admin/PatientsRegister";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         {/* Admin routes */}
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
+          <Route path="admin/patient" element={<PatientsManagement />} />
+          <Route path="admin/register" element={<PatientsRegister />} />
         </Route>
         {/* User routes */}
         <Route element={<RequireAuth allowedRoles={["user"]} />}>
