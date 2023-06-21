@@ -6,7 +6,7 @@ import logo from "../../assets/logo-txt.png";
 export default function NavBar() {
   const { user } = useUserContext();
   return (
-    <nav className="absolute bottom-0 left-0 h-12 w-screen rounded-t-2xl bg-slate-50 shadow-2xl lg:h-screen lg:w-60 lg:rounded-none lg:border-r-2 lg:border-slate-100 lg:shadow-none">
+    <nav className="absolute bottom-0 left-0 z-10 h-12 w-screen rounded-t-2xl bg-slate-50 shadow-2xl lg:h-screen lg:w-60 lg:rounded-none lg:border-r-2 lg:border-slate-100 lg:shadow-none">
       <img
         src={logo}
         alt="logo"
@@ -18,7 +18,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg
@@ -40,7 +40,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg
@@ -62,7 +62,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg
@@ -84,7 +84,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg
@@ -106,7 +106,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg
@@ -128,7 +128,7 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
-              : "text-gray-300 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
+              : "text-gray-300 transition-all hover:text-violet-dark-0 lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:pl-4"
           }
         >
           <svg

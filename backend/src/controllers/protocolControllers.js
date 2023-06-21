@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.protocol
-    .findAll()
+    .findAllWithOperationName()
     .then(([result]) => {
       res.send(result);
     })
@@ -16,7 +16,7 @@ const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.protocol
-    .find(id)
+    .findWithOperationName(id)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
@@ -52,6 +52,7 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const newProtocol = req.body;
+  console.warn(newProtocol);
 
   models.protocol
     .insert(newProtocol)
