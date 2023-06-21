@@ -4,10 +4,16 @@ const router = express.Router();
 
 const { validateUser } = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
-const { hashPassword, verifyPassword } = require("./services/auth");
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+} = require("./services/auth");
 
 // Public Routes
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
+
+router.use(verifyToken);
 
 // Private Routes
 const userControllers = require("./controllers/userControllers");
@@ -32,6 +38,14 @@ router.get("/api/interventions/:id", interventionControllers.read);
 router.put("/api/interventions/:id", interventionControllers.edit);
 router.post("/api/interventions", interventionControllers.add);
 router.delete("/api/interventions/:id", interventionControllers.destroy);
+
+const protocolControllers = require("./controllers/protocolControllers");
+
+router.get("/api/protocols", protocolControllers.browse);
+router.get("/api/protocols/:id", protocolControllers.read);
+router.put("/api/protocols/:id", protocolControllers.edit);
+router.post("/api/protocols", protocolControllers.add);
+router.delete("/api/protocols/:id", protocolControllers.destroy);
 
 const operationControllers = require("./controllers/operationControllers");
 

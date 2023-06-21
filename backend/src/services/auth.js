@@ -49,7 +49,31 @@ const verifyPassword = (req, res) => {
     });
 };
 
+const verifyToken = (req, res, next) => {
+  try {
+    // Get authozisation header
+    const autorizationHeader = req.get("Authorization");
+
+    if (!autorizationHeader) throw new Error("Authorization header is missing");
+
+    // Split authozisation header into type & token
+    const [type, token] = autorizationHeader.split("");
+
+    if (type !== "Bearer")
+      throw new Error("Authorization header has not the 'Bearer' type");
+
+    // Verify token with JWT_SECRET
+    req.payload = jwt.verify(token, process.env.JWT_SECRET);
+
+    next();
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(401);
+  }
+};
+
 module.exports = {
   hashPassword,
   verifyPassword,
+  verifyToken,
 };
