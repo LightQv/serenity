@@ -11,9 +11,9 @@ export function UserContextProvider({ children }) {
   const [token, setToken] = useState("");
   const navigate = useNavigate();
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (!user.id) navigate("/");
-  }, [user.id]); */
+  }, [user.id]);
 
   const userInfos = useMemo(() => {
     return { user, setUser, token, setToken };
