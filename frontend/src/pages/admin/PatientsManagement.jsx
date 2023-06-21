@@ -21,7 +21,7 @@ export default function PatientsManagement() {
       <button
         type="submit"
         className="ml-8 mr-8 mt-4 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
-        onClick={() => setIsShow(true)}
+        // onClick={() => setIsShow(true)}
       >
         Ajouter un patient
       </button>

@@ -11,8 +11,10 @@ const option = {
   theme: "colored",
 };
 
+// toast jaune//
 export const notifyDuplicate = (message) => toast.warn(message, option);
 
+// tias
 export default function notifySuccess(message) {
   toast.success(message, option);
 }
