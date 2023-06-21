@@ -19,14 +19,14 @@ function App() {
 
         {/* Private routes */}
         {/* Admin routes */}
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route element={<RequireAuth allowedRoles="admin" />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
           <Route path="admin/patient" element={<PatientsManagement />} />
           <Route path="admin/register" element={<PatientsRegister />} />
           <Route path="admin/protocols" element={<AdminProtocoles />} />
         </Route>
         {/* User routes */}
-        <Route element={<RequireAuth allowedRoles={["user"]} />}>
+        <Route element={<RequireAuth allowedRoles="user" />}>
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
       </Route>

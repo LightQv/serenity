@@ -26,7 +26,7 @@ export default function RequireAuth({ allowedRoles }) {
     );
   }
 
-  return user?.roles?.includes(allowedRoles) ? (
+  return user?.roles === allowedRoles ? (
     verifyUserRole()
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
