@@ -4,6 +4,7 @@ import RequireAuth from "./components/routes/RequireAuth";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import AdminOperation from "./pages/admin/AdminOperation";
 import Dashboard from "./pages/user/Dashboard";
 import PatientsManagement from "./pages/admin/PatientsManagement";
@@ -19,14 +20,15 @@ function App() {
 
         {/* Private routes */}
         {/* Admin routes */}
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route element={<RequireAuth allowedRoles="admin" />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
           <Route path="admin/patient" element={<PatientsManagement />} />
           <Route path="admin/register" element={<PatientsRegister />} />
+          <Route path="admin/protocols" element={<AdminProtocoles />} />
           <Route path="admin/operations" element={<AdminOperation />} />
         </Route>
         {/* User routes */}
-        <Route element={<RequireAuth allowedRoles={["user"]} />}>
+        <Route element={<RequireAuth allowedRoles="user" />}>
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
       </Route>

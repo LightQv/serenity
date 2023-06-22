@@ -1,31 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import * as Yup from "yup";
+import { ToastContainer } from "react-toastify";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
 import { useUserContext } from "../contexts/UserContext";
 import "react-toastify/dist/ReactToastify.css";
+import { loginSchema } from "../services/validators";
+import { notifyError } from "../services/ToastNotificationService";
+import FormError from "../components/FormError";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function Login() {
   const { setUser, setToken } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
-  const [errorMsg, setErrorMsg] = useState({ email: "" });
-  const [errorPw, setErrorPw] = useState({ password: "" });
+  const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
-
-  const loginSchema = Yup.object({
-    email: Yup.string()
-      .email("Un email valide est requit")
-      .required("Un email est requit"),
-    password: Yup.string()
-      .min(7, "Minimum 7 caractères")
-      .max(30, "Maximum 30 caractères")
-      .required("Mot de passe est requit"),
-  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,18 +32,8 @@ export default function Login() {
         } else throw new Error();
       } catch (error) {
         if (error.request.status === 401) {
-          toast.error(
-            `${error.request.status} : Email et/ou Mot de passe invalide.`,
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: 0,
-              theme: "colored",
-            }
+          notifyError(
+            `${error.request.status} : Email et/ou Mot de passe invalide.`
           );
         }
       }
@@ -67,21 +48,12 @@ export default function Login() {
       const isValid = await loginSchema.validate(userInfos, {
         abortEarly: false,
       });
-      if (isValid) return;
+      if (isValid) {
+        setErrors(null);
+      }
       throw new Error();
     } catch (err) {
-      if (err.inner[0]?.path === "email") {
-        setErrorMsg({ email: err.inner[0].message });
-      } else setErrorMsg({ email: "" });
-      if (err.inner[1]?.path === "password") {
-        setErrorPw({
-          password: err.inner[1].message,
-        });
-      } else if (err.inner[0]?.path === "password") {
-        setErrorPw({
-          password: err.inner[0].message,
-        });
-      } else setErrorPw({ password: "" });
+      setErrors(err.errors);
     }
   };
 
@@ -102,15 +74,11 @@ export default function Login() {
           className="space-y-4 rounded-lg bg-slate-100 p-4 lg:p-8"
           onSubmit={handleSubmit}
         >
+          {errors && <FormError errors={errors} />}
           <div className="flex flex-col">
-            <div className="flex items-center justify-between">
-              <label htmlFor="email" className="mb-2 text-base">
-                Email
-              </label>
-              {errorMsg.email !== "" ? (
-                <p className="mb-2 text-xs text-red-500">{errorMsg.email}</p>
-              ) : null}
-            </div>
+            <label htmlFor="email" className="mb-2 text-base">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -122,14 +90,9 @@ export default function Login() {
             />
           </div>
           <div className="flex flex-col">
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="mb-2 text-base">
-                Mot de passe
-              </label>
-              {errorPw.password !== "" ? (
-                <p className="mb-2 text-xs text-red-500">{errorPw.password}</p>
-              ) : null}
-            </div>
+            <label htmlFor="password" className="mb-2 text-base">
+              Mot de passe
+            </label>
             <input
               type="password"
               name="password"

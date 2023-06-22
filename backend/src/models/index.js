@@ -49,6 +49,11 @@ const OperationManager = require("./OperationManager");
 models.operation = new OperationManager();
 models.operation.setDatabase(pool);
 
+const ProtocolManager = require("./ProtocolManager");
+
+models.protocol = new ProtocolManager();
+models.protocol.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

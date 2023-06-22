@@ -7,16 +7,17 @@ const option = {
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
-  progress: undefined,
+  progress: 0,
   theme: "colored",
 };
 
-// toast jaune//
-export const notifyDuplicate = (message) => toast.warn(message, option);
-
-// toast vert
+// Toast success (vert)
 export default function notifySuccess(message) {
   toast.success(message, option);
 }
 
+// Toast warning (jaune)
+export const notifyDuplicate = (message) => toast.warn(message, option);
+
+// Toast error (rouge)
 export const notifyError = (message) => toast.error(message, option);
