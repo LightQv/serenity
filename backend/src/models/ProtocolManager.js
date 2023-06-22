@@ -13,7 +13,14 @@ class ProtocolManager extends AbstractManager {
 
   findWithOperationName(id) {
     return this.database.query(
-      `SELECT p.id as protocol_id, p.protocol_name, o.id as operation_id, o.operation_name FROM ${this.table} AS p JOIN operation AS o ON p.operation_id = o.id WHERE p.id = ?`,
+      `SELECT * FROM  ${this.table} AS p JOIN operation ON p.operation_id = operation.id AND p.id = ?`,
+      [id]
+    );
+  }
+
+  findWithOperationNameAndProtocolItemList(id) {
+    return this.database.query(
+      `SELECT p.id as protocol_id, p.protocol_name, p_item.id as item_id, p_item.protocol_item_name as item_name, p_item.protocol_description as item_description, ope.id as operation_id, ope.operation_name as ope_name FROM ${this.table} AS p JOIN protocol_item AS p_item ON p.id = p_item.protocol_id JOIN operation as ope ON p.operation_id = ope.id WHERE p.id = ?`,
       [id]
     );
   }

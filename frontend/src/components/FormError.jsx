@@ -4,7 +4,9 @@ export default function FormError({ errors }) {
   return (
     <div className="rounded-lg bg-red-400 p-4">
       {errors.map((error) => (
-        <p className="text-xs text-slate-100">{error}</p>
+        <p key={error} className="text-xs text-slate-100">
+          {error}
+        </p>
       ))}
     </div>
   );

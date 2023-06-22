@@ -106,7 +106,7 @@ export default function Login() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
+              className="mb-2 h-fit w-fit rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
             >
               Connexion
             </button>
