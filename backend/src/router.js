@@ -22,6 +22,7 @@ router.get("/api/users", userControllers.browse);
 router.get("/api/users/:id", userControllers.read);
 router.put("/api/users/:id", userControllers.edit);
 router.post("/api/users", validateUser, hashPassword, userControllers.add);
+router.delete("/api/users/:id", userControllers.destroy);
 
 const practitionerControllers = require("./controllers/practitionerControllers");
 
