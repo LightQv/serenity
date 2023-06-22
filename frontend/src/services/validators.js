@@ -10,10 +10,10 @@ export const loginSchema = Yup.object({
 // export const registerSchema = Yup.object({
 //   firstname: Yup.string().min3("Le prénom est requis"),
 //   lastname: Yup.string().min(3, "Minimum 3 charactères|limit50("Le nom est requis"),
-//   email: Yup.,
-//   password: "",
-//   phone_number: "",
-//   address_number: "",
-//   address_streetname: "
-//   city: "",
-// });
+//    email: Yup.,
+//    password: "",
+//    phone_number: "",
+//    address_number: "",
+//    address_streetname: "
+//    city: "",
+//  });

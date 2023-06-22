@@ -40,6 +40,7 @@ export default function PatientsManagement() {
             : "hidden"
         }
       >
+        {/* pourquoi passer le setIsShow en props on en a pas besoin de l'autre côté */}
         <Modal component={<AddPatient setIsShow={setIsShow} />} />
       </div>
     </main>

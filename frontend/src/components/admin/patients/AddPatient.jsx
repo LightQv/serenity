@@ -134,7 +134,7 @@ export default function AddPatient() {
           </div>
           <div className="order-6 flex flex-col">
             <label htmlFor="password_verify" className="text-base font-bold">
-              Confirmation mot de passe
+              Confirmation du mot de passe
             </label>
             <input
               type="password"
