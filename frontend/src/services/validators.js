@@ -13,5 +13,5 @@ export const protocolSchema = Yup.object({
 });
 
 export const operationSchema = Yup.object({
-  operation_name: Yup.string().min.required(2, "L'opération doit être nommé."),
+  operation_name: Yup.string().required("L'opération doit être nommé."),
 });
