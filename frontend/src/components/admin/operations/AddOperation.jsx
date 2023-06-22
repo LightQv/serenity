@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { operationSchema } from "../../../services/validators";
@@ -9,25 +9,11 @@ import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
 
 export default function AddOperation() {
-  const [operations, setOperations] = useState(null);
   const [operationInfos, setOperationInfos] = useState({
     protocol_name: "",
     operation_id: "",
   });
   const [errors, setErrors] = useState(null);
-
-  // Fetch Operations data
-  useEffect(() => {
-    APIService.get(`/operations`)
-      .then((res) => {
-        setOperations(res.data);
-      })
-      .catch((err) => {
-        if (err.request.status === 401) {
-          notifyError(`${err.request.status} : La requete a échouée.`);
-        }
-      });
-  }, []);
 
   // Submit Add Operation Request
   const handleSubmit = async (e) => {
