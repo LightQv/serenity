@@ -60,6 +60,16 @@ CREATE TABLE operation (
   operation_name VARCHAR(100) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO
+operation (operation_name)
+VALUES
+(
+  'Ligaments croisés antérieurs'
+),
+(
+  'Canal carpien'
+);
+
 CREATE TABLE protocol (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   protocol_name VARCHAR(100) NOT NULL,
@@ -68,6 +78,34 @@ CREATE TABLE protocol (
   FOREIGN KEY (operation_id)
   REFERENCES operation(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO
+protocol (protocol_name, operation_id)
+VALUES
+(
+  'Comprendre mon opération',
+  '1'
+),
+(
+  'Dossier administratif',
+  '1'
+),
+(
+  'Checklist',
+  '1'
+),
+(
+  'Comprendre mon opération',
+  '2'
+),
+(
+  'Dossier administratif',
+  '2'
+),
+(
+  'Checklist',
+  '2'
+);
 
 CREATE TABLE intervention (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,

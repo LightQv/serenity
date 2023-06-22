@@ -13,7 +13,7 @@ const {
 // Public Routes
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
 // Private Routes
 const userControllers = require("./controllers/userControllers");

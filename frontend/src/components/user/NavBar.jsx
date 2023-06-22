@@ -6,7 +6,7 @@ import logo from "../../assets/logo-txt.png";
 export default function NavBar() {
   const { user } = useUserContext();
   return (
-    <nav className="absolute bottom-0 left-0 z-10 h-12 w-screen rounded-t-2xl bg-slate-50 shadow-2xl lg:h-screen lg:w-60 lg:rounded-none lg:border-r-2 lg:border-slate-100 lg:shadow-none">
+    <nav className="fixed bottom-0 left-0 z-10 h-12 w-screen rounded-t-2xl bg-slate-50 shadow-2xl lg:h-screen lg:w-60 lg:rounded-none lg:border-r-2 lg:border-slate-100 lg:shadow-none">
       <img
         src={logo}
         alt="logo"
