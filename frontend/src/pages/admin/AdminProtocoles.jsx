@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ProtocolsList from "../../components/admin/protocols/ProtocolsList";
 import Modal from "../../components/admin/Modal";
 import AddProtocol from "../../components/admin/protocols/AddProtocol";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import APIService from "../../services/APIService";
 
 export default function AdminProtocoles() {
   const [protocols, setProtocols] = useState(null);
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/protocols`)
+    APIService.get(`/protocols`)
       .then((res) => setProtocols(res.data))
       .catch((error) => console.warn(error));
   }, [isShow]);
@@ -31,7 +28,7 @@ export default function AdminProtocoles() {
         {protocols.length !== 0 ? (
           protocols.map((protocol) => (
             <ul className="grid w-full grid-cols-1">
-              <ProtocolsList protocol={protocol} key={protocol.protocol_id} />
+              <ProtocolsList protocol={protocol} />
             </ul>
           ))
         ) : (

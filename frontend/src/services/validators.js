@@ -11,3 +11,7 @@ export const protocolSchema = Yup.object({
   protocol_name: Yup.string().required("Le protocole doit être nommé."),
   operation_id: Yup.string().required("Une opération doit être sélectionnée."),
 });
+
+export const operationSchema = Yup.object({
+  operation_name: Yup.string().min.required(2, "L'opération doit être nommé."),
+});

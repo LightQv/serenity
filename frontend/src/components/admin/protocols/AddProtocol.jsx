@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,9 +5,8 @@ import { protocolSchema } from "../../../services/validators";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
+import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function AddProtocol() {
   const [operations, setOperations] = useState(null);
@@ -20,8 +18,7 @@ export default function AddProtocol() {
 
   // Fetch Operations data
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/operations`)
+    APIService.get(`/operations`)
       .then((res) => {
         setOperations(res.data);
       })
@@ -37,10 +34,7 @@ export default function AddProtocol() {
     e.preventDefault();
     if (protocolSchema.isValid)
       try {
-        const res = await axios.post(
-          `${BACKEND_URL}/api/protocols`,
-          protocolInfos
-        );
+        const res = await APIService.post(`/protocols`, protocolInfos);
         if (res) {
           notifySuccess("Le protocole a été ajouté.");
         } else throw new Error();
