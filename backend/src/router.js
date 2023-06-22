@@ -8,12 +8,12 @@ const {
   hashPassword,
   verifyPassword,
   verifyToken,
+  logout,
 } = require("./services/auth");
 
-// Public Routes
+// Public Routes (Auth)
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
-
-router.use(verifyToken);
+router.get("/api/logout", verifyToken, logout);
 
 // Private Routes
 const userControllers = require("./controllers/userControllers");
