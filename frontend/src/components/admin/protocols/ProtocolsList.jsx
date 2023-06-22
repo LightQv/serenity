@@ -20,13 +20,13 @@ export default function ProtocolsList({
         type="checkbox"
         name={protocol.protocol_id}
         id={protocol.protocol_id}
-        className="mr-2"
+        className="mr-2 lg:pl-4"
         checked={selectedProtocol === protocol.protocol_id}
         onChange={handleChange}
       />
       <Link
         to={`${protocol.protocol_id}`}
-        className="flex h-full w-full items-center justify-between lg:px-4"
+        className="flex h-full w-full items-center justify-between lg:pr-4"
       >
         <p className="line-clamp-1 text-xs font-semibold lg:text-base">
           {protocol.protocol_name}
