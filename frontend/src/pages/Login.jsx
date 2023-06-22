@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -9,32 +8,28 @@ import "react-toastify/dist/ReactToastify.css";
 import { loginSchema } from "../services/validators";
 import { notifyError } from "../services/ToastNotificationService";
 import FormError from "../components/FormError";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import APIService from "../services/APIService";
 
 export default function Login() {
-  const { setUser, setToken } = useUserContext();
+  const { login } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loginSchema.isValid)
+    if (loginSchema.isValidSync(userInfos))
       try {
-        const res = await axios.post(`${BACKEND_URL}/api/login`, userInfos);
+        const res = await APIService.post(`/login`, userInfos);
         if (res) {
-          setUser(res.data.user);
-          setToken(res.data.token);
-          if (res.data.user.roles === "admin") {
+          login(res.data);
+          if (res.data.roles === "admin") {
             navigate("/admin/dashboard");
           } else navigate("/dashboard");
         } else throw new Error();
       } catch (error) {
         if (error.request.status === 401) {
-          notifyError(
-            `${error.request.status} : Email et/ou Mot de passe invalide.`
-          );
+          notifyError("Email et/ou Mot de passe invalide.");
         }
       }
   };
@@ -106,7 +101,8 @@ export default function Login() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="mb-2 h-fit w-36 rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-4 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
+              disabled={!loginSchema.isValidSync(userInfos)}
+              className="mb-2 h-fit w-fit rounded-lg border-2 border-turquoise-dark-0 bg-turquoise-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-turquoise-light-0 hover:bg-turquoise-light-0 disabled:border-slate-300 disabled:bg-slate-300"
             >
               Connexion
             </button>
