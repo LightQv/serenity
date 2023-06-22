@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const backEndUrl = import.meta.env.VITE_BACKEND_URL;
@@ -12,6 +12,7 @@ function PractitionersList() {
   const [practitionerToDelete, setPractitionerToDelete] = useState(null);
   const [practitionerToEdit, setPractitionerToEdit] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showOptions, setShowOptions] = useState(null);
 
   const fetchPractitioners = async () => {
     try {
@@ -20,6 +21,12 @@ function PractitionersList() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const toggleOptions = (practitionerId) => {
+    setShowOptions((prevOptions) =>
+      prevOptions === practitionerId ? null : practitionerId
+    );
   };
 
   const addPractitioner = async () => {
@@ -58,7 +65,9 @@ function PractitionersList() {
       );
       if (response.status === 200) {
         toast.success("Practitioner deleted successfully !");
-        fetchPractitioners();
+        setPractitioners((prevPractitioners) =>
+          prevPractitioners.filter((p) => p.id !== practitionerToDelete.id)
+        );
         setPractitionerToDelete(null);
       }
     } catch (error) {
@@ -108,16 +117,26 @@ function PractitionersList() {
               <div>
                 <button
                   type="button"
-                  onClick={() => confirmDelete(practitioner)}
+                  onClick={() => toggleOptions(practitioner.id)}
                 >
-                  Supprimer
+                  ...
                 </button>
-                <button
-                  type="button"
-                  onClick={() => editPractitioner(practitioner)}
-                >
-                  Edit
-                </button>
+                {showOptions === practitioner.id && (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => confirmDelete(practitioner)}
+                    >
+                      Supprimer
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editPractitioner(practitioner)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -158,33 +177,29 @@ function PractitionersList() {
         </div>
       )}
       {showEditForm && practitionerToEdit && (
-        <>
-          <div className="edit-form">
-            <h2>Edit</h2>
-            <label htmlFor="editSurnameInput">Surname:</label>
-            <input
-              type="text"
-              id="editSurnameInput"
-              value={practitionerToEdit.surname}
-              onChange={(e) => {
-                setPractitionerToEdit({
-                  ...practitionerToEdit,
-                  surname: e.target.value,
-                });
-              }}
-            />
-            <button type="button" onClick={saveEditedPractitioner}>
-              Save
-            </button>
-            <button type="button" onClick={cancelEdit}>
-              Cancel
-            </button>
-          </div>
-          <ToastContainer />
-        </>
+        <div className="edit-form">
+          <h2>Edit</h2>
+          <label htmlFor="editSurnameInput">Surname:</label>
+          <input
+            type="text"
+            id="editSurnameInput"
+            value={practitionerToEdit.surname}
+            onChange={(e) => {
+              setPractitionerToEdit({
+                ...practitionerToEdit,
+                surname: e.target.value,
+              });
+            }}
+          />
+          <button type="button" onClick={saveEditedPractitioner}>
+            Save
+          </button>
+          <button type="button" onClick={cancelEdit}>
+            Cancel
+          </button>
+        </div>
       )}
     </div>
   );
 }
-
 export default PractitionersList;
