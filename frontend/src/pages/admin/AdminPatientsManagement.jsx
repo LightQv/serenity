@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ListPatients from "../../components/admin/ListPatients";
 import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import APIService from "../../services/APIService";
 
 export default function PatientsManagement() {
   const [listPatients, setListPatients] = useState([]);
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/users`)
+    APIService.get(`/users`)
       .then((response) => setListPatients(response.data))
       .catch((err) => console.error(err));
   }, [isShow]);
 
   if (!listPatients) return null;
   return (
-    <main className="min-w-screen relative min-h-screen bg-slate-50 p-10 font-poppins lg:ml-60">
-      <button
-        type="submit"
-        className="ml-8 mr-8 mt-4 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
-        onClick={() => setIsShow(true)}
-      >
-        Ajouter un patient
-      </button>
-
-      <div>
-        {listPatients.map((listPatient) => (
-          <ListPatients key={listPatient.id} listPatient={listPatient} />
-        ))}
+    <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
+      <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
+        Gestion des patients
+      </h3>
+      <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
+        <div>
+          {listPatients.map((listPatient) => (
+            <ListPatients key={listPatient.id} listPatient={listPatient} />
+          ))}
+        </div>
+        <button
+          type="submit"
+          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+          onClick={() => setIsShow(true)}
+        >
+          Ajouter un patient
+        </button>
       </div>
       <div
         className={
@@ -40,8 +41,7 @@ export default function PatientsManagement() {
             : "hidden"
         }
       >
-        {/* pourquoi passer le setIsShow en props on en a pas besoin de l'autre côté */}
-        <Modal component={<AddPatient setIsShow={setIsShow} />} />
+        <Modal component={<AddPatient />} setIsShow={setIsShow} />
       </div>
     </main>
   );

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
 } from "../../../services/ToastNotificationService";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import APIService from "../../../services/APIService";
+import { registerSchema } from "../../../services/validators";
+import FormError from "../../FormError";
 
 export default function AddPatient() {
   const [passwordVerify, setPasswordVerify] = useState("");
@@ -22,6 +22,7 @@ export default function AddPatient() {
     city: "",
     roles: "user",
   });
+  const [errors, setErrors] = useState(null);
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -29,21 +30,23 @@ export default function AddPatient() {
       notifyError("Les mots de passe ne correspondent pas");
       return;
     }
-    try {
-      const res = await axios.post(`${BACKEND_URL}/api/users`, patientRegister);
-      if (res.status === 201) {
-        notifySuccess("Le patient a été ajouté");
-      }
-    } catch (error) {
-      if (error.request.status === 500) {
-        notifyDuplicate("Email déjà existant");
-      } else {
-        notifyError("Erreur dans l'ajout du patient");
+    if (registerSchema.isValid) {
+      try {
+        const res = await APIService.post(`/users`, patientRegister);
+        if (res.status === 201) {
+          notifySuccess("Le patient a été ajouté");
+        } else throw new Error();
+      } catch (err) {
+        if (err.request.status === 422) {
+          notifyDuplicate("Email déjà existant");
+        } else {
+          notifyError("Erreur dans l'ajout du patient");
+        }
       }
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     if (e.target.name === "password_verify") {
       setPasswordVerify(e.target.value);
     } else {
@@ -51,13 +54,24 @@ export default function AddPatient() {
         ...patientRegister,
         [e.target.name]: e.target.value,
       });
+      try {
+        const isValid = await registerSchema.validate(patientRegister, {
+          abortEarly: false,
+        });
+        if (isValid) {
+          setErrors(null);
+        }
+        throw new Error();
+      } catch (err) {
+        setErrors(err.errors);
+      }
     }
   };
 
   return (
-    <div className="flex flex-col justify-center bg-slate-50 p-10 align-middle font-poppins">
+    <div className="flex flex-col items-center justify-between  p-10 align-middle">
       <div className="flex">
-        <h1 className="mb-2 text-lg font-extrabold text-violet-dark-0">
+        <h1 className="mb-2 mt-0 text-lg font-extrabold text-violet-dark-0 lg:mb-8">
           Ajouter un patient
         </h1>
         <div className="hidden lg:ml-5 lg:block">
@@ -77,9 +91,10 @@ export default function AddPatient() {
       </div>
       <div>
         <form
-          className="grid grid-cols-1 content-center lg:w-3/4 lg:grid-cols-2  lg:gap-8"
+          className="grid grid-cols-1 content-center  lg:grid-cols-2  lg:gap-8"
           onSubmit={handlesubmit}
         >
+          {errors && <FormError errors={errors} />}
           <div className="order-1 flex flex-col">
             <label htmlFor="name" className="text-base font-bold">
               Nom
@@ -89,7 +104,7 @@ export default function AddPatient() {
               name="lastname"
               id="lastname"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -102,7 +117,7 @@ export default function AddPatient() {
               name="firstname"
               id="firstname"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -115,7 +130,7 @@ export default function AddPatient() {
               name="email"
               id="email"
               required="required"
-              className=" mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className=" mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -128,7 +143,7 @@ export default function AddPatient() {
               name="password"
               id="password"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -141,7 +156,7 @@ export default function AddPatient() {
               name="password_verify"
               id="password_verify"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -154,7 +169,7 @@ export default function AddPatient() {
               name="phone_number"
               id="phone_number"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -167,7 +182,7 @@ export default function AddPatient() {
               name="address_number"
               id="address_number"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -180,7 +195,7 @@ export default function AddPatient() {
               name="address_streetname"
               id="address_streetname"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
@@ -193,14 +208,14 @@ export default function AddPatient() {
               name="city"
               id="city"
               required="required"
-              className="mb-2 h-14 rounded-lg bg-slate-100 p-2 text-base font-medium"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
           </div>
 
           <button
             type="submit"
-            className="order-10 ml-8 mr-8 mt-4 h-10 w-40 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white"
+            className="order-10 mt-2 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white lg:mt-6 lg:h-14"
           >
             Ajouter
           </button>
