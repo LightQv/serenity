@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 
 export default function ProtocolsList({ protocol }) {
   return (
-    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:hover:bg-gray-300">
+    <li
+      className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:hover:bg-gray-300"
+      key={protocol.protocol_id}
+    >
       <Link
         to={`${protocol.protocol_id}`}
         className="flex h-full w-full items-center justify-between lg:px-4"

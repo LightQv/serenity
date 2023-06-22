@@ -34,5 +34,5 @@ export default function RequireAuth({ allowedRoles }) {
 }
 
 RequireAuth.propTypes = {
-  allowedRoles: PropTypes.shape().isRequired,
+  allowedRoles: PropTypes.string.isRequired,
 };
