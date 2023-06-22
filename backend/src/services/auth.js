@@ -69,10 +69,10 @@ const verifyToken = (req, res, next) => {
 
     // Verify token with JWT_SECRET
     req.payloads = jwt.verify(token, JWT_SECRET);
-    next();
+    return next();
   } catch (err) {
     console.error(err);
-    res.sendStatus(403);
+    return res.sendStatus(403);
   }
 };
 
