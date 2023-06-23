@@ -12,6 +12,7 @@ import FormError from "../../FormError";
 export default function EditProtocol({
   selectedProtocol,
   setSelectedProtocol,
+  setIsShow,
 }) {
   const [operations, setOperations] = useState(null);
   const [protocolInfos, setProtocolInfos] = useState({
@@ -19,13 +20,11 @@ export default function EditProtocol({
     operation_id: "",
   });
   const [errors, setErrors] = useState(null);
-
   // Fetch Operations data
   useEffect(() => {
     APIService.get(`/operations`)
       .then((res) => {
         setOperations(res.data);
-        setSelectedProtocol("");
       })
       .catch((err) => {
         if (err.request.status === 401) {
@@ -45,9 +44,11 @@ export default function EditProtocol({
         );
         if (res) {
           notifySuccess("Le protocole a été modifié.");
+          setSelectedProtocol();
+          setIsShow({ modalB: false });
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 401) {
+        if (err.request.status === 500) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
@@ -148,6 +149,7 @@ export default function EditProtocol({
 }
 
 EditProtocol.propTypes = {
-  selectedProtocol: PropTypes.string.isRequired,
+  selectedProtocol: PropTypes.number.isRequired,
   setSelectedProtocol: PropTypes.shape().isRequired,
+  setIsShow: PropTypes.shape().isRequired,
 };
