@@ -6,19 +6,19 @@ import notifySuccess, {
 } from "../../../services/ToastNotificationService";
 import APIService from "../../../services/APIService";
 
-export default function DeleteProtocol({
-  selectedProtocol,
-  setSelectedProtocol,
+export default function DeleteOperation({
+  selectedOperation,
+  setSelectedOperation,
   setIsShow,
 }) {
-  // Submit Delete Protocol Request
+  // Submit Delete Operation Request
   const handleDelete = async () => {
-    if (selectedProtocol !== "") {
+    if (selectedOperation !== "") {
       try {
-        const res = await APIService.delete(`/protocols/${selectedProtocol}`);
+        const res = await APIService.delete(`/operations/${selectedOperation}`);
         if (res) {
-          notifySuccess("Le protocole a bien été supprimé.");
-          setSelectedProtocol("");
+          notifySuccess("L'operation a bien été supprimé.");
+          setSelectedOperation("");
           setIsShow({ modalC: false });
         }
         throw new Error();
@@ -33,7 +33,7 @@ export default function DeleteProtocol({
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
       <h1 className="self-start text-lg font-semibold lg:text-xl">
-        Supprimer ce protocole ?
+        Supprimer cette operation ?
       </h1>
       <div className="flex gap-2">
         <button
@@ -56,8 +56,8 @@ export default function DeleteProtocol({
   );
 }
 
-DeleteProtocol.propTypes = {
-  selectedProtocol: PropTypes.string.isRequired,
-  setSelectedProtocol: PropTypes.shape().isRequired,
+DeleteOperation.propTypes = {
+  selectedOperation: PropTypes.string.isRequired,
+  setSelectedOperation: PropTypes.shape().isRequired,
   setIsShow: PropTypes.shape().isRequired,
 };

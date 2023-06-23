@@ -21,7 +21,7 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        res.status(404).send("Operation not found");
       }
     })
     .catch((err) => {
@@ -55,7 +55,7 @@ const add = (req, res) => {
   models.operation
     .insert(operation)
     .then(([result]) => {
-      res.location(`/api/operations/${result.insertId}`).sendStatus(201);
+      res.location(`/operations/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
