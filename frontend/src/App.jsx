@@ -6,11 +6,8 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
-
-import PatientsManagement from "./pages/admin/PatientsManagement";
-import PatientsRegister from "./pages/admin/PatientsRegister";
-
-import PractitionersManagement from "./pages/admin/PractitionersManagement";
+import PatientsManagement from "./pages/admin/AdminPatientsManagement";
+import AdminPractitioners from "./pages/admin/AdminPractitioners";
 
 function App() {
   return (
@@ -24,12 +21,8 @@ function App() {
         {/* Admin routes */}
         <Route element={<RequireAuth allowedRoles="admin" />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
-          <Route path="admin/patient" element={<PatientsManagement />} />
-          <Route
-            path="admin/practitioners"
-            element={<PractitionersManagement />}
-          />
-          <Route path="admin/register" element={<PatientsRegister />} />
+          <Route path="admin/patients" element={<PatientsManagement />} />
+          <Route path="admin/practitioners" element={<AdminPractitioners />} />
           <Route path="admin/protocols" element={<AdminProtocoles />} />
         </Route>
         {/* User routes */}

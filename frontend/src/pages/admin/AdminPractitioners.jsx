@@ -7,7 +7,7 @@ import DeletePractitioner from "../../components/admin/practitioners/DeletePract
 import EditPractitioner from "../../components/admin/practitioners/EditPractitioner";
 import APIService from "../../services/APIService";
 
-function PractitionerManagement() {
+export default function AdminPractitioners() {
   const [practitioners, setPractitioners] = useState([]);
   const [practitionerToDelete, setPractitionerToDelete] = useState(null);
   const [practitionerToEdit, setPractitionerToEdit] = useState(null);
@@ -91,5 +91,3 @@ function PractitionerManagement() {
     </div>
   );
 }
-
-export default PractitionerManagement;
