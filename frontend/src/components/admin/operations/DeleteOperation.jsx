@@ -13,19 +13,17 @@ export default function DeleteOperation({
 }) {
   // Submit Delete Operation Request
   const handleDelete = async () => {
-    if (selectedOperation !== "") {
-      try {
-        const res = await APIService.delete(`/operations/${selectedOperation}`);
-        if (res) {
-          notifySuccess("L'operation a bien été supprimé.");
-          setSelectedOperation();
-          setIsShow({ modalC: false });
-        }
-        throw new Error();
-      } catch (err) {
-        if (err.request?.status === 500) {
-          notifyError("La requête a échouée.");
-        }
+    try {
+      const res = await APIService.delete(`/operations/${selectedOperation}`);
+      if (res) {
+        notifySuccess("L'operation a bien été supprimé.");
+        setSelectedOperation();
+        setIsShow({ modalC: false });
+      }
+      throw new Error();
+    } catch (err) {
+      if (err.request?.status === 500) {
+        notifyError("La requête a échouée.");
       }
     }
   };
@@ -38,14 +36,14 @@ export default function DeleteOperation({
       <div className="flex gap-2">
         <button
           type="button"
-          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-rose-dark-0 bg-rose-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-rose-light-0 hover:bg-rose-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
           onClick={handleDelete}
         >
           Oui
         </button>
         <button
           type="button"
-          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-gray-300 bg-gray-300 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
           onClick={() => setIsShow({ modalC: false })}
         >
           Non
