@@ -5,6 +5,7 @@ import AddProtocol from "../../components/admin/protocols/AddProtocol";
 import EditProtocol from "../../components/admin/protocols/EditProtocol";
 import DeleteProtocol from "../../components/admin/protocols/DeleteProtocol";
 import APIService from "../../services/APIService";
+import { notifyError } from "../../services/ToastNotificationService";
 
 export default function AdminProtocoles() {
   const [protocols, setProtocols] = useState(null);
@@ -18,10 +19,13 @@ export default function AdminProtocoles() {
   useEffect(() => {
     APIService.get(`/protocols`)
       .then((res) => setProtocols(res.data))
-      .catch((error) => console.warn(error));
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
   }, [isShow]);
 
-  if (!protocols) return null;
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
@@ -32,9 +36,12 @@ export default function AdminProtocoles() {
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
           <p className="text-sm">Nom du protocole</p>
-          <p className="text-sm lg:pr-[7.5rem]">Nom de l'opération</p>
+          <div className="flex items-center gap-2 lg:pr-3">
+            <p className="text-sm lg:pr-7">Nom de l'opération</p>
+            <p className="text-xs italic text-gray-500">Interactions</p>
+          </div>
         </div>
-        {protocols.length !== 0 ? (
+        {protocols && protocols.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {protocols.map((protocol) => (
               <ProtocolsList
@@ -59,17 +66,15 @@ export default function AdminProtocoles() {
       </div>
       <div
         className={
-          isShow.modalA ||
-          (isShow.modalB && selectedProtocol !== "") ||
-          (isShow.modalC && selectedProtocol !== "")
+          isShow.modalA || isShow.modalB || isShow.modalC
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
-        {isShow.modalA ? (
+        {isShow.modalA && (
           <Modal component={<AddProtocol />} setIsShow={setIsShow} />
-        ) : null}
-        {isShow.modalB && selectedProtocol !== "" ? (
+        )}
+        {isShow.modalB && (
           <Modal
             component={
               <EditProtocol
@@ -79,8 +84,8 @@ export default function AdminProtocoles() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
-        {isShow.modalC && selectedProtocol !== "" ? (
+        )}
+        {isShow.modalC && (
           <Modal
             component={
               <DeleteProtocol
@@ -91,7 +96,7 @@ export default function AdminProtocoles() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
+        )}
       </div>
     </main>
   );
