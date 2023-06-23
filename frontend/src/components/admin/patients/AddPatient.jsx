@@ -69,7 +69,7 @@ export default function AddPatient() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between  p-10 align-middle">
+    <div className="flex flex-col items-center justify-between p-10 align-middle">
       <div className="flex">
         <h1 className="mb-2 mt-0 text-lg font-extrabold text-violet-dark-0 lg:mb-8">
           Ajouter un patient
@@ -95,7 +95,7 @@ export default function AddPatient() {
           onSubmit={handlesubmit}
         >
           {errors && <FormError errors={errors} />}
-          <div className="order-1 flex flex-col">
+          <div className="flex flex-col">
             <label htmlFor="name" className="text-base font-bold">
               Nom
             </label>
@@ -108,7 +108,7 @@ export default function AddPatient() {
               onChange={handleChange}
             />
           </div>
-          <div className="order-2 flex flex-col">
+          <div className="flex flex-col">
             <label htmlFor="firstname" className="text-base font-bold">
               Prénom
             </label>
@@ -121,59 +121,7 @@ export default function AddPatient() {
               onChange={handleChange}
             />
           </div>
-          <div className="order-3 flex flex-col">
-            <label htmlFor="email" className="text-base font-bold">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              required="required"
-              className=" mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-5 flex flex-col ">
-            <label htmlFor="password" className="text-base font-bold">
-              Mot de passe
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-6 flex flex-col">
-            <label htmlFor="password_verify" className="text-base font-bold">
-              Confirmation du mot de passe
-            </label>
-            <input
-              type="password"
-              name="password_verify"
-              id="password_verify"
-              required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-4 flex flex-col">
-            <label htmlFor="téléphone" className=" grid text-base font-bold">
-              Téléphone
-            </label>
-            <input
-              type="tel"
-              name="phone_number"
-              id="phone_number"
-              required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-7 flex flex-col">
+          <div className="flex flex-col">
             <label htmlFor="address_number" className="text-base font-bold">
               Numéro de rue
             </label>
@@ -186,7 +134,7 @@ export default function AddPatient() {
               onChange={handleChange}
             />
           </div>
-          <div className="order-8 flex flex-col">
+          <div className="flex flex-col">
             <label htmlFor="address_streetname" className="text-base font-bold">
               Adresse
             </label>
@@ -199,7 +147,7 @@ export default function AddPatient() {
               onChange={handleChange}
             />
           </div>
-          <div className="order-9 flex flex-col">
+          <div className="flex flex-col">
             <label htmlFor="city" className="text-base font-bold">
               Ville
             </label>
@@ -212,10 +160,62 @@ export default function AddPatient() {
               onChange={handleChange}
             />
           </div>
+          <div className="flex flex-col">
+            <label htmlFor="téléphone" className=" grid text-base font-bold">
+              Téléphone
+            </label>
+            <input
+              type="tel"
+              name="phone_number"
+              id="phone_number"
+              required="required"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="email" className="text-base font-bold">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required="required"
+              className=" mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              onChange={handleChange}
+            />
+          </div>
+          <div className=" flex flex-col ">
+            <label htmlFor="password" className="text-base font-bold">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required="required"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password_verify" className="text-base font-bold">
+              Confirmation du mot de passe
+            </label>
+            <input
+              type="password"
+              name="password_verify"
+              id="password_verify"
+              required="required"
+              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              onChange={handleChange}
+            />
+          </div>
 
           <button
             type="submit"
-            className="order-10 mt-2 rounded-lg bg-violet-dark-0 p-2 text-base font-bold text-white lg:mt-6 lg:h-14"
+            className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-base text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
           >
             Ajouter
           </button>
