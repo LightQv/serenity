@@ -9,7 +9,11 @@ import notifySuccess, {
 import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
 
-export default function EditOperation({ selectedOperation }) {
+export default function EditOperation({
+  selectedOperation,
+  setSelectedOperation,
+  setIsShow,
+}) {
   const [operationInfos, setOperationInfos] = useState({
     operation_name: "",
     operation_id: "",
@@ -27,9 +31,11 @@ export default function EditOperation({ selectedOperation }) {
         );
         if (res) {
           notifySuccess("L'opération a été modifié.");
+          setSelectedOperation();
+          setIsShow({ modalB: false });
         } else throw new Error();
-      } catch (error) {
-        if (error.request?.status === 500) {
+      } catch (err) {
+        if (err.request?.status === 500) {
           notifyError("La requête a échouée.");
         }
       }
@@ -93,5 +99,7 @@ export default function EditOperation({ selectedOperation }) {
 }
 
 EditOperation.propTypes = {
-  selectedOperation: PropTypes.string.isRequired,
+  selectedOperation: PropTypes.number.isRequired,
+  setSelectedOperation: PropTypes.shape().isRequired,
+  setIsShow: PropTypes.shape().isRequired,
 };

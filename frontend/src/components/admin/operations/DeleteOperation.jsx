@@ -18,12 +18,12 @@ export default function DeleteOperation({
         const res = await APIService.delete(`/operations/${selectedOperation}`);
         if (res) {
           notifySuccess("L'operation a bien été supprimé.");
-          setSelectedOperation("");
+          setSelectedOperation();
           setIsShow({ modalC: false });
         }
         throw new Error();
-      } catch (error) {
-        if (error.request?.status === 500) {
+      } catch (err) {
+        if (err.request?.status === 500) {
           notifyError("La requête a échouée.");
         }
       }
@@ -57,7 +57,7 @@ export default function DeleteOperation({
 }
 
 DeleteOperation.propTypes = {
-  selectedOperation: PropTypes.string.isRequired,
+  selectedOperation: PropTypes.number.isRequired,
   setSelectedOperation: PropTypes.shape().isRequired,
   setIsShow: PropTypes.shape().isRequired,
 };

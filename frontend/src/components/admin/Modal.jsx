@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function Modal({ component, setIsShow }) {
   return (
-    <modal className="flex h-fit flex-col rounded-lg bg-gray-200 lg:w-fit">
+    <div className="flex h-fit flex-col rounded-lg bg-gray-200 lg:w-fit">
       <button
         type="button"
         className="mr-1 mt-4 self-end text-violet-dark-0 hover:text-violet-dark-0"
@@ -22,7 +22,7 @@ export default function Modal({ component, setIsShow }) {
         </svg>
       </button>
       {component}
-    </modal>
+    </div>
   );
 }
 
