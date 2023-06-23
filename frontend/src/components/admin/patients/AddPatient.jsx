@@ -69,7 +69,7 @@ export default function AddPatient() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between  p-10 align-middle">
+    <div className="flex flex-col items-center justify-between p-10 align-middle">
       <div className="flex">
         <h1 className="mb-2 mt-0 text-lg font-extrabold text-violet-dark-0 lg:mb-8">
           Ajouter un patient

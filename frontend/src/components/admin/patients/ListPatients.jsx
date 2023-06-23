@@ -21,10 +21,12 @@ export default function ListPatients({
         to={`${patient.id}`}
         className="flex h-full w-full items-center justify-between lg:pr-4"
       >
-        <p className="line-clamp-1 text-xs font-semibold lg:text-base">
-          {patient.firstname} {patient.lastname}
-        </p>
-        <h3 className="text_mg font-medium">{patient.email}</h3>
+        <div className="flex flex-col">
+          <p className="line-clamp-1 text-xs font-semibold lg:text-base">
+            {patient.firstname} {patient.lastname}
+          </p>
+          <p className="text-xs font-medium">{patient.email}</p>
+        </div>
       </Link>
       <div className="ml-2 flex gap-2">
         <button

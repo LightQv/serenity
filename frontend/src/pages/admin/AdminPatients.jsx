@@ -30,7 +30,14 @@ export default function AdminPatients() {
         </h3>
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
-        <ul className="grid w-full grid-cols-1">
+        <button
+          type="button"
+          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+          onClick={() => setIsShow({ modalA: true })}
+        >
+          Ajouter un patient
+        </button>
+        <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-6">
           {listPatients
             .filter((patient) => patient.roles === "user")
             .map((patient) => (
@@ -43,14 +50,6 @@ export default function AdminPatients() {
               />
             ))}
         </ul>
-
-        <button
-          type="button"
-          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
-          onClick={() => setIsShow({ modalA: true })}
-        >
-          Ajouter un patient
-        </button>
       </div>
       <div
         className={
