@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ListPatients from "../../components/admin/ListPatients";
+import ListPatients from "../../components/admin/patients/ListPatients";
 import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
@@ -17,9 +17,11 @@ export default function PatientsManagement() {
   if (!listPatients) return null;
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
-      <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
-        Gestion des patients
-      </h3>
+      <div className="flex w-full items-center justify-between">
+        <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
+          Gestion des patients
+        </h3>
+      </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div>
           {listPatients.map((listPatient) => (
