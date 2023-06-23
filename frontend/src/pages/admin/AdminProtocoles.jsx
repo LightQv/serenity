@@ -16,7 +16,7 @@ export default function AdminProtocoles() {
   const [selectedProtocol, setSelectedProtocol] = useState();
 
   useEffect(() => {
-    APIService.put(`/protocols`)
+    APIService.get(`/protocols`)
       .then((res) => setProtocols(res.data))
       .catch((error) => console.warn(error));
   }, [isShow]);
