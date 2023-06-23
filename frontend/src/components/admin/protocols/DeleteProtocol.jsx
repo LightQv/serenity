@@ -13,19 +13,17 @@ export default function DeleteProtocol({
 }) {
   // Submit Delete Protocol Request
   const handleDelete = async () => {
-    if (selectedProtocol !== "") {
-      try {
-        const res = await APIService.delete(`/protocols/${selectedProtocol}`);
-        if (res) {
-          notifySuccess("Le protocole a bien été supprimé.");
-          setSelectedProtocol();
-          setIsShow({ modalC: false });
-        }
-        throw new Error();
-      } catch (err) {
-        if (err.request?.status === 500) {
-          notifyError("La requête a échouée.");
-        }
+    try {
+      const res = await APIService.delete(`/protocols/${selectedProtocol}`);
+      if (res) {
+        notifySuccess("Le protocole a bien été supprimé.");
+        setSelectedProtocol();
+        setIsShow({ modalC: false });
+      }
+      throw new Error();
+    } catch (err) {
+      if (err.request?.status === 500) {
+        notifyError("La requête a échouée.");
       }
     }
   };
