@@ -3,29 +3,28 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export default function ListPatients({
-  listPatient,
+  patient,
   setSelectedPatient,
   setIsShow,
 }) {
   const handleEdit = () => {
-    setSelectedPatient(listPatient.patient_id);
+    setSelectedPatient(patient.id);
     setIsShow({ modalB: true });
   };
-
   const handleDelete = () => {
-    setSelectedPatient(listPatient.patient_id);
+    setSelectedPatient(patient.id);
     setIsShow({ modalC: true });
   };
   return (
     <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4 lg:hover:bg-gray-300">
       <Link
-        to={`${listPatient.patient_id}`}
+        to={`${patient.id}`}
         className="flex h-full w-full items-center justify-between lg:pr-4"
       >
         <p className="line-clamp-1 text-xs font-semibold lg:text-base">
-          {listPatient.firstname} {listPatient.lastname}
+          {patient.firstname} {patient.lastname}
         </p>
-        <h3 className="text_mg font-medium">{listPatient.email}</h3>
+        <h3 className="text_mg font-medium">{patient.email}</h3>
       </Link>
       <div className="ml-2 flex gap-2">
         <button
@@ -70,11 +69,12 @@ export default function ListPatients({
 }
 
 ListPatients.propTypes = {
-  listPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    setSelectedPatient: PropTypes.func.isRequired,
-    setIsShow: PropTypes.shape().isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
+  setSelectedPatient: PropTypes.func.isRequired,
+  setIsShow: PropTypes.shape().isRequired,
 };

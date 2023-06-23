@@ -11,7 +11,6 @@ export default function DeletePatient({
   setSelectedPatient,
   setIsShow,
 }) {
-  console.log(selectedPatient);
   const handleDelete = async () => {
     try {
       const res = await APIService.delete(`/users/${selectedPatient}`);

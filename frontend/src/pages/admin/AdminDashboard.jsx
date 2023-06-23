@@ -1,6 +1,5 @@
 import React from "react";
 import { useUserContext } from "../../contexts/UserContext";
-import Patient from "../../components/admin/patients/EditPatient";
 
 export default function Dashboard() {
   const { user, logout } = useUserContext();

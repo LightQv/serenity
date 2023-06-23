@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import EditPatient from "../../components/admin/patients/EditPatient";
+import DeletePatient from "../../components/admin/patients/DeletePatient";
 import ListPatients from "../../components/admin/patients/ListPatients";
 import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
-import EditPatient from "@components/admin/patients/EditPatient";
-import DeletePatient from "@components/admin/patients/DeletePatient";
 
-export default function PatientsManagement() {
+export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
   const [isShow, setIsShow] = useState({
     modalA: false,
@@ -31,15 +31,17 @@ export default function PatientsManagement() {
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <ul className="grid w-full grid-cols-1">
-          {listPatients.map((listPatient) => (
-            <ListPatients
-              key={listPatient.id}
-              listPatient={listPatient}
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-              setIsShow={setIsShow}
-            />
-          ))}
+          {listPatients
+            .filter((patient) => patient.roles === "user")
+            .map((patient) => (
+              <ListPatients
+                key={patient.id}
+                patient={patient}
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
+                setIsShow={setIsShow}
+              />
+            ))}
         </ul>
 
         <button
@@ -66,8 +68,8 @@ export default function PatientsManagement() {
           <Modal
             component={
               <EditPatient
-                selectedProtocol={selectedPatient}
-                setSelectedProtocol={setSelectedPatient}
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
               />
             }
             setIsShow={setIsShow}
@@ -77,8 +79,8 @@ export default function PatientsManagement() {
           <Modal
             component={
               <DeletePatient
-                selectedProtocol={selectedPatient}
-                setSelectedProtocol={setSelectedPatient}
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
                 setIsShow={setIsShow}
               />
             }
