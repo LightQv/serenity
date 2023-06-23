@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import APIService from "../../services/APIService";
 
 const backEndUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -16,7 +16,7 @@ function PractitionersList() {
 
   const fetchPractitioners = async () => {
     try {
-      const response = await axios.get(`${backEndUrl}/api/practitioners`);
+      const response = await APIService.get(`/practitioners`);
       setPractitioners(response.data);
     } catch (error) {
       console.error(error);
@@ -34,7 +34,7 @@ function PractitionersList() {
       return;
     }
     try {
-      const response = await axios.post(`${backEndUrl}/api/practitioners`, {
+      const response = await APIService.post(`/practitioners`, {
         surname,
       });
       if (response.status === 201) {
@@ -60,7 +60,7 @@ function PractitionersList() {
     }
 
     try {
-      const response = await axios.delete(
+      const response = await APIService.delete(
         `${backEndUrl}/api/practitioners/${practitionerToDelete.id}`
       );
       if (response.status === 200) {
@@ -85,7 +85,7 @@ function PractitionersList() {
       return;
     }
     try {
-      const response = await axios.put(
+      const response = await APIService.put(
         `${backEndUrl}/api/practitioners/${practitionerToEdit.id}`,
         practitionerToEdit
       );
@@ -107,15 +107,21 @@ function PractitionersList() {
     fetchPractitioners();
   }, []);
   return (
-    <div>
-      <h1>Gestion des praticiens</h1>
-      <div className="columns">
+    <div className="conteneur min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
+      <h1 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
+        Gestion des praticiens
+      </h1>
+      <ul className="liste des praticiens w-1/2  rounded-xl bg-slate-100 shadow-xl">
         {practitioners.map((practitioner) => (
-          <div key={practitioner.id} className="column">
-            <p>{practitioner.surname}</p>
+          <li
+            key={practitioner.id}
+            className="element-praticien m-2 flex items-center  justify-between  rounded-md  shadow"
+          >
+            <p className="nom">{practitioner.surname}</p>
             {practitioner.id && (
-              <div>
+              <div className=" ">
                 <button
+                  className="bouton-options"
                   type="button"
                   onClick={() => toggleOptions(practitioner.id)}
                 >
@@ -139,17 +145,24 @@ function PractitionersList() {
                 )}
               </div>
             )}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       {!showInput && (
-        <button type="button" onClick={() => setShowInput(true)}>
-          <span className="visually-hidden">Ajouter un praticien</span>
+        <button
+          type="button"
+          onClick={() => setShowInput(true)}
+          className="button-wrapperbouton-ajouter-praticien my-4  flex h-fit w-fit items-center justify-center  rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+        >
+          Ajouter un praticien
+          <span className="bouton-ajouter-praticien " />
         </button>
       )}
       {showInput && (
         <div>
-          <label htmlFor="surnameInput">Nom de famille:</label>
+          <label htmlFor="bg " className="étiquette nom-de-famille bg-blue-600">
+            Nom de famille:
+          </label>
           <input
             type="text"
             value={surname}
@@ -162,8 +175,8 @@ function PractitionersList() {
         </div>
       )}
       {practitionerToDelete && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal-suppression">
+          <div className="contenu-modal bg-yellow-400">
             <p>Are you sure you want to delete this practitioner ?</p>
             <div>
               <button type="button" onClick={deletePractitioner}>
