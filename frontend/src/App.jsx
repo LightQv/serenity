@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
-import PatientsManagement from "./pages/admin/AdminPatientsManagement";
+import AdminPatients from "./pages/admin/AdminPatients";
 import AdminPractitioners from "./pages/admin/AdminPractitioners";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         {/* Admin routes */}
         <Route element={<RequireAuth allowedRoles="admin" />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
-          <Route path="admin/patients" element={<PatientsManagement />} />
+          <Route path="admin/patients" element={<AdminPatients />} />
           <Route path="admin/practitioners" element={<AdminPractitioners />} />
           <Route path="admin/protocols" element={<AdminProtocoles />} />
         </Route>
