@@ -36,3 +36,7 @@ export const protocolSchema = Yup.object({
   protocol_name: Yup.string().required("Le protocole doit être nommé."),
   operation_id: Yup.string().required("Une opération doit être sélectionnée."),
 });
+
+export const practitionerSchema = Yup.object({
+  practitioner_name: Yup.string().required("Le praticien doit être nommé."),
+});
