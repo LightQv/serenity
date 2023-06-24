@@ -13,6 +13,7 @@ export default function InsightCard({ title, data, link }) {
         {title}
       </h3>
       <ul className="w-full self-center">
+        {data}
         {/* {data.map((item) => (
           <li
             key={item.id || item.protocol_id}
