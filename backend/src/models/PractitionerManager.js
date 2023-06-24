@@ -18,6 +18,12 @@ class PractitionerManager extends AbstractManager {
       [practitioner.surname, practitioner.id]
     );
   }
+
+  delete(practitioner) {
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
+      practitioner,
+    ]);
+  }
 }
 
 module.exports = PractitionerManager;

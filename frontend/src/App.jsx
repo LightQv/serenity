@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
 import AdminPatients from "./pages/admin/AdminPatients";
+import AdminPractitioners from "./pages/admin/AdminPractitioners";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles="admin" />}>
           <Route path="admin/dashboard" element={<AdminDashboard />} />
           <Route path="admin/patients" element={<AdminPatients />} />
+          <Route path="admin/practitioners" element={<AdminPractitioners />} />
           <Route path="admin/protocols" element={<AdminProtocoles />} />
         </Route>
         {/* User routes */}
