@@ -23,7 +23,7 @@ export default function AddProtocol() {
         setOperations(res.data);
       })
       .catch((err) => {
-        if (err.request.status === 401) {
+        if (err.request?.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
@@ -32,17 +32,18 @@ export default function AddProtocol() {
   // Submit Add Protocol Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (protocolSchema.isValid)
+    if (protocolSchema.isValidSync(protocolInfos))
       try {
         const res = await APIService.post(`/protocols`, protocolInfos);
         if (res) {
           notifySuccess("Le protocole a été ajouté.");
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 401) {
+        if (err.request?.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
+    notifyError("Une erreur dans la saisie.");
   };
 
   const handleChange = async (e) => {
