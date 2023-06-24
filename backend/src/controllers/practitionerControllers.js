@@ -15,10 +15,10 @@ const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.practitioner
-    .findByPk(id)
-    .then((practitioner) => {
-      if (practitioner) {
-        res.send(practitioner);
+    .find(id)
+    .then(([practitioner]) => {
+      if (practitioner[0]) {
+        res.send(practitioner[0]);
       } else {
         res.status(404).send("Practitioner not found");
       }

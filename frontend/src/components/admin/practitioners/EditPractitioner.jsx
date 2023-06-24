@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
@@ -14,14 +14,20 @@ export default function EditPractitioner({
   setSelectedPractitioner,
   setIsShow,
 }) {
+  const [practitionerInfo, setPractitionerInfo] = useState(null);
   const [surname, setSurname] = useState({
     surname: "",
   });
   const [errors, setErrors] = useState(null);
+  useEffect(() => {
+    APIService.get(`/practitioners/${selectedPractitioner}`).then((res) => {
+      setPractitionerInfo(res.data);
+    });
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (practitionerSchema.isValidSync(surname)) {
+    if (practitionerSchema.isValidSync(surname))
       try {
         const res = await APIService.put(
           `/practitioners/${selectedPractitioner}`,
@@ -33,15 +39,17 @@ export default function EditPractitioner({
           setIsShow({ modalB: false });
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 500) {
+        if (err.request?.status === 500) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
-    }
   };
 
   const handleChange = async (e) => {
-    setSurname({ ...surname, [e.target.name]: e.target.value });
+    setSurname({
+      ...surname,
+      [e.target.name]: e.target.value,
+    });
     try {
       const isValid = await practitionerSchema.validate(surname, {
         abortEarly: false,
@@ -49,6 +57,7 @@ export default function EditPractitioner({
       if (isValid) {
         setErrors(null);
       }
+      throw new Error();
     } catch (err) {
       setErrors(err.errors);
     }
@@ -66,14 +75,14 @@ export default function EditPractitioner({
       >
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
-          <label htmlFor="surname" className="mb-2 text-base">
+          <label htmlFor="name" className="mb-2 text-base">
             Nom du praticien
           </label>
           <input
             type="text"
             name="surname"
             id="surname"
-            placeholder="surname"
+            defaultValue={practitionerInfo?.surname}
             required=""
             className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
