@@ -20,23 +20,43 @@ export default function EditProtocol({
     operation_id: "",
   });
   const [errors, setErrors] = useState(null);
+
   // Fetch Operations data
-  useEffect(() => {
+  const fetchOperation = () => {
     APIService.get(`/operations`)
       .then((res) => {
         setOperations(res.data);
       })
       .catch((err) => {
-        if (err.request.status === 401) {
+        if (err.request?.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
+  };
+  // Fetch Protocols data
+  const fetchProtocol = () => {
+    APIService.get(`/protocols/${selectedProtocol}`)
+      .then((res) => {
+        setProtocolInfos({
+          protocol_name: res.data.protocol_name,
+          operation_id: res.data.operation_id,
+        });
+      })
+      .catch((err) => {
+        if (err.request?.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
+  };
+  useEffect(() => {
+    fetchOperation();
+    fetchProtocol();
   }, []);
 
   // Submit Edit Protocol Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (protocolSchema.isValid)
+    if (protocolSchema.isValidSync(protocolInfos))
       try {
         const res = await APIService.put(
           `/protocols/${selectedProtocol}`,
@@ -48,7 +68,7 @@ export default function EditProtocol({
           setIsShow({ modalB: false });
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 500) {
+        if (err.request?.status === 500) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
@@ -72,6 +92,7 @@ export default function EditProtocol({
     }
   };
 
+  if (!operations) return null;
   return (
     <div className="flex flex-col items-center justify-between">
       <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
@@ -91,7 +112,7 @@ export default function EditProtocol({
             type="text"
             name="protocol_name"
             id="protocol_name"
-            placeholder="Nom du protocole"
+            defaultValue={protocolInfos.protocol_name}
             required=""
             className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
@@ -104,6 +125,7 @@ export default function EditProtocol({
           <select
             name="operation_name"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            defaultValue={protocolInfos?.operation_id}
           >
             <option
               value=""
@@ -150,6 +172,6 @@ export default function EditProtocol({
 
 EditProtocol.propTypes = {
   selectedProtocol: PropTypes.number.isRequired,
-  setSelectedProtocol: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedProtocol: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };
