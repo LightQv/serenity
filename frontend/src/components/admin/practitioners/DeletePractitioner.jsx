@@ -58,6 +58,6 @@ export default function DeletePractitioner({
 }
 DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
-  setSelectedPractitioner: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedPractitioner: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

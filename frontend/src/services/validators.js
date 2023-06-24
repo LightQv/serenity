@@ -38,5 +38,5 @@ export const protocolSchema = Yup.object({
 });
 
 export const practitionerSchema = Yup.object({
-  practitioner_name: Yup.string().required("Le praticien doit être nommé."),
+  surname: Yup.string().required("Le praticien doit être nommé."),
 });

@@ -10,12 +10,12 @@ import FormError from "../../FormError";
 
 export default function AddPractitioner() {
   const [surname, setSurname] = useState({
-    practitioner_name: "",
+    surname: "",
   });
   const [errors, setErrors] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (practitionerSchema.isValid)
+    if (practitionerSchema.isValidSync(surname)) {
       try {
         const res = await APIService.post(`/practitioners`, surname);
         if (res) {
@@ -26,6 +26,7 @@ export default function AddPractitioner() {
           notifyError(`${err.request.status} : La requete a échouée`);
         }
       }
+    }
   };
 
   const handleChange = async (e) => {
@@ -63,7 +64,7 @@ export default function AddPractitioner() {
           </label>
           <input
             type="text"
-            name="praticien_name"
+            name="surname"
             id="praticien_id"
             placeholder="Nom du praticien"
             required=""
