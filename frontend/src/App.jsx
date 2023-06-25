@@ -8,6 +8,7 @@ import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
 import AdminPatients from "./pages/admin/AdminPatients";
 import DetailPatient from "./components/admin/patients/DetailPatient";
+import AdminPractitioners from "./pages/admin/AdminPractitioners";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="admin/dashboard" element={<AdminDashboard />} />
           <Route path="admin/patients" element={<AdminPatients />} />
           <Route path="admin/patients/:id" element={<DetailPatient />} />
+          <Route path="admin/practitioners" element={<AdminPractitioners />} />
           <Route path="admin/protocols" element={<AdminProtocoles />} />
         </Route>
         {/* User routes */}
