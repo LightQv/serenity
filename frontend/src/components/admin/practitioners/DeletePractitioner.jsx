@@ -39,7 +39,7 @@ export default function DeletePractitioner({
       <div className="flex gap-2">
         <button
           type="button"
-          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-rose-dark-0 bg-rose-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-rose-light-0 hover:bg-rose-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
+          className="my-4 h-fit w-fit self-center rounded-lg border-2 border-red-500 bg-red-500 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-rose-light-0 hover:bg-rose-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
           onClick={handleDelete}
         >
           Oui

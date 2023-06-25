@@ -5,6 +5,7 @@ import AddPractitioner from "../../components/admin/practitioners/AddPractitione
 import DeletePractitioner from "../../components/admin/practitioners/DeletePractitioner";
 import EditPractitioner from "../../components/admin/practitioners/EditPractitioner";
 import APIService from "../../services/APIService";
+import { notifyError } from "../../services/ToastNotificationService";
 
 export default function AdminPractitioners() {
   const [practitioners, setPractitioners] = useState(null);
@@ -13,15 +14,18 @@ export default function AdminPractitioners() {
     modalB: false,
     modalC: false,
   });
-  const [selectedPractitioner, setSelectedPractitioner] = useState(null);
+  const [selectedPractitioner, setSelectedPractitioner] = useState();
 
   useEffect(() => {
     APIService.get(`/practitioners`)
       .then((res) => setPractitioners(res.data))
-      .catch((error) => console.warn(error));
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
   }, [isShow]);
 
-  if (!practitioners) return null;
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
@@ -36,7 +40,7 @@ export default function AdminPractitioners() {
             <p className="text-xs italic text-gray-500">Interactions</p>
           </div>
         </div>
-        {practitioners.length !== 0 ? (
+        {practitioners && practitioners.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {practitioners.map((practitioner) => (
               <PractitionersList
@@ -59,17 +63,15 @@ export default function AdminPractitioners() {
       </div>
       <div
         className={
-          isShow.modalA ||
-          (isShow.modalB && selectedPractitioner !== "") ||
-          (isShow.modalC && selectedPractitioner !== "")
+          isShow.modalA || isShow.modalB || isShow.modalC
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
-        {isShow.modalA ? (
+        {isShow.modalA && (
           <Modal component={<AddPractitioner />} setIsShow={setIsShow} />
-        ) : null}
-        {isShow.modalB && selectedPractitioner !== "" ? (
+        )}
+        {isShow.modalB && (
           <Modal
             component={
               <EditPractitioner
@@ -80,8 +82,8 @@ export default function AdminPractitioners() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
-        {isShow.modalC && selectedPractitioner !== "" ? (
+        )}
+        {isShow.modalC && (
           <Modal
             component={
               <DeletePractitioner
@@ -92,7 +94,7 @@ export default function AdminPractitioners() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
+        )}
       </div>
     </main>
   );
