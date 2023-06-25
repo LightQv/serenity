@@ -22,6 +22,7 @@ router.get("/api/users", userControllers.browse);
 router.get("/api/users/:id", userControllers.read);
 router.put("/api/users/:id", userControllers.edit);
 router.post("/api/users", validateUser, hashPassword, userControllers.add);
+router.delete("/api/users/:id", userControllers.destroy);
 
 const practitionerControllers = require("./controllers/practitionerControllers");
 
@@ -29,7 +30,7 @@ router.get("/api/practitioners", practitionerControllers.browse);
 router.get("/api/practitioners/:id", practitionerControllers.read);
 router.put("/api/practitioners/:id", practitionerControllers.edit);
 router.post("/api/practitioners", practitionerControllers.add);
-router.delete("/api/practitioners/:id", practitionerControllers.destroy);
+router.delete("/api/practitioners/:id", practitionerControllers.delete);
 
 const interventionControllers = require("./controllers/interventionControllers");
 

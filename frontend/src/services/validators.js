@@ -33,10 +33,16 @@ export const registerSchema = Yup.object({
 });
 
 export const protocolSchema = Yup.object({
-  protocol_name: Yup.string().required("Le protocole doit être nommé."),
+  protocol_name: Yup.string()
+    .min(3, "Minimum 3 caractères")
+    .required("Le protocole doit être nommé."),
   operation_id: Yup.string().required("Une opération doit être sélectionnée."),
 });
 
 export const operationSchema = Yup.object({
   operation_name: Yup.string().required("L'opération doit être nommé."),
+});
+
+export const practitionerSchema = Yup.object({
+  surname: Yup.string().required("Le praticien doit être nommé."),
 });

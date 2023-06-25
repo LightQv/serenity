@@ -39,7 +39,7 @@ const edit = (req, res) => {
     .update(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        res.status(404).send("User not found");
       } else {
         res.sendStatus(204);
       }

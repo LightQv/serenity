@@ -6,24 +6,27 @@ import notifySuccess, {
 } from "../../../services/ToastNotificationService";
 import APIService from "../../../services/APIService";
 
-export default function DeleteProtocol({
-  selectedProtocol,
-  setSelectedProtocol,
+export default function DeletePractitioner({
+  selectedPractitioner,
+  setSelectedPractitioner,
   setIsShow,
 }) {
-  // Submit Delete Protocol Request
   const handleDelete = async () => {
-    try {
-      const res = await APIService.delete(`/protocols/${selectedProtocol}`);
-      if (res) {
-        notifySuccess("Le protocole a bien été supprimé.");
-        setSelectedProtocol();
-        setIsShow({ modalC: false });
-      }
-      throw new Error();
-    } catch (err) {
-      if (err.request?.status === 500) {
-        notifyError("La requête a échouée.");
+    if (selectedPractitioner !== "") {
+      try {
+        const res = await APIService.delete(
+          `/practitioners/${selectedPractitioner}`
+        );
+        if (res) {
+          notifySuccess("Le praticien a bien été supprimé.");
+          setSelectedPractitioner(null);
+          setIsShow({ modalC: false });
+        }
+        throw new Error();
+      } catch (err) {
+        if (err.request?.status === 500) {
+          notifyError("La requête a échouée.");
+        }
       }
     }
   };
@@ -31,7 +34,7 @@ export default function DeleteProtocol({
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
       <h1 className="self-start text-lg font-semibold lg:text-xl">
-        Supprimer ce protocole ?
+        Supprimer ce praticien ?
       </h1>
       <div className="flex gap-2">
         <button
@@ -53,9 +56,8 @@ export default function DeleteProtocol({
     </div>
   );
 }
-
-DeleteProtocol.propTypes = {
-  selectedProtocol: PropTypes.number.isRequired,
-  setSelectedProtocol: PropTypes.func.isRequired,
+DeletePractitioner.propTypes = {
+  selectedPractitioner: PropTypes.number.isRequired,
+  setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
 };
