@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import EyeIcon from "@assets/icon/EyeIcon";
+import EyeIcon from "../../../assets/icon/EyeIcon";
 
 export default function ListPatients({
   patient,
-  setSelectedPatient,
-  setIsShow,
+  // setSelectedPatient,
+  // setIsShow,
 }) {
-  const handleEdit = () => {
-    setSelectedPatient(patient.id);
-    setIsShow({ modalB: true });
-  };
-  const handleDelete = () => {
-    setSelectedPatient(patient.id);
-    setIsShow({ modalC: true });
-  };
+  // const handleEdit = () => {
+  //   setSelectedPatient(patient.id);
+  //   setIsShow({ modalB: true });
+  // };
+  // const handleDelete = () => {
+  //   setSelectedPatient(patient.id);
+  //   setIsShow({ modalC: true });
+  // };
   return (
     <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4 lg:hover:bg-gray-300">
       <div className="flex flex-col">
@@ -44,6 +44,6 @@ ListPatients.propTypes = {
     email: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }).isRequired,
-  setSelectedPatient: PropTypes.func.isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  // setSelectedPatient: PropTypes.func.isRequired,
+  // setIsShow: PropTypes.shape().isRequired,
 };

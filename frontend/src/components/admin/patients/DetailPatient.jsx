@@ -117,7 +117,6 @@ export default function DetailPatient() {
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
-              // onClick={handleEdit}
             >
               <svg
                 className="h-5 w-5 lg:h-6 lg:w-6"
@@ -135,7 +134,6 @@ export default function DetailPatient() {
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
-              // onClick={handleDelete}
             >
               <svg
                 className="h-5 w-5 lg:h-6 lg:w-6"
