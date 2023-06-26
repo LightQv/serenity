@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import OperationsList from "../../components/admin/operations/OperationsList";
+import OperationDetails from "../../components/admin/operations/OperationDetails";
 import Modal from "../../components/admin/Modal";
 import AddOperation from "../../components/admin/operations/AddOperation";
 import EditOperation from "../../components/admin/operations/EditOperation";
@@ -9,9 +9,9 @@ import APIService from "../../services/APIService";
 export default function AdminOperations() {
   const [operations, setOperations] = useState(null);
   const [isShow, setIsShow] = useState({
-    modalA: false,
-    modalB: false,
-    modalC: false,
+    modalAdd: false,
+    modalEdit: false,
+    modalDelete: false,
   });
   const [selectedOperation, setSelectedOperation] = useState();
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function AdminOperations() {
         {operations.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {operations.map((operation) => (
-              <OperationsList
+              <OperationDetails
                 key={operation.operation_id}
                 operation={operation}
                 selectedOperation={selectedOperation}
@@ -51,24 +51,22 @@ export default function AdminOperations() {
         <button
           type="button"
           className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
-          onClick={() => setIsShow({ modalA: true })}
+          onClick={() => setIsShow({ modalAdd: true })}
         >
           Ajouter une opération
         </button>
       </div>
       <div
         className={
-          isShow.modalA ||
-          (isShow.modalB && selectedOperation !== "") ||
-          (isShow.modalC && selectedOperation !== "")
+          isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
-        {isShow.modalA ? (
+        {isShow.modalAdd && (
           <Modal component={<AddOperation />} setIsShow={setIsShow} />
-        ) : null}
-        {isShow.modalB && selectedOperation !== "" ? (
+        )}
+        {isShow.modalEdit && (
           <Modal
             component={
               <EditOperation
@@ -78,8 +76,8 @@ export default function AdminOperations() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
-        {isShow.modalC && selectedOperation !== "" ? (
+        )}
+        {isShow.modalDelete && (
           <Modal
             component={
               <DeleteOperation
@@ -90,7 +88,7 @@ export default function AdminOperations() {
             }
             setIsShow={setIsShow}
           />
-        ) : null}
+        )}
       </div>
     </main>
   );

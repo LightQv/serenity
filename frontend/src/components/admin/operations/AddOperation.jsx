@@ -10,15 +10,14 @@ import FormError from "../../FormError";
 
 export default function AddOperation() {
   const [operationInfos, setOperationInfos] = useState({
-    protocol_name: "",
-    operation_id: "",
+    operation_name: "",
   });
   const [errors, setErrors] = useState(null);
 
   // Submit Add Operation Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (operationSchema.isValid)
+    if (operationSchema.isValidSync(operationInfos)) {
       try {
         const res = await APIService.post(`/operations`, operationInfos);
         if (res) {
@@ -29,6 +28,7 @@ export default function AddOperation() {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
+    } else notifyError("Une erreur dans la saisie");
   };
 
   const handleChange = async (e) => {

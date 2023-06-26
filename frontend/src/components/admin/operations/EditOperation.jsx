@@ -16,14 +16,13 @@ export default function EditOperation({
 }) {
   const [operationInfos, setOperationInfos] = useState({
     operation_name: "",
-    operation_id: "",
   });
   const [errors, setErrors] = useState(null);
 
   // Submit Edit Operation Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (operationSchema.isValid)
+    if (operationSchema.isValidSync(operationInfos)) {
       try {
         const res = await APIService.put(
           `/operations/${selectedOperation}`,
@@ -32,13 +31,14 @@ export default function EditOperation({
         if (res) {
           notifySuccess("L'opération a été modifié.");
           setSelectedOperation();
-          setIsShow({ modalB: false });
+          setIsShow({ modalEdit: false });
         } else throw new Error();
       } catch (err) {
         if (err.request?.status === 500) {
           notifyError("La requête a échouée.");
         }
       }
+    } else notifyError("Une erreur dans la saisie");
   };
 
   const handleChange = async (e) => {

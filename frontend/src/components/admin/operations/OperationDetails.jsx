@@ -1,30 +1,29 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
-export default function OperationsList({
+export default function OperationDetails({
   operation,
   setSelectedOperation,
   setIsShow,
 }) {
   const handleEdit = () => {
     setSelectedOperation(operation.id);
-    setIsShow({ modalB: true });
+    setIsShow({ modalEdit: true });
   };
 
   const handleDelete = () => {
     setSelectedOperation(operation.id);
-    setIsShow({ modalC: true });
+    setIsShow({ modalDelete: true });
   };
   return (
-    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:hover:bg-gray-300">
-      <Link
+    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300">
+      <div
         to={`${operation.id}`}
         className="flex h-full w-full items-center justify-between lg:px-4"
       >
         <p className="line-clamp-1 text-xs font-semibold lg:text-base">
           {operation.operation_name}
         </p>
-      </Link>
+      </div>
       <div className="ml-2 flex gap-2">
         <button
           type="button"
@@ -67,7 +66,7 @@ export default function OperationsList({
   );
 }
 
-OperationsList.propTypes = {
+OperationDetails.propTypes = {
   operation: PropTypes.shape().isRequired,
   setSelectedOperation: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
