@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PatientDetails from "../../components/admin/patients/PatientDetails";
+import PatientInsight from "../../components/admin/patients/PatientInsight";
 import EditPatient from "../../components/admin/patients/EditPatient";
 import DeletePatient from "../../components/admin/patients/DeletePatient";
 import Modal from "../../components/admin/Modal";
@@ -41,7 +41,7 @@ export default function AdminPatients() {
           {listPatients
             .filter((patient) => patient.roles === "user")
             .map((patient) => (
-              <PatientDetails
+              <PatientInsight
                 key={patient.id}
                 patient={patient}
                 selectedPatient={selectedPatient}

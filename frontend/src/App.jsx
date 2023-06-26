@@ -9,7 +9,7 @@ import AdminInterventions from "./pages/admin/AdminInterventions";
 import AdminOperation from "./pages/admin/AdminOperation";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
-import DetailPatient from "./components/admin/patients/DetailPatient";
+import AdminPatientDetails from "./pages/admin/AdminPatientDetails";
 
 function App() {
   return (
@@ -21,13 +21,13 @@ function App() {
       {/* Private routes */}
       {/* Admin routes */}
       <Route element={<RequireAuth allowedRoles="admin" />}>
-        <Route path="admin/dashboard" element={<AdminDashboard />} />
-        <Route path="admin/practitioners" element={<AdminPractitioners />} />
-        <Route path="admin/patients" element={<AdminPatients />} />
-        <Route path="admin/patients/:id" element={<DetailPatient />} />
-        <Route path="admin/interventions" element={<AdminInterventions />} />
-        <Route path="admin/operations" element={<AdminOperation />} />
-        <Route path="admin/protocols" element={<AdminProtocoles />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/practitioners" element={<AdminPractitioners />} />
+        <Route path="/admin/patients" element={<AdminPatients />} />
+        <Route path="/admin/patients/:id" element={<AdminPatientDetails />} />
+        <Route path="/admin/interventions" element={<AdminInterventions />} />
+        <Route path="/admin/operations" element={<AdminOperation />} />
+        <Route path="/admin/protocols" element={<AdminProtocoles />} />
       </Route>
       {/* User routes */}
       <Route element={<RequireAuth allowedRoles="user" />}>
