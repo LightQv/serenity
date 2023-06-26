@@ -77,7 +77,6 @@ export default function AddProtocol() {
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="protocol_name" className="mb-2 text-base">
-          <label htmlFor="protocol_name" className="mb-2 text-base">
             Nom du protocole
           </label>
           <input
@@ -92,7 +91,6 @@ export default function AddProtocol() {
         </div>
         <div className="flex flex-col">
           <label htmlFor="operation_id" className="mb-2 text-base">
-          <label htmlFor="operation_id" className="mb-2 text-base">
             Sélectionner une opération
           </label>
           <select
@@ -104,7 +102,6 @@ export default function AddProtocol() {
             {operations &&
               operations.map((operation) => (
                 <option
-                  name="operation_id"
                   name="operation_id"
                   value={operation.id}
                   key={operation.id}
