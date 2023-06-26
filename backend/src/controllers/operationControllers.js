@@ -18,8 +18,8 @@ const read = (req, res) => {
   models.operation
     .find(id)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
+      if (rows[0]) {
+        res.send(rows[0]);
       } else {
         res.status(404).send("Operation not found");
       }
