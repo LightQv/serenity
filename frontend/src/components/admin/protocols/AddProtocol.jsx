@@ -32,7 +32,7 @@ export default function AddProtocol() {
   // Submit Add Protocol Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (protocolSchema.isValidSync(protocolInfos))
+    if (protocolSchema.isValidSync(protocolInfos)) {
       try {
         const res = await APIService.post(`/protocols`, protocolInfos);
         if (res) {
@@ -43,7 +43,7 @@ export default function AddProtocol() {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
-    notifyError("Une erreur dans la saisie.");
+    } else notifyError("Une erreur dans la saisie.");
   };
 
   const handleChange = async (e) => {
@@ -76,7 +76,7 @@ export default function AddProtocol() {
       >
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
-          <label htmlFor="name" className="mb-2 text-base">
+          <label htmlFor="protocol_name" className="mb-2 text-base">
             Nom du protocole
           </label>
           <input
@@ -90,36 +90,27 @@ export default function AddProtocol() {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="operation_name" className="mb-2 text-base">
+          <label htmlFor="operation_id" className="mb-2 text-base">
             Sélectionner une opération
           </label>
           <select
-            name="operation_name"
+            id="operation_id"
+            name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            onChange={(e) =>
+              setProtocolInfos({
+                ...protocolInfos,
+                operation_id: e.target.value,
+              })
+            }
           >
-            <option
-              value=""
-              onClick={(e) =>
-                setProtocolInfos({
-                  ...protocolInfos,
-                  operation_id: e.target.value,
-                })
-              }
-            >
-              ---
-            </option>
+            <option value="">---</option>
             {operations &&
               operations.map((operation) => (
                 <option
-                  name="operation_name"
+                  name="operation_id"
                   value={operation.id}
                   key={operation.id}
-                  onClick={(e) =>
-                    setProtocolInfos({
-                      ...protocolInfos,
-                      operation_id: e.target.value,
-                    })
-                  }
                 >
                   {operation.operation_name}
                 </option>

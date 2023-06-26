@@ -5,6 +5,12 @@ class OperationManager extends AbstractManager {
     super({ table: "operation" });
   }
 
+  findWithProtocolName() {
+    return this.database.query(
+      `SELECT ope.id AS operation_id, ope.operation_name, pro.id AS protocol_id, pro.protocol_name as protocol_name FROM ${this.table} as ope JOIN protocol as pro ON ope.id = pro.operation_id`
+    );
+  }
+
   insert(operation) {
     return this.database.query(
       `INSERT INTO ${this.table} (operation_name) VALUES (?)`,
