@@ -16,26 +16,15 @@ INSERT INTO
 user (firstname, lastname, email, hashedPassword, phone_number, address_number, address_streetname, city, roles)
 VALUES
 (
-  'John',
-  'Doe',
-  'john.doe@gmail.com',
+  'Marie',
+  'Dutronc',
+  'marie.dutronc@gmail.com',
   '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A',
   '06 43 67 90 32',
   '140',
   'Rue Montesquieu',
   'Lyon',
   'admin'
-),
-(
-  'Christiane',
-  'Roux', 
-  'christiane_roux@hotmail.fr', 
-  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
-  '06 80 26 77 13',
-  '4',
-  'Avenue de Rivoli', 
-  'Besançon', 
-  'user'
 ),
 (
   'Jocelyne', 
@@ -48,7 +37,6 @@ VALUES
   'Champigny-sur-Marne', 
   'user'
 );
-
 
 CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -111,7 +99,7 @@ CREATE TABLE intervention (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   intervention_name VARCHAR(100) NOT NULL,
   date DATE NOT NULL,
-  user_id  INT NOT NULL,
+  user_id INT NOT NULL,
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
   REFERENCES user(id),
@@ -124,6 +112,17 @@ CREATE TABLE intervention (
   FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- INSERT INTO
+-- intervention (intervention_name, date, user_id, protocol_id, practitioner_id)
+-- VALUES
+-- (
+--   'Ligaments croisés jambe gauche',
+--   '2023-10-04',
+--   '1',
+--   '1',
+--   '2'
+-- );
 
 CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -158,4 +157,3 @@ CREATE TABLE programming (
   FOREIGN KEY (intervention_id)
   REFERENCES intervention(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
-

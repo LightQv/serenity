@@ -27,38 +27,39 @@ const migrate = async () => {
 
   // creation des fake datas user
 
-  // const generateRandomusers = (number) => {
-  //   for (let i = 0; i < number; i += 1) {
-  //     const firstname = faker.person.firstName();
-  //     const lastname = faker.person.lastName();
-  //     const email = faker.internet
-  //       .email({ firstName: firstname, lastName: lastname })
-  //       .toLowerCase();
-  //     const hashedPassword = faker.internet.password();
-  //     const phoneNumber = faker.phone.number("06-##-##-##-##");
-  //     const adressStreetname = faker.location.streetAddress();
-  //     const city = faker.location.city();
+  const generateRandomUsers = (number) => {
+    for (let i = 0; i < number; i += 1) {
+      const firstname = faker.person.firstName();
+      const lastname = faker.person.lastName();
+      const email = faker.internet
+        .email({ firstName: firstname, lastName: lastname })
+        .toLowerCase();
+      const hashedPassword =
+        "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A";
+      const phoneNumber = faker.phone.number("06-##-##-##-##");
+      const addressNumber = faker.location.buildingNumber();
+      const addressStreetname = faker.location.street();
+      const city = faker.location.city();
+      const roles = "user";
 
-  //     // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
-  //     const userQuery = `INSERT INTO user (firstname, lastname, email, hashedPassword, phone_number, adress_streetname, city) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${adressStreetname}", "${city}" )`;
-  //     // connection à la bdd avec envoi d'une query
-  //     connection.query(userQuery);
-  //   }
-  // };
-
-  // generateRandomusers(20);
+      // requête sql qui remplace les valeurs par celles qui ont été crées ci dessus
+      const userQuery = `INSERT INTO user (firstname, lastname, email, hashedPassword, phone_number, address_number, address_streetname, city, roles) VALUES ("${firstname}", "${lastname}", "${email}", "${hashedPassword}", "${phoneNumber}", "${addressNumber}", "${addressStreetname}", "${city}", "${roles}")`;
+      // connection à la bdd avec envoi d'une query
+      connection.query(userQuery);
+    }
+  };
+  generateRandomUsers(20);
 
   // création des fakes datas practitioner
 
   const generateRandomPractitioner = (number) => {
     for (let i = 0; i < number; i += 1) {
-      const surname = faker.person.lastName();
+      const surname = `${"Dr."} ${faker.person.lastName()}`;
       const practitionerQuery = `INSERT INTO practitioner (surname) VALUES ("${surname}")`;
       connection.query(practitionerQuery);
     }
   };
-
-  generateRandomPractitioner(10);
+  generateRandomPractitioner(12);
 
   // création des fakes table intervention
 

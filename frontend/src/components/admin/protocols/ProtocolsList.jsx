@@ -8,12 +8,12 @@ export default function ProtocolsList({
 }) {
   const handleEdit = () => {
     setSelectedProtocol(protocol.protocol_id);
-    setIsShow({ modalB: true });
+    setIsShow({ modalEdit: true });
   };
 
   const handleDelete = () => {
     setSelectedProtocol(protocol.protocol_id);
-    setIsShow({ modalC: true });
+    setIsShow({ modalDelete: true });
   };
 
   return (

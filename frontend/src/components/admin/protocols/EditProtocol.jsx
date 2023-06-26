@@ -65,7 +65,7 @@ export default function EditProtocol({
         if (res) {
           notifySuccess("Le protocole a été modifié.");
           setSelectedProtocol();
-          setIsShow({ modalB: false });
+          setIsShow({ modalEdit: false });
         } else throw new Error();
       } catch (err) {
         if (err.request?.status === 500) {
