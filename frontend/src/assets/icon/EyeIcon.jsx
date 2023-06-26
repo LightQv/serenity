@@ -1,13 +1,11 @@
 export default function EyeIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      className="h-5 w-5 lg:h-6 lg:w-6"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect opacity="0.01" x="2" y="2" width="20" height="20" fill="black" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
