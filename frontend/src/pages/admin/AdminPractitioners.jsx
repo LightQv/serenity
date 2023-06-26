@@ -10,9 +10,9 @@ import { notifyError } from "../../services/ToastNotificationService";
 export default function AdminPractitioners() {
   const [practitioners, setPractitioners] = useState(null);
   const [isShow, setIsShow] = useState({
-    modalA: false,
-    modalB: false,
-    modalC: false,
+    modalAdd: false,
+    modalEdit: false,
+    modalDelete: false,
   });
   const [selectedPractitioner, setSelectedPractitioner] = useState();
 
@@ -56,22 +56,22 @@ export default function AdminPractitioners() {
         <button
           type="button"
           className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
-          onClick={() => setIsShow({ modalA: true })}
+          onClick={() => setIsShow({ modalAdd: true })}
         >
           Ajouter un praticien
         </button>
       </div>
       <div
         className={
-          isShow.modalA || isShow.modalB || isShow.modalC
+          isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
-        {isShow.modalA && (
+        {isShow.modalAdd && (
           <Modal component={<AddPractitioner />} setIsShow={setIsShow} />
         )}
-        {isShow.modalB && (
+        {isShow.modalEdit && (
           <Modal
             component={
               <EditPractitioner
@@ -83,7 +83,7 @@ export default function AdminPractitioners() {
             setIsShow={setIsShow}
           />
         )}
-        {isShow.modalC && (
+        {isShow.modalDelete && (
           <Modal
             component={
               <DeletePractitioner

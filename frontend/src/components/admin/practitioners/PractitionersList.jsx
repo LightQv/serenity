@@ -7,12 +7,12 @@ export default function PractitionersList({
 }) {
   const handleEdit = () => {
     setSelectedPractitioner(practitioner.id);
-    setIsShow({ modalB: true });
+    setIsShow({ modalEdit: true });
   };
 
   const handleDelete = () => {
     setSelectedPractitioner(practitioner.id);
-    setIsShow({ modalC: true });
+    setIsShow({ modalDelete: true });
   };
 
   return (
