@@ -6,6 +6,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminPractitioners from "./pages/admin/AdminPractitioners";
 import AdminPatients from "./pages/admin/AdminPatients";
 import AdminInterventions from "./pages/admin/AdminInterventions";
+import AdminOperation from "./pages/admin/AdminOperation";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/admin/practitioners" element={<AdminPractitioners />} />
         <Route path="/admin/patients" element={<AdminPatients />} />
         <Route path="/admin/interventions" element={<AdminInterventions />} />
+        <Route path="admin/operations" element={<AdminOperation />} />
         <Route path="/admin/protocols" element={<AdminProtocoles />} />
       </Route>
       {/* User routes */}

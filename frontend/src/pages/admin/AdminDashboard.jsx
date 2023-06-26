@@ -5,7 +5,7 @@ import { notifyError } from "../../services/ToastNotificationService";
 import StatsCard from "../../components/admin/dashboard/StatsCard";
 import InsightCard from "../../components/admin/dashboard/InsightCard";
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   const { user, logout } = useUserContext();
   const [patients, setPatients] = useState(null);
   const [practitioners, setPractitioners] = useState(null);
