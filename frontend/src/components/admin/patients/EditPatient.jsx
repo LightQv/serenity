@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
@@ -12,6 +13,18 @@ export default function EditPatient({
   setSelectedPatient,
   setIsShow,
 }) {
+  const { id } = useParams();
+  const [patientInfo, setPatientInfo] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    phone_number: "",
+    address_number: "",
+    address_streetname: "",
+    city: "",
+    roles: "user",
+  });
   const [editPatient, setEditPatient] = useState({
     firstname: "",
     lastname: "",
@@ -23,7 +36,16 @@ export default function EditPatient({
     city: "",
     roles: "user",
   });
+
   const [passwordVerify, setPasswordVerify] = useState("");
+
+  useEffect(() => {
+    APIService.get(`/users/${id}`)
+      .then((res) => {
+        setPatientInfo(res.data);
+      })
+      .catch((error) => notifyError(`${error}"La requête a échoué"}`));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +64,7 @@ export default function EditPatient({
         setIsShow({ modalB: false });
       } else throw new Error();
     } catch (err) {
-      if (err.request.status === 401) {
+      if (err.request.status === 500) {
         notifyError(`${err.request.status} : La requete a échouée.`);
       }
     }
@@ -52,13 +74,14 @@ export default function EditPatient({
     if (e.target.name === "password_verify") {
       setPasswordVerify(e.target.value);
     } else {
-      setEditPatient({
-        ...editPatient,
-        [e.target.name]: e.target.value,
-      });
+      const { name, value } = e.target;
+      setEditPatient((prevPatient) => ({
+        ...prevPatient,
+        [name]: value,
+      }));
     }
   };
-
+  if (!patientInfo) return null;
   return (
     <div className="flex flex-col items-center justify-between p-10 align-middle">
       <div className="flex">
@@ -93,7 +116,7 @@ export default function EditPatient({
             type="text"
             name="lastname"
             id="lastname"
-            value={editPatient.name}
+            defaultValue={patientInfo.lastname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -107,7 +130,7 @@ export default function EditPatient({
             type="text"
             name="firstname"
             id="firstname"
-            value={editPatient.firstname}
+            defaultValue={patientInfo.firstname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -121,7 +144,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            value={editPatient.address_number}
+            defaultValue={patientInfo.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
@@ -134,7 +157,7 @@ export default function EditPatient({
             type="text"
             name="address_streetname"
             id="address_streetname"
-            value={editPatient.address_streetname}
+            defaultValue={patientInfo.address_streetname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -148,7 +171,7 @@ export default function EditPatient({
             type="text"
             name="city"
             id="city"
-            value={editPatient.city}
+            defaultValue={patientInfo.city}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -162,7 +185,7 @@ export default function EditPatient({
             type="email"
             name="email"
             id="email"
-            value={editPatient.email}
+            defaultValue={patientInfo.email}
             required="required"
             className=" mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -176,7 +199,7 @@ export default function EditPatient({
             type="password"
             name="password"
             id="password"
-            value={editPatient.password}
+            defaultValue={patientInfo.password}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -203,7 +226,7 @@ export default function EditPatient({
             type="tel"
             name="phone_number"
             id="phone_number"
-            value={editPatient.phone_number}
+            defaultValue={patientInfo.phone_number}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
