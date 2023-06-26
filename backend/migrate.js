@@ -61,24 +61,6 @@ const migrate = async () => {
   };
   generateRandomPractitioner(12);
 
-  // création des fakes table intervention
-
-  // const generateRandomInterventions = (number) => {
-  //   for (let i = 0; i < number; i += 1) {
-  //     const dateFaked = faker.date.between({
-  //       from: "2020-01-01",
-  //       to: "2020-02-01",
-  //     });
-  //     const dateToInsert = `${dateFaked.getFullYear()}-${dateFaked.getMonth()+1}-${dateFaked.getDate()}`;
-  //     const userId = faker.number.int({ min: 1, max: 20 });
-
-  //     const interventionQuery = `INSERT INTO intervention (date, user_id) VALUES ("${dateToInsert}", "${userId}" )`;
-
-  //     connection.query(interventionQuery);
-  //   }
-  // };
-
-  // generateRandomInterventions(20);
   connection.end();
 };
 

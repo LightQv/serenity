@@ -39,7 +39,7 @@ export default function EditPatient({
       if (res) {
         notifySuccess("Le patient a été modifié");
         setSelectedPatient();
-        setIsShow({ modalB: false });
+        setIsShow({ modalEdit: false });
       } else throw new Error();
     } catch (err) {
       if (err.request.status === 401) {

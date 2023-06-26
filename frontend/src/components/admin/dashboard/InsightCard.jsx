@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function InsightCard({ title, data, link }) {
-  function getInfos(item) {
+  function getPrimaryInfo(item) {
     if (item.surname) return item.surname;
-    if (item.email) return `${item.firstname} ${item.lastname}`;
-    if (item.date) return item.intervention_name;
+    if (item.firstname) return `${item.firstname} ${item.lastname}`;
+    if (item.intervention_name) return item.intervention_name;
     return null;
   }
-  function getDetails(item) {
+  function getSecondaryInfo(item) {
     if (item.email) return item.email;
     if (item.date) {
       const date = new Date(item.date);
@@ -32,9 +32,9 @@ export default function InsightCard({ title, data, link }) {
             className="flex h-12 w-full list-none flex-col items-start justify-center border-b-[1px] border-slate-200 transition-all lg:h-[4.5rem] lg:justify-center lg:border-gray-300 lg:px-4"
           >
             <p className="line-clamp-1 text-base font-bold lg:text-lg">
-              {getInfos(item)}
+              {getPrimaryInfo(item)}
             </p>
-            <p className="text-xs">{getDetails(item)}</p>
+            <p className="text-xs">{getSecondaryInfo(item)}</p>
           </li>
         ))}
       </ul>

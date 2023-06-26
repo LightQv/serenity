@@ -56,7 +56,7 @@ export default function EditProtocol({
   // Submit Edit Protocol Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (protocolSchema.isValidSync(protocolInfos))
+    if (protocolSchema.isValidSync(protocolInfos)) {
       try {
         const res = await APIService.put(
           `/protocols/${selectedProtocol}`,
@@ -72,6 +72,7 @@ export default function EditProtocol({
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
+    } else notifyError("Une erreur dans la saisie.");
   };
 
   const handleChange = async (e) => {
@@ -158,6 +159,7 @@ export default function EditProtocol({
         </div>
         <div className="flex items-center justify-center">
           <button
+            disabled={!protocolSchema.isValidSync(protocolInfos)}
             type="submit"
             className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
           >

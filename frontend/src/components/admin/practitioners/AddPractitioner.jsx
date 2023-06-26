@@ -74,6 +74,7 @@ export default function AddPractitioner() {
         </div>
         <div className="flex items-center justify-center">
           <button
+            disabled={!practitionerSchema.isValidSync(surname)}
             type="submit"
             className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
           >
