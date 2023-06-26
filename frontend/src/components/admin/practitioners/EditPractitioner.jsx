@@ -36,7 +36,7 @@ export default function EditPractitioner({
         if (res) {
           notifySuccess("Le praticien a été modifié.");
           setSelectedPractitioner();
-          setIsShow({ modalB: false });
+          setIsShow({ modalEdit: false });
         } else throw new Error();
       } catch (err) {
         if (err.request?.status === 500) {
