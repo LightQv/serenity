@@ -56,7 +56,7 @@ export default function EditProtocol({
   // Submit Edit Protocol Request
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (protocolSchema.isValidSync(protocolInfos))
+    if (protocolSchema.isValidSync(protocolInfos)) {
       try {
         const res = await APIService.put(
           `/protocols/${selectedProtocol}`,
@@ -72,6 +72,7 @@ export default function EditProtocol({
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
+    } else notifyError("Une erreur dans la saisie.");
   };
 
   const handleChange = async (e) => {
