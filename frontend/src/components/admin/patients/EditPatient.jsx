@@ -60,29 +60,15 @@ export default function EditPatient({
   };
 
   return (
-    <div className="flex flex-col items-center justify-between p-10 align-middle">
+    <div className="flex flex-col justify-between p-10 align-middle">
       <div className="flex">
-        <h1 className="mb-2 mt-0 text-lg font-extrabold text-violet-dark-0 lg:mb-8">
-          Modifier un patient
+        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+          Modifier ce patient ?
         </h1>
-        <div className="hidden lg:ml-5 lg:block">
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-7 w-7"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M17.5 7.5C17.5 4.46243 15.0376 2 12 2C8.96243 2 6.5 4.46243 6.5 7.5V10.2C6.5 13.2376 8.96243 15.7 12 15.7C15.0376 15.7 17.5 13.2376 17.5 10.2V7.5ZM6.94257 15.8463C6.83726 15.8089 6.79237 15.7695 6.82249 15.7262C6.33308 15.2275 5.92625 14.6577 5.62217 14.0352C3.21131 15.1678 2 17.5534 2 21V22H21.9371L21.9862 21.0518C22.1458 17.9739 20.9108 15.6044 18.3557 14.0807C18.0445 14.7043 17.6299 15.2744 17.1336 15.7717C17.1287 15.8148 17.0865 15.8544 17.0101 15.891C15.7389 17.0996 13.9639 17.85 12 17.85C10.0123 17.85 8.21802 17.0813 6.94257 15.8463Z"
-            />
-          </svg>
-        </div>
       </div>
       <form
         action="addProtocol"
-        className="grid grid-cols-1 content-center  lg:grid-cols-2  lg:gap-8"
+        className="grid grid-cols-1 content-center items-center lg:grid-cols-2  lg:gap-8"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col ">
@@ -211,7 +197,7 @@ export default function EditPatient({
         </div>
         <button
           type="submit"
-          className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
+          className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
         >
           Modifier
         </button>
