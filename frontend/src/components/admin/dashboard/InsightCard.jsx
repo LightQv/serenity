@@ -3,24 +3,38 @@ import PropTypes from "prop-types";
 
 export default function InsightCard({ title, data, link }) {
   function getInfos(item) {
-    if (item.surname) return `Dr. ${item.surname}`;
+    if (item.surname) return item.surname;
     if (item.email) return `${item.firstname} ${item.lastname}`;
-    if (item.protocol_id) return item.protocol_name;
+    if (item.date) return item.intervention_name;
+    return null;
+  }
+  function getDetails(item) {
+    if (item.email) return item.email;
+    if (item.date) {
+      const date = new Date(item.date);
+      return date.toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
     return null;
   }
   return (
     <div className="flex flex-col justify-center rounded-xl bg-gray-200 p-4 shadow-xl lg:px-6">
-      <h3 className="mb-2 self-start text-sm font-semibold lg:text-xl">
+      <h3 className="mb-2 self-start text-base font-semibold lg:text-xl">
         {title}
       </h3>
       <ul className="w-full self-center">
         {data.map((item) => (
           <li
-            key={item.id || item.protocol_id}
-            className="flex h-fit w-full list-none flex-col items-start justify-between border-b-[1px] border-slate-200 transition-all lg:h-[4.5rem] lg:justify-center lg:border-gray-300 lg:px-4"
+            key={item.id}
+            className="flex h-12 w-full list-none flex-col items-start justify-center border-b-[1px] border-slate-200 transition-all lg:h-[4.5rem] lg:justify-center lg:border-gray-300 lg:px-4"
           >
-            <p className="text-lg font-bold lg:text-lg">{getInfos(item)}</p>
-            <p className="text-xs">{item.email}</p>
+            <p className="line-clamp-1 text-base font-bold lg:text-lg">
+              {getInfos(item)}
+            </p>
+            <p className="text-xs">{getDetails(item)}</p>
           </li>
         ))}
       </ul>
@@ -38,8 +52,8 @@ export default function InsightCard({ title, data, link }) {
 
 InsightCard.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.shape({
+  data: PropTypes.arrayOf({
     surname: PropTypes.string.isRequired,
-  }).map.isRequired,
+  }).isRequired,
   link: PropTypes.string.isRequired,
 };

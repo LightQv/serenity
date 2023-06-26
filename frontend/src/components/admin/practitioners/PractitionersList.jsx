@@ -18,7 +18,7 @@ export default function PractitionersList({
   return (
     <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4 lg:hover:bg-gray-300">
       <p className="line-clamp-1 text-xs font-semibold lg:text-base">
-        Dr. {practitioner.surname}
+        {practitioner.surname}
       </p>
       <div className="ml-2 flex gap-2">
         <button
