@@ -14,7 +14,6 @@ export default function AdminOperations() {
     modalC: false,
   });
   const [selectedOperation, setSelectedOperation] = useState();
-
   useEffect(() => {
     APIService.get(`/operations`)
       .then((res) => setOperations(res.data))
