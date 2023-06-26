@@ -31,6 +31,7 @@ export default function AdminOperations() {
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
           <p className="text-sm lg:pr-[7.5rem]">Nom de l'opération</p>
+          <p className="text-xs italic text-gray-500">Interactions</p>
         </div>
         {operations.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">

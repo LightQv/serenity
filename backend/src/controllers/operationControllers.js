@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.operation
-    .findWithProtocolName()
+    .findAll()
     .then(([rows]) => {
       res.send(rows);
     })
@@ -50,10 +50,10 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const operation = req.body;
+  const newOperation = req.body;
 
   models.operation
-    .insert(operation)
+    .insert(newOperation)
     .then(([result]) => {
       res.location(`/operations/${result.insertId}`).sendStatus(201);
     })
