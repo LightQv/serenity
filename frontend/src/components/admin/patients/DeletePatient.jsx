@@ -29,7 +29,7 @@ export default function DeletePatient({
 
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
-      <h1 className="self-start text-lg font-semibold lg:text-xl">
+      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
         Supprimer ce patient ?
       </h1>
       <div className="flex gap-2">
