@@ -39,7 +39,7 @@ export default function EditPatient({
       if (res) {
         notifySuccess("Le patient a été modifié");
         setSelectedPatient();
-        setIsShow({ modalB: false });
+        setIsShow({ modalEdit: false });
       } else throw new Error();
     } catch (err) {
       if (err.request.status === 401) {
@@ -211,7 +211,7 @@ export default function EditPatient({
         </div>
         <button
           type="submit"
-          className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-base text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
+          className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
         >
           Modifier
         </button>
