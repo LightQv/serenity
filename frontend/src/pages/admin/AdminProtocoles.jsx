@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProtocolsList from "../../components/admin/protocols/ProtocolsList";
+import ProtocolDetails from "../../components/admin/protocols/ProtocolDetails";
 import Modal from "../../components/admin/Modal";
 import AddProtocol from "../../components/admin/protocols/AddProtocol";
 import EditProtocol from "../../components/admin/protocols/EditProtocol";
@@ -44,7 +44,7 @@ export default function AdminProtocoles() {
         {protocols && protocols.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {protocols.map((protocol) => (
-              <ProtocolsList
+              <ProtocolDetails
                 key={protocol.protocol_id}
                 protocol={protocol}
                 selectedProtocol={selectedProtocol}

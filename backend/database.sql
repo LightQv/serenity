@@ -113,17 +113,6 @@ CREATE TABLE intervention (
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- INSERT INTO
--- intervention (intervention_name, date, user_id, protocol_id, practitioner_id)
--- VALUES
--- (
---   'Ligaments croisés jambe gauche',
---   '2023-10-04',
---   '1',
---   '1',
---   '2'
--- );
-
 CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   protocol_item_name VARCHAR(100) NOT NULL,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PractitionersList from "../../components/admin/practitioners/PractitionersList";
+import PractitionerDetails from "../../components/admin/practitioners/PractitionerDetails";
 import Modal from "../../components/admin/Modal";
 import AddPractitioner from "../../components/admin/practitioners/AddPractitioner";
 import DeletePractitioner from "../../components/admin/practitioners/DeletePractitioner";
@@ -43,7 +43,7 @@ export default function AdminPractitioners() {
         {practitioners && practitioners.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {practitioners.map((practitioner) => (
-              <PractitionersList
+              <PractitionerDetails
                 key={practitioner.id}
                 practitioner={practitioner}
                 selectedPractitioner={selectedPractitioner}

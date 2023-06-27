@@ -94,15 +94,9 @@ export default function AddProtocol() {
             Sélectionner une opération
           </label>
           <select
-            id="operation_id"
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-            onChange={(e) =>
-              setProtocolInfos({
-                ...protocolInfos,
-                operation_id: e.target.value,
-              })
-            }
+            onChange={handleChange}
           >
             <option value="">---</option>
             {operations &&
@@ -119,6 +113,7 @@ export default function AddProtocol() {
         </div>
         <div className="flex items-center justify-center">
           <button
+            disabled={!protocolSchema.isValidSync(protocolInfos)}
             type="submit"
             className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
           >
