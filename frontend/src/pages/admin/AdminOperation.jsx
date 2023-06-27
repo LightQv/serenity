@@ -1,64 +1,59 @@
 import React, { useEffect, useState } from "react";
-import PractitionersList from "../../components/admin/practitioners/PractitionersList";
+import OperationDetails from "../../components/admin/operations/OperationDetails";
 import Modal from "../../components/admin/Modal";
-import AddPractitioner from "../../components/admin/practitioners/AddPractitioner";
-import DeletePractitioner from "../../components/admin/practitioners/DeletePractitioner";
-import EditPractitioner from "../../components/admin/practitioners/EditPractitioner";
+import AddOperation from "../../components/admin/operations/AddOperation";
+import EditOperation from "../../components/admin/operations/EditOperation";
+import DeleteOperation from "../../components/admin/operations/DeleteOperation";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/ToastNotificationService";
 
-export default function AdminPractitioners() {
-  const [practitioners, setPractitioners] = useState(null);
+export default function AdminOperations() {
+  const [operations, setOperations] = useState(null);
   const [isShow, setIsShow] = useState({
     modalAdd: false,
     modalEdit: false,
     modalDelete: false,
   });
-  const [selectedPractitioner, setSelectedPractitioner] = useState();
-
+  const [selectedOperation, setSelectedOperation] = useState();
   useEffect(() => {
-    APIService.get(`/practitioners`)
-      .then((res) => setPractitioners(res.data))
-      .catch((err) => {
-        if (err.request.status === 401) {
-          notifyError(`${err.request.status} : La requete a échouée.`);
-        }
-      });
+    APIService.get(`/operations`)
+      .then((res) => setOperations(res.data))
+      .catch((error) => console.warn(error));
   }, [isShow]);
 
+  if (!operations) return null;
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
         <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
-          Gestion des praticiens
+          Gestion des operations
         </h3>
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
-          <p className="text-sm">Nom du praticien</p>
-          <div className="flex items-center gap-2 lg:pr-3">
-            <p className="text-xs italic text-gray-500">Interactions</p>
-          </div>
+          <p className="text-sm lg:pr-[7.5rem]">Nom de l'opération</p>
+          <p className="text-xs italic text-gray-500">Interactions</p>
         </div>
-        {practitioners && practitioners.length !== 0 ? (
+        {operations.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
-            {practitioners.map((practitioner) => (
-              <PractitionersList
-                key={practitioner.id}
-                practitioner={practitioner}
-                selectedPractitioner={selectedPractitioner}
-                setSelectedPractitioner={setSelectedPractitioner}
+            {operations.map((operation) => (
+              <OperationDetails
+                key={operation.operation_id}
+                operation={operation}
+                selectedOperation={selectedOperation}
+                setSelectedOperation={setSelectedOperation}
                 setIsShow={setIsShow}
               />
             ))}
           </ul>
-        ) : null}
+        ) : (
+          <p className="self-center text-xs">Aucun opération disponible.</p>
+        )}
         <button
           type="button"
           className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-8"
           onClick={() => setIsShow({ modalAdd: true })}
         >
-          Ajouter un praticien
+          Ajouter une opération
         </button>
       </div>
       <div
@@ -69,15 +64,14 @@ export default function AdminPractitioners() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddPractitioner />} setIsShow={setIsShow} />
+          <Modal component={<AddOperation />} setIsShow={setIsShow} />
         )}
         {isShow.modalEdit && (
           <Modal
             component={
-              <EditPractitioner
-                selectedPractitioner={selectedPractitioner}
-                setSelectedPractitioner={setSelectedPractitioner}
-                setIsShow={setIsShow}
+              <EditOperation
+                selectedOperation={selectedOperation}
+                setSelectedOperation={setSelectedOperation}
               />
             }
             setIsShow={setIsShow}
@@ -86,9 +80,9 @@ export default function AdminPractitioners() {
         {isShow.modalDelete && (
           <Modal
             component={
-              <DeletePractitioner
-                selectedPractitioner={selectedPractitioner}
-                setSelectedPractitioner={setSelectedPractitioner}
+              <DeleteOperation
+                selectedOperation={selectedOperation}
+                setSelectedOperation={setSelectedOperation}
                 setIsShow={setIsShow}
               />
             }

@@ -18,10 +18,10 @@ const read = (req, res) => {
   models.operation
     .find(id)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
+      if (rows[0]) {
         res.send(rows[0]);
+      } else {
+        res.status(404).send("Operation not found");
       }
     })
     .catch((err) => {
@@ -50,12 +50,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const operation = req.body;
+  const newOperation = req.body;
 
   models.operation
-    .insert(operation)
+    .insert(newOperation)
     .then(([result]) => {
-      res.location(`/api/operations/${result.insertId}`).sendStatus(201);
+      res.location(`/operations/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);

@@ -1,25 +1,29 @@
 import PropTypes from "prop-types";
 
-export default function PractitionersList({
-  practitioner,
-  setSelectedPractitioner,
+export default function OperationDetails({
+  operation,
+  setSelectedOperation,
   setIsShow,
 }) {
   const handleEdit = () => {
-    setSelectedPractitioner(practitioner.id);
+    setSelectedOperation(operation.id);
     setIsShow({ modalEdit: true });
   };
 
   const handleDelete = () => {
-    setSelectedPractitioner(practitioner.id);
+    setSelectedOperation(operation.id);
     setIsShow({ modalDelete: true });
   };
-
   return (
-    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4 lg:hover:bg-gray-300">
-      <p className="line-clamp-1 text-xs font-semibold lg:text-base">
-        {practitioner.surname}
-      </p>
+    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300">
+      <div
+        to={`${operation.id}`}
+        className="flex h-full w-full items-center justify-between lg:px-4"
+      >
+        <p className="line-clamp-1 text-xs font-semibold lg:text-base">
+          {operation.operation_name}
+        </p>
+      </div>
       <div className="ml-2 flex gap-2">
         <button
           type="button"
@@ -62,8 +66,8 @@ export default function PractitionersList({
   );
 }
 
-PractitionersList.propTypes = {
-  practitioner: PropTypes.shape().isRequired,
-  setSelectedPractitioner: PropTypes.func.isRequired,
+OperationDetails.propTypes = {
+  operation: PropTypes.shape().isRequired,
+  setSelectedOperation: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
 };
