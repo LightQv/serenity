@@ -18,7 +18,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loginSchema.isValidSync(userInfos))
+    if (loginSchema.isValidSync(userInfos)) {
       try {
         const res = await APIService.post(`/login`, userInfos);
         if (res) {
@@ -32,6 +32,7 @@ export default function Login() {
           notifyError("Email et/ou Mot de passe invalide.");
         }
       }
+    } else notifyError("Un des champs est invalide.");
   };
 
   const handleChange = async (e) => {
