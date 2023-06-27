@@ -8,28 +8,28 @@ export const loginSchema = Yup.object({
 });
 
 export const registerSchema = Yup.object({
-  firstname: Yup.string()
-    .min(3, "Prénom doit contenir 3 caractères minimum")
-    .max(30, "Prénom doit contenir 30 caractères maximum"),
   lastname: Yup.string()
-    .min(3, "Nom de famille doit contenir 3 caractères minimum")
-    .max(30, "Nom de famille doit contenir 30 caractères maximum"),
+    .min(3, "Le nom de famille doit contenir 3 caractères minimum.")
+    .max(30, "Le nom de famille doit contenir 30 caractères maximum."),
+  firstname: Yup.string()
+    .min(3, "Le prénom doit contenir 3 caractères minimum.")
+    .max(30, "Le prénom doit contenir 30 caractères maximum."),
   email: Yup.string()
-    .max(255, "Email doit contenir 255 caractères maximum")
-    .email("Un email valide est requis"),
+    .max(255, "L'email doit contenir 255 caractères maximum.")
+    .email("Un email valide est requis."),
   password: Yup.string()
-    .min(7, "Minimum 7 caractères")
-    .max(30, "Mot de passe doit contenir 30 caractères maximum"),
-  phone_number: Yup.number()
-    .min(10, "Numéro de téléphone doit contenir 10 chiffres")
-    .max(10, "Numéro de téléphone doit contenir 10 chiffres"),
-  address_number: Yup.number().nullable,
+    .min(7, "Le mot de passe doit contenir 7 caractères minimum.")
+    .max(30, "Le mot de passe doit contenir 30 caractères maximum."),
+  phone_number: Yup.string()
+    .min(10, "Le numéro de téléphone doit contenir 10 chiffres.")
+    .max(10, "Numéro de téléphone doit contenir 10 chiffres."),
+  address_number: Yup.string().nullable(),
   address_streetname: Yup.string()
-    .min(3, "Adresse doit contenir au moins 3 caractères")
-    .max(100, "Adresse doit contenir moins de 100 caractères"),
+    .min(3, "L'adresse doit contenir au moins 3 caractères.")
+    .max(100, "L'adresse doit contenir moins de 100 caractères."),
   city: Yup.string()
-    .min(3, "Ville doit contenir plus de 3 caractères")
-    .max(100, "Ville doit contenir moins de 100 caractères"),
+    .min(3, "La ville doit contenir 3 caractères minimum.")
+    .max(100, "La ville doit contenir moins de 100 caractères."),
 });
 
 export const protocolSchema = Yup.object({

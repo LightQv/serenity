@@ -6,11 +6,18 @@ import { notifyError } from "../../services/ToastNotificationService";
 import APIService from "../../services/APIService";
 import EditSvg from "../../components/svg/EditSvg";
 import DeleteSvg from "../../components/svg/DeleteSvg";
+import Modal from "../../components/admin/Modal";
+import EditPatient from "../../components/admin/patients/EditPatient";
+import DeletePatient from "../../components/admin/patients/DeletePatient";
 
 export default function AdminPatientDetails() {
   const [patient, setPatient] = useState(null);
-
   const { id } = useParams();
+  const [isShow, setIsShow] = useState({
+    modalEdit: false,
+    modalDelete: false,
+  });
+  const [selectedPatient, setSelectedPatient] = useState();
 
   useEffect(() => {
     APIService.get(`/users/${id}`)
@@ -95,6 +102,37 @@ export default function AdminPatientDetails() {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={
+          isShow.modalEdit || isShow.modalDelete
+            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
+            : "hidden"
+        }
+      >
+        {isShow.modalEdit && (
+          <Modal
+            component={
+              <EditPatient
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
+              />
+            }
+            setIsShow={setIsShow}
+          />
+        )}
+        {isShow.modalDelete && (
+          <Modal
+            component={
+              <DeletePatient
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
+                setIsShow={setIsShow}
+              />
+            }
+            setIsShow={setIsShow}
+          />
+        )}
       </div>
       <ToastContainer limit={1} />
     </main>
