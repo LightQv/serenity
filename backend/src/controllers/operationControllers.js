@@ -1,7 +1,7 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.item
+  models.operation
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -13,13 +13,15 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.item
-    .find(req.params.id)
+  const id = parseInt(req.params.id, 10);
+
+  models.operation
+    .find(id)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
+      if (rows[0]) {
         res.send(rows[0]);
+      } else {
+        res.status(404).send("Operation not found");
       }
     })
     .catch((err) => {
@@ -29,14 +31,11 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const item = req.body;
+  const operation = req.body;
+  operation.id = parseInt(req.params.id, 10);
 
-  // TODO validations (length, format...)
-
-  item.id = parseInt(req.params.id, 10);
-
-  models.item
-    .update(item)
+  models.operation
+    .update(operation)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -51,14 +50,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const item = req.body;
+  const newOperation = req.body;
 
-  // TODO validations (length, format...)
-
-  models.item
-    .insert(item)
+  models.operation
+    .insert(newOperation)
     .then(([result]) => {
-      res.location(`/items/${result.insertId}`).sendStatus(201);
+      res.location(`/operations/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -67,8 +64,10 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.item
-    .delete(req.params.id)
+  const id = parseInt(req.params.id, 10);
+
+  models.operation
+    .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
