@@ -175,33 +175,6 @@ export default function EditPatient({
             onChange={handleChange}
           />
         </div>
-        <div className="flex flex-col ">
-          <label htmlFor="password" className="text-base font-bold">
-            Mot de passe
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            defaultValue={patientInfo.password}
-            required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="password_verify" className="text-base font-bold">
-            Confirmation du mot de passe
-          </label>
-          <input
-            type="password"
-            name="password_verify"
-            id="password_verify"
-            required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
         <div className="flex flex-col">
           <label htmlFor="téléphone" className=" grid text-base font-bold">
             Téléphone
