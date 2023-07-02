@@ -13,73 +13,53 @@ export default function EditPatient({
   setIsShow,
 }) {
   const [patientInfo, setPatientInfo] = useState({
-    firstname: "",
     lastname: "",
+    firstname: "",
     email: "",
-    password: "",
     phone_number: "",
     address_number: "",
     address_streetname: "",
     city: "",
     roles: "user",
   });
-  const [editPatient, setEditPatient] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    phone_number: "",
-    address_number: "",
-    address_streetname: "",
-    city: "",
-    roles: "user",
-  });
-
-  const [passwordVerify, setPasswordVerify] = useState("");
 
   useEffect(() => {
     APIService.get(`/users/${selectedPatient}`)
       .then((res) => {
+        console.log(selectedPatient);
         setPatientInfo(res.data);
       })
-      .catch((error) => notifyError(`${error}"La requête a échoué"}`));
+      .catch((error) => notifyError(`${error}"La requête a échoué"`));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editPatient.password !== passwordVerify) {
-      notifyError("Les mots de passe ne correspondent pas");
-      return;
-    }
     try {
+      delete patientInfo.hashedPassword;
       const res = await APIService.put(
         `/users/${selectedPatient}`,
-        editPatient
+        patientInfo
       );
+      console.log(selectedPatient);
       if (res) {
         notifySuccess("Le patient a été modifié");
         setSelectedPatient();
         setIsShow({ modalEdit: false });
       } else throw new Error();
     } catch (err) {
-      if (err.request.status === 500) {
+      if (err.request?.status === 500) {
         notifyError(`${err.request.status} : La requete a échouée.`);
       }
     }
   };
 
   const handleChange = async (e) => {
-    if (e.target.name === "password_verify") {
-      setPasswordVerify(e.target.value);
-    } else {
-      const { name, value } = e.target;
-      setEditPatient((prevPatient) => ({
-        ...prevPatient,
-        [name]: value,
-      }));
-    }
+    setPatientInfo({
+      ...patientInfo,
+      [e.target.name]: e.target.value,
+    });
   };
-  if (!patientInfo) return null;
+
   return (
     <div className="flex flex-col justify-between p-10 align-middle">
       <div className="flex">
@@ -128,7 +108,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            defaultValue={patientInfo.address_number}
+            defaultValue={patientInfo?.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />

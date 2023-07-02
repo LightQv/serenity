@@ -18,12 +18,20 @@ export default function AdminPatientDetails() {
     modalDelete: false,
   });
   const [selectedPatient, setSelectedPatient] = useState();
+  const handleEdit = () => {
+    setSelectedPatient(patient.id);
+    setIsShow({ modalEdit: true });
+  };
+  const handleDelete = () => {
+    setSelectedPatient(patient.id);
+    setIsShow({ modalDelete: true });
+  };
 
   useEffect(() => {
     APIService.get(`/users/${id}`)
       .then((response) => setPatient(response.data))
       .catch((error) => notifyError(`${error}"La requête a échoué"}`));
-  }, []);
+  }, [patient]);
 
   if (!patient) return null;
   return (
@@ -42,12 +50,14 @@ export default function AdminPatientDetails() {
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+              onClick={handleEdit}
             >
               <EditSvg />
             </button>
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+              onClick={handleDelete}
             >
               <DeleteSvg />
             </button>
