@@ -32,6 +32,28 @@ export const registerSchema = Yup.object({
     .max(100, "La ville doit contenir moins de 100 caractères."),
 });
 
+export const patientSchema = Yup.object({
+  lastname: Yup.string()
+    .min(3, "Le nom de famille doit contenir 3 caractères minimum.")
+    .max(30, "Le nom de famille doit contenir 30 caractères maximum."),
+  firstname: Yup.string()
+    .min(3, "Le prénom doit contenir 3 caractères minimum.")
+    .max(30, "Le prénom doit contenir 30 caractères maximum."),
+  email: Yup.string()
+    .max(255, "L'email doit contenir 255 caractères maximum.")
+    .email("Un email valide est requis."),
+  phone_number: Yup.string()
+    .min(10, "Le numéro de téléphone doit contenir 10 chiffres.")
+    .max(10, "Numéro de téléphone doit contenir 10 chiffres."),
+  address_number: Yup.string().nullable(),
+  address_streetname: Yup.string()
+    .min(3, "L'adresse doit contenir au moins 3 caractères.")
+    .max(100, "L'adresse doit contenir moins de 100 caractères."),
+  city: Yup.string()
+    .min(3, "La ville doit contenir 3 caractères minimum.")
+    .max(100, "La ville doit contenir moins de 100 caractères."),
+});
+
 export const protocolSchema = Yup.object({
   protocol_name: Yup.string()
     .min(3, "Minimum 3 caractères")

@@ -6,6 +6,8 @@ import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
 import "react-toastify/dist/ReactToastify.css";
+import { patientSchema } from "../../../services/validators";
+import FormError from "../../FormError";
 
 export default function EditPatient({
   selectedPatient,
@@ -22,11 +24,11 @@ export default function EditPatient({
     city: "",
     roles: "user",
   });
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     APIService.get(`/users/${selectedPatient}`)
       .then((res) => {
-        console.log(selectedPatient);
         setPatientInfo(res.data);
       })
       .catch((error) => notifyError(`${error}"La requête a échoué"`));
@@ -34,23 +36,24 @@ export default function EditPatient({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      delete patientInfo.hashedPassword;
-      const res = await APIService.put(
-        `/users/${selectedPatient}`,
-        patientInfo
-      );
-      console.log(selectedPatient);
-      if (res) {
-        notifySuccess("Le patient a été modifié");
-        setSelectedPatient();
-        setIsShow({ modalEdit: false });
-      } else throw new Error();
-    } catch (err) {
-      if (err.request?.status === 500) {
-        notifyError(`${err.request.status} : La requete a échouée.`);
+    if (patientSchema.isValidSync(patientInfo))
+      try {
+        // delete patientInfo.hashedPassword;
+        const res = await APIService.put(
+          `/users/${selectedPatient}`,
+          patientInfo
+        );
+
+        if (res) {
+          notifySuccess("Le patient a été modifié");
+          setSelectedPatient();
+          setIsShow({ modalEdit: false });
+        } else throw new Error();
+      } catch (err) {
+        if (err.request?.status === 500) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
       }
-    }
   };
 
   const handleChange = async (e) => {
@@ -58,6 +61,17 @@ export default function EditPatient({
       ...patientInfo,
       [e.target.name]: e.target.value,
     });
+    try {
+      const isValid = await patientSchema.validate(patientInfo, {
+        abortEarly: false,
+      });
+      if (isValid) {
+        setErrors(null);
+      }
+      throw new Error();
+    } catch (err) {
+      setErrors(err.errors);
+    }
   };
 
   return (
@@ -72,6 +86,7 @@ export default function EditPatient({
         className="grid grid-cols-1 content-center items-center lg:grid-cols-2  lg:gap-8"
         onSubmit={handleSubmit}
       >
+        {errors && <FormError errors={errors} />}
         <div className="flex flex-col ">
           <label htmlFor="name" className="text-base font-bold">
             Nom

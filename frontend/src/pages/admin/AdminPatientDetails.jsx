@@ -31,7 +31,7 @@ export default function AdminPatientDetails() {
     APIService.get(`/users/${id}`)
       .then((response) => setPatient(response.data))
       .catch((error) => notifyError(`${error}"La requête a échoué"}`));
-  }, [patient]);
+  }, [isShow]);
 
   if (!patient) return null;
   return (

@@ -37,8 +37,8 @@ export default function AddPatient() {
           notifySuccess("Le patient a été ajouté");
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 422) {
-          notifyDuplicate("Erreur dans la saisie");
+        if (err.request.status === 409) {
+          notifyDuplicate("Email déjà existant");
         } else {
           notifyError("Erreur dans l'ajout du patient");
         }

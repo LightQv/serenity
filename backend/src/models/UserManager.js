@@ -24,12 +24,25 @@ class userManager extends AbstractManager {
     );
   }
 
-  findUserById(user) {
+  find(id) {
     return this.database.query(
-      `select firstname, lastname, email, phone_number, address_number, address_streetname, city, roles from  ${this.table} where id = ?`,
-      [user.id]
+      `select id, firstname, lastname, email, phone_number, address_number, address_streetname, city, roles from ${this.table} where id = ?`,
+      [id]
     );
   }
+
+  findAll() {
+    return this.database.query(
+      `select id, firstname, lastname, email, phone_number, address_number, address_streetname, city, roles from  ${this.table}`
+    );
+  }
+
+  // findUserById(user) {
+  //   return this.database.query(
+  //     `select firstname, lastname, email, phone_number, address_number, address_streetname, city, roles from  ${this.table} where id = ?`,
+  //     [user.id]
+  //   );
+  // }
 
   update(user) {
     return this.database.query(
