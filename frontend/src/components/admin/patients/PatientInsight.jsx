@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ViewSvg from "../../svg/ViewSvg";
 
 export default function PatientInsight({ patient }) {
-  console.log(patient);
   return (
     <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4">
       <div className="flex flex-col">
