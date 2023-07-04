@@ -33,11 +33,11 @@ export default function AddPatient() {
     if (registerSchema.isValidSync(patientRegister)) {
       try {
         const res = await APIService.post(`/users`, patientRegister);
-        if (res.status === 201) {
+        if (res) {
           notifySuccess("Le patient a été ajouté");
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 422) {
+        if (err.request.status === 409) {
           notifyDuplicate("Email déjà existant");
         } else {
           notifyError("Erreur dans l'ajout du patient");

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PatientInsight from "../../components/admin/patients/PatientInsight";
-import EditPatient from "../../components/admin/patients/EditPatient";
-import DeletePatient from "../../components/admin/patients/DeletePatient";
 import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
@@ -10,8 +8,6 @@ export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
   const [isShow, setIsShow] = useState({
     modalAdd: false,
-    modalEdit: false,
-    modalDelete: false,
   });
   const [selectedPatient, setSelectedPatient] = useState();
 
@@ -53,36 +49,13 @@ export default function AdminPatients() {
       </div>
       <div
         className={
-          isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
+          isShow.modalAdd
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
         {isShow.modalAdd && (
           <Modal component={<AddPatient />} setIsShow={setIsShow} />
-        )}
-        {isShow.modalEdit && (
-          <Modal
-            component={
-              <EditPatient
-                selectedPatient={selectedPatient}
-                setSelectedPatient={setSelectedPatient}
-              />
-            }
-            setIsShow={setIsShow}
-          />
-        )}
-        {isShow.modalDelete && (
-          <Modal
-            component={
-              <DeletePatient
-                selectedPatient={selectedPatient}
-                setSelectedPatient={setSelectedPatient}
-                setIsShow={setIsShow}
-              />
-            }
-            setIsShow={setIsShow}
-          />
         )}
       </div>
     </main>

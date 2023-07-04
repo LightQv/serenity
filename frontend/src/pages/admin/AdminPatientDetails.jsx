@@ -6,17 +6,32 @@ import { notifyError } from "../../services/ToastNotificationService";
 import APIService from "../../services/APIService";
 import EditSvg from "../../components/svg/EditSvg";
 import DeleteSvg from "../../components/svg/DeleteSvg";
+import Modal from "../../components/admin/Modal";
+import EditPatient from "../../components/admin/patients/EditPatient";
+import DeletePatient from "../../components/admin/patients/DeletePatient";
 
 export default function AdminPatientDetails() {
   const [patient, setPatient] = useState(null);
-
   const { id } = useParams();
+  const [isShow, setIsShow] = useState({
+    modalEdit: false,
+    modalDelete: false,
+  });
+  const [selectedPatient, setSelectedPatient] = useState();
+  const handleEdit = () => {
+    setSelectedPatient(patient.id);
+    setIsShow({ modalEdit: true });
+  };
+  const handleDelete = () => {
+    setSelectedPatient(patient.id);
+    setIsShow({ modalDelete: true });
+  };
 
   useEffect(() => {
     APIService.get(`/users/${id}`)
       .then((response) => setPatient(response.data))
       .catch((error) => notifyError(`${error}"La requête a échoué"}`));
-  }, []);
+  }, [isShow]);
 
   if (!patient) return null;
   return (
@@ -35,12 +50,14 @@ export default function AdminPatientDetails() {
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+              onClick={handleEdit}
             >
               <EditSvg />
             </button>
             <button
               type="button"
               className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+              onClick={handleDelete}
             >
               <DeleteSvg />
             </button>
@@ -95,6 +112,37 @@ export default function AdminPatientDetails() {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={
+          isShow.modalEdit || isShow.modalDelete
+            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
+            : "hidden"
+        }
+      >
+        {isShow.modalEdit && (
+          <Modal
+            component={
+              <EditPatient
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
+              />
+            }
+            setIsShow={setIsShow}
+          />
+        )}
+        {isShow.modalDelete && (
+          <Modal
+            component={
+              <DeletePatient
+                selectedPatient={selectedPatient}
+                setSelectedPatient={setSelectedPatient}
+                setIsShow={setIsShow}
+              />
+            }
+            setIsShow={setIsShow}
+          />
+        )}
       </div>
       <ToastContainer limit={1} />
     </main>

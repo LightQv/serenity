@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
@@ -6,56 +6,71 @@ import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
 import "react-toastify/dist/ReactToastify.css";
+import { patientSchema } from "../../../services/validators";
+import FormError from "../../FormError";
 
 export default function EditPatient({
   selectedPatient,
   setSelectedPatient,
   setIsShow,
 }) {
-  const [editPatient, setEditPatient] = useState({
-    firstname: "",
+  const [patientInfo, setPatientInfo] = useState({
     lastname: "",
+    firstname: "",
     email: "",
-    password: "",
     phone_number: "",
     address_number: "",
     address_streetname: "",
     city: "",
     roles: "user",
   });
-  const [passwordVerify, setPasswordVerify] = useState("");
+  const [errors, setErrors] = useState(null);
+
+  useEffect(() => {
+    APIService.get(`/users/${selectedPatient}`)
+      .then((res) => {
+        setPatientInfo(res.data);
+      })
+      .catch((error) => notifyError(`${error}"La requête a échoué"`));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editPatient.password !== passwordVerify) {
-      notifyError("Les mots de passe ne correspondent pas");
-      return;
-    }
-    try {
-      const res = await APIService.put(
-        `/users/${selectedPatient}`,
-        editPatient
-      );
-      if (res) {
-        notifySuccess("Le patient a été modifié");
-        setSelectedPatient();
-        setIsShow({ modalEdit: false });
-      } else throw new Error();
-    } catch (err) {
-      if (err.request.status === 401) {
-        notifyError(`${err.request.status} : La requete a échouée.`);
+    if (patientSchema.isValidSync(patientInfo))
+      try {
+        // delete patientInfo.hashedPassword;
+        const res = await APIService.put(
+          `/users/${selectedPatient}`,
+          patientInfo
+        );
+
+        if (res) {
+          notifySuccess("Le patient a été modifié");
+          setSelectedPatient();
+          setIsShow({ modalEdit: false });
+        } else throw new Error();
+      } catch (err) {
+        if (err.request?.status === 500) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
       }
-    }
   };
 
   const handleChange = async (e) => {
-    if (e.target.name === "password_verify") {
-      setPasswordVerify(e.target.value);
-    } else {
-      setEditPatient({
-        ...editPatient,
-        [e.target.name]: e.target.value,
+    setPatientInfo({
+      ...patientInfo,
+      [e.target.name]: e.target.value,
+    });
+    try {
+      const isValid = await patientSchema.validate(patientInfo, {
+        abortEarly: false,
       });
+      if (isValid) {
+        setErrors(null);
+      }
+      throw new Error();
+    } catch (err) {
+      setErrors(err.errors);
     }
   };
 
@@ -71,6 +86,7 @@ export default function EditPatient({
         className="grid grid-cols-1 content-center items-center lg:grid-cols-2  lg:gap-8"
         onSubmit={handleSubmit}
       >
+        {errors && <FormError errors={errors} />}
         <div className="flex flex-col ">
           <label htmlFor="name" className="text-base font-bold">
             Nom
@@ -79,7 +95,7 @@ export default function EditPatient({
             type="text"
             name="lastname"
             id="lastname"
-            value={editPatient.name}
+            defaultValue={patientInfo.lastname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -93,7 +109,7 @@ export default function EditPatient({
             type="text"
             name="firstname"
             id="firstname"
-            value={editPatient.firstname}
+            defaultValue={patientInfo.firstname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -107,7 +123,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            value={editPatient.address_number}
+            defaultValue={patientInfo?.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
@@ -120,7 +136,7 @@ export default function EditPatient({
             type="text"
             name="address_streetname"
             id="address_streetname"
-            value={editPatient.address_streetname}
+            defaultValue={patientInfo.address_streetname}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -134,7 +150,7 @@ export default function EditPatient({
             type="text"
             name="city"
             id="city"
-            value={editPatient.city}
+            defaultValue={patientInfo.city}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
@@ -148,36 +164,9 @@ export default function EditPatient({
             type="email"
             name="email"
             id="email"
-            value={editPatient.email}
+            defaultValue={patientInfo.email}
             required="required"
             className=" mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col ">
-          <label htmlFor="password" className="text-base font-bold">
-            Mot de passe
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={editPatient.password}
-            required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="password_verify" className="text-base font-bold">
-            Confirmation du mot de passe
-          </label>
-          <input
-            type="password"
-            name="password_verify"
-            id="password_verify"
-            required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
         </div>
@@ -189,7 +178,7 @@ export default function EditPatient({
             type="tel"
             name="phone_number"
             id="phone_number"
-            value={editPatient.phone_number}
+            defaultValue={patientInfo.phone_number}
             required="required"
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
