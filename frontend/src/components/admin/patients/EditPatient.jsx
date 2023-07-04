@@ -131,7 +131,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            defaultValue={patientInfo?.address_number}
+            defaultValue={patientInfo.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
