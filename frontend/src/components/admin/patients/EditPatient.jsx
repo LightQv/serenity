@@ -34,6 +34,14 @@ export default function EditPatient({
       .catch((error) => notifyError(`${error}"La requête a échoué"`));
   }, []);
 
+  useEffect(() => {
+    APIService.get(`/users/${selectedPatient}`)
+      .then((res) => {
+        setPatientInfo(res.data);
+      })
+      .catch((error) => notifyError(`${error}"La requête a échoué"}`));
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (patientSchema.isValidSync(patientInfo))
@@ -73,7 +81,7 @@ export default function EditPatient({
       setErrors(err.errors);
     }
   };
-
+  if (!patientInfo) return null;
   return (
     <div className="flex flex-col justify-between p-10 align-middle">
       <div className="flex">
@@ -123,7 +131,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            defaultValue={patientInfo?.address_number}
+            defaultValue={patientInfo.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
