@@ -42,6 +42,12 @@ CREATE TABLE practitioner (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   surname VARCHAR(50) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO
+practitioner (surname)
+VALUES
+(
+  'Richard'
+);
 
 CREATE TABLE operation (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -97,8 +103,12 @@ VALUES
 
 CREATE TABLE intervention (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  intervention_name VARCHAR(100) NOT NULL,
+  -- intervention_name VARCHAR(100) NOT NULL,
   date DATE NOT NULL,
+  operation_id INT NOT NULL,
+  CONSTRAINT fk_intervention_operation
+  FOREIGN KEY (operation_id)
+  REFERENCES operation(id),
   user_id INT NOT NULL,
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
@@ -112,6 +122,17 @@ CREATE TABLE intervention (
   FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO
+intervention (date, operation_id, user_id, protocol_id, practitioner_id)
+VALUES
+(
+'2023/07/28',
+'1',
+'2',
+'1',
+'1'
+);
 
 CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
