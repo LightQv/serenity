@@ -6,6 +6,8 @@ import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
 import "react-toastify/dist/ReactToastify.css";
+import { patientSchema } from "../../../services/validators";
+import FormError from "../../FormError";
 
 export default function EditPatient({
   selectedPatient,
@@ -13,29 +15,24 @@ export default function EditPatient({
   setIsShow,
 }) {
   const [patientInfo, setPatientInfo] = useState({
-    firstname: "",
     lastname: "",
+    firstname: "",
     email: "",
-    password: "",
     phone_number: "",
     address_number: "",
     address_streetname: "",
     city: "",
     roles: "user",
   });
-  const [editPatient, setEditPatient] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    phone_number: "",
-    address_number: "",
-    address_streetname: "",
-    city: "",
-    roles: "user",
-  });
+  const [errors, setErrors] = useState(null);
 
-  const [passwordVerify, setPasswordVerify] = useState("");
+  useEffect(() => {
+    APIService.get(`/users/${selectedPatient}`)
+      .then((res) => {
+        setPatientInfo(res.data);
+      })
+      .catch((error) => notifyError(`${error}"La requête a échoué"`));
+  }, []);
 
   useEffect(() => {
     APIService.get(`/users/${selectedPatient}`)
@@ -47,36 +44,41 @@ export default function EditPatient({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editPatient.password !== passwordVerify) {
-      notifyError("Les mots de passe ne correspondent pas");
-      return;
-    }
-    try {
-      const res = await APIService.put(
-        `/users/${selectedPatient}`,
-        editPatient
-      );
-      if (res) {
-        notifySuccess("Le patient a été modifié");
-        setSelectedPatient();
-        setIsShow({ modalEdit: false });
-      } else throw new Error();
-    } catch (err) {
-      if (err.request.status === 500) {
-        notifyError(`${err.request.status} : La requete a échouée.`);
+    if (patientSchema.isValidSync(patientInfo))
+      try {
+        // delete patientInfo.hashedPassword;
+        const res = await APIService.put(
+          `/users/${selectedPatient}`,
+          patientInfo
+        );
+
+        if (res) {
+          notifySuccess("Le patient a été modifié");
+          setSelectedPatient();
+          setIsShow({ modalEdit: false });
+        } else throw new Error();
+      } catch (err) {
+        if (err.request?.status === 500) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
       }
-    }
   };
 
   const handleChange = async (e) => {
-    if (e.target.name === "password_verify") {
-      setPasswordVerify(e.target.value);
-    } else {
-      const { name, value } = e.target;
-      setEditPatient((prevPatient) => ({
-        ...prevPatient,
-        [name]: value,
-      }));
+    setPatientInfo({
+      ...patientInfo,
+      [e.target.name]: e.target.value,
+    });
+    try {
+      const isValid = await patientSchema.validate(patientInfo, {
+        abortEarly: false,
+      });
+      if (isValid) {
+        setErrors(null);
+      }
+      throw new Error();
+    } catch (err) {
+      setErrors(err.errors);
     }
   };
   if (!patientInfo) return null;
@@ -92,6 +94,7 @@ export default function EditPatient({
         className="grid grid-cols-1 content-center items-center lg:grid-cols-2  lg:gap-8"
         onSubmit={handleSubmit}
       >
+        {errors && <FormError errors={errors} />}
         <div className="flex flex-col ">
           <label htmlFor="name" className="text-base font-bold">
             Nom
@@ -128,7 +131,7 @@ export default function EditPatient({
             type="text"
             name="address_number"
             id="address_number"
-            defaultValue={patientInfo.address_number}
+            defaultValue={patientInfo?.address_number}
             className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
             onChange={handleChange}
           />
