@@ -43,7 +43,7 @@ export default function AdminPatientDetails() {
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-10 lg:shadow-xl">
         <div className="mb-2 flex w-full items-center justify-between">
-          <h2 className="text-2xl font-bold lg:mb-8 lg:text-4xl ">
+          <h2 className="text-xl font-semibold lg:mb-8 lg:text-3xl ">
             {patient.firstname} {patient.lastname}
           </h2>
           <div className="ml-2 flex gap-2">
@@ -65,49 +65,59 @@ export default function AdminPatientDetails() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Nom</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">Nom</div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.lastname}
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Prénom</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl ">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
+              Prénom
+            </div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.firstname}
             </div>
           </div>
 
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
               Numéro de rue
             </div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.address_number}
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Adresse</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
+              Adresse
+            </div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.address_streetname}
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Ville</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
+              Ville
+            </div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.city}
             </div>
           </div>
 
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Email</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
+              Email
+            </div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.email}
             </div>
           </div>
 
           <div className="flex flex-col">
-            <div className="mb-2 text-xl font-bold  lg:text-2xl">Téléphone</div>
-            <div className="mb-2 text-xl  font-semibold lg:h-14 lg:text-3xl">
+            <div className="text-base font-normal lg:mb-2 lg:text-xl">
+              Téléphone
+            </div>
+            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
               {patient.phone_number}
             </div>
           </div>
