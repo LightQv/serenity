@@ -90,6 +90,7 @@ export default function AddPatient() {
               name="lastname"
               id="lastname"
               required="required"
+              placeholder="nom"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -103,6 +104,7 @@ export default function AddPatient() {
               name="firstname"
               id="firstname"
               required="required"
+              placeholder="prénom"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -119,6 +121,7 @@ export default function AddPatient() {
               name="address_number"
               id="address_number"
               required="required"
+              placeholder="numéro de rue"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -135,6 +138,7 @@ export default function AddPatient() {
               name="address_streetname"
               id="address_streetname"
               required="required"
+              placeholder="adresse"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -148,6 +152,7 @@ export default function AddPatient() {
               name="city"
               id="city"
               required="required"
+              placeholder="ville"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -164,6 +169,7 @@ export default function AddPatient() {
               name="phone_number"
               id="phone_number"
               required="required"
+              placeholder="téléphone(sans espaces)"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -177,6 +183,7 @@ export default function AddPatient() {
               name="email"
               id="email"
               required="required"
+              placeholder="adresse@mail.com"
               className=" mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -190,6 +197,7 @@ export default function AddPatient() {
               name="password"
               id="password"
               required="required"
+              placeholder="••••••••"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
@@ -206,6 +214,7 @@ export default function AddPatient() {
               name="password_verify"
               id="password_verify"
               required="required"
+              placeholder="••••••••"
               className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
               onChange={handleChange}
             />
