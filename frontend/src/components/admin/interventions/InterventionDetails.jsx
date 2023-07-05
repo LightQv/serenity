@@ -22,17 +22,14 @@ export default function InterventionDetails({
         <p className="line-clamp-1 text-xs font-semibold lg:text-base">
           {intervention.operation_name}
         </p>
-        <p className="line-clamp-1 text-end text-xs lg:text-base">
-          {intervention.date}
+        <p className="line-clamp-1 text-xs lg:text-base">
+          {intervention.formatted_date}
         </p>
-        <p className="line-clamp-1 text-end text-xs lg:text-base">
-          {intervention.practicionner_name}
+        <p className="line-clamp-1 text-xs lg:text-base">
+          Dr {intervention.surname}
         </p>
-        <p className="line-clamp-1 text-end text-xs lg:text-base">
-          {intervention.patient_name}
-        </p>
-        <p className="line-clamp-1 text-end text-xs lg:text-base">
-          {intervention.protocol_name}
+        <p className="line-clamp-1 text-xs lg:text-base">
+          {intervention.lastname} {intervention.firstname}
         </p>
       </div>
       <div className="ml-2 flex gap-2">
