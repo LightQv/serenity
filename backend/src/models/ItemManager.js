@@ -5,22 +5,9 @@ class ItemManager extends AbstractManager {
     super({ table: "protocol_item" });
   }
 
-  findAllWithProtocolName() {
+  findByProtocol(id) {
     return this.database.query(
-      `SELECT item.id as item_id, item.protocol_item_name as item_name, item.protocol_description as item_descritpion, item.is_complete as item_complete, p.id as protocol_id, p.protocol_name
-      FROM ${this.table} AS item 
-      JOIN protocol as p ON item.protocol_id = p.id 
-      ORDER BY item_id ASC`
-    );
-  }
-
-  findWithProtocolName(id) {
-    return this.database.query(
-      `SELECT item.id as item_id, item.protocol_item_name as item_name, item.protocol_description as item_descritpion, item.is_complete as item_complete, p.id as protocol_id, p.protocol_name
-      FROM ${this.table} AS item 
-      JOIN protocol as p ON item.protocol_id = p.id 
-      WHERE item.id = ?
-      ORDER BY item_id ASC`,
+      `SELECT * FROM protocol_item WHERE protocol_id = ?`,
       [id]
     );
   }
@@ -38,12 +25,10 @@ class ItemManager extends AbstractManager {
 
   update(protocolItem) {
     return this.database.query(
-      `UPDATE ${this.table} set protocol_item_name = ?, protocol_description = ?, is_complete = ?, protocol_id = ? where id = ?`,
+      `UPDATE ${this.table} set protocol_item_name = ?, protocol_description = ? where id = ?`,
       [
         protocolItem.protocol_item_name,
         protocolItem.protocol_description,
-        protocolItem.status,
-        protocolItem.protocol_id,
         protocolItem.id,
       ]
     );
