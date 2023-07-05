@@ -1,8 +1,8 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.protocol
-    .findAllWithOperationName()
+  models.protocolItem
+    .findAllWithProtocolName()
     .then(([result]) => {
       res.send(result);
     })
@@ -15,8 +15,8 @@ const browse = (req, res) => {
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.protocol
-    .findWithOperationName(id)
+  models.protocolItem
+    .findWithProtocolName(id)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
@@ -31,12 +31,12 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const protocol = req.body;
+  const protocolItem = req.body;
 
-  protocol.id = parseInt(req.params.id, 10);
+  protocolItem.id = parseInt(req.params.id, 10);
 
-  models.protocol
-    .update(protocol)
+  models.protocolItem
+    .update(protocolItem)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -51,15 +51,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const newProtocol = req.body;
+  const newProtocolItem = req.body;
 
-  models.protocol
-    .insert(newProtocol)
+  models.protocolItem
+    .insert(newProtocolItem)
     .then(([result]) => {
-      res
-        .location(`/protocols/${result.insertId}`)
-        .json({ id: result.insertId });
-      // .sendStatus(201);
+      res.location(`/protocols/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -70,7 +67,7 @@ const add = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.protocol
+  models.protocolItem
     .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
