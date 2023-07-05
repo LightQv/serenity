@@ -71,6 +71,7 @@ CREATE TABLE protocol (
   CONSTRAINT fk_protocol_operation
   FOREIGN KEY (operation_id)
   REFERENCES operation(id)
+  ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
@@ -87,14 +88,6 @@ VALUES
 (
   'Checklist',
   '1'
-),
-(
-  'Comprendre mon opération',
-  '2'
-),
-(
-  'Dossier administratif',
-  '2'
 ),
 (
   'Checklist',
@@ -138,12 +131,32 @@ CREATE TABLE protocol_item (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   protocol_item_name VARCHAR(100) NOT NULL,
   protocol_description TEXT,
-  image_uri VARCHAR(255) NULL,
+  is_complete boolean NOT NULL DEFAULT false,
   protocol_id INT(11) NOT NULL,
   CONSTRAINT fk_protocol_item
   FOREIGN KEY (protocol_id)
   REFERENCES protocol(id)
+  ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO
+protocol_item (protocol_item_name, protocol_description, protocol_id)
+VALUES
+(
+  'Lien vers un dossier mon opération',
+  'Lire le dossier pour prendre connaissances des diverses informations',
+  '1'
+),
+(
+  'Carte nationale didentité',
+  'Document nécessaire le jour de lintervention',
+  '3'
+),
+(
+  'Carte vitale',
+  'Document nécessaire le jour de lintervention',
+  '3'
+);
 
 CREATE TABLE preparing (
   protocol_item_id INT NOT NULL,
