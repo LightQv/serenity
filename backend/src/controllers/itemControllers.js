@@ -12,16 +12,34 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
+const readByProtocol = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.protocolItem
-    .findWithProtocolName(id)
+    .findByProtocol(id)
+    .then(([rows]) => {
+      if (rows[0]) {
+        res.send(rows);
+      } else {
+        res.status(404).send("Protocol item not found");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+    });
+};
+
+const readDetails = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.protocolItem
+    .find(id)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
       } else {
-        res.status(404).send("Protocol not found");
+        res.status(404).send("Protocol item not found");
       }
     })
     .catch((err) => {
@@ -56,7 +74,7 @@ const add = (req, res) => {
   models.protocolItem
     .insert(newProtocolItem)
     .then(([result]) => {
-      res.location(`/protocols/${result.insertId}`).sendStatus(201);
+      res.location(`/items/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -84,7 +102,8 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
-  read,
+  readByProtocol,
+  readDetails,
   edit,
   add,
   destroy,

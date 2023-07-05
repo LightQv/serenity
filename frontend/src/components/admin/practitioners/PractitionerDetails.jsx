@@ -18,7 +18,7 @@ export default function PractitionerDetails({
   };
 
   return (
-    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4 lg:hover:bg-gray-300">
+    <li className="flex h-12 w-full list-none items-center justify-between border-b-[1px] border-slate-200 transition-all lg:h-20 lg:border-gray-300 lg:px-4">
       <p className="line-clamp-1 text-xs font-semibold lg:text-base">
         {practitioner.surname}
       </p>

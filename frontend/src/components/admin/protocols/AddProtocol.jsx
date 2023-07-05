@@ -37,7 +37,7 @@ export default function AddProtocol() {
   }, []);
 
   // Submit Add Protocol Request
-  const handleSubmitProtocol = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (protocolSchema.isValidSync(protocolInfos)) {
       try {
@@ -56,7 +56,7 @@ export default function AddProtocol() {
   };
 
   // Change Protocol Form Part
-  const handleChangeProtocol = async (e) => {
+  const handleChange = async (e) => {
     setProtocolInfos({
       ...protocolInfos,
       [e.target.name]: e.target.value,
@@ -77,12 +77,7 @@ export default function AddProtocol() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       {protocolCreate ? (
-        <AddItem
-          itemInfos={itemInfos}
-          setItemInfos={setItemInfos}
-          errors={errors}
-          setErrors={setErrors}
-        />
+        <AddItem itemInfos={itemInfos} setItemInfos={setItemInfos} />
       ) : (
         <div>
           <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
@@ -91,7 +86,7 @@ export default function AddProtocol() {
           <form
             action="addProtocol"
             className="gap-4 space-y-4 p-4 lg:p-8"
-            onSubmit={handleSubmitProtocol}
+            onSubmit={handleSubmit}
           >
             {errors && <FormError errors={errors} />}
             <div className="flex flex-col">
@@ -105,7 +100,7 @@ export default function AddProtocol() {
                 placeholder="Nom du protocole"
                 required=""
                 className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
-                onChange={handleChangeProtocol}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col">
@@ -115,7 +110,7 @@ export default function AddProtocol() {
               <select
                 name="operation_id"
                 className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-                onChange={handleChangeProtocol}
+                onChange={handleChange}
               >
                 <option value="">---</option>
                 {operations &&
