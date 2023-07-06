@@ -67,7 +67,7 @@ export default function AdminProtocoles() {
       <div
         className={
           isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
-            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
+            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center overflow-auto bg-black/80 pb-4 pt-28"
             : "hidden"
         }
       >

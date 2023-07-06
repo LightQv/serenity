@@ -90,6 +90,14 @@ VALUES
   '1'
 ),
 (
+  'Comprendre mon opération',
+  '2'
+),
+(
+  'Dossier administratif',
+  '2'
+),
+(
   'Checklist',
   '2'
 );
@@ -143,19 +151,84 @@ INSERT INTO
 protocol_item (protocol_item_name, protocol_description, protocol_id)
 VALUES
 (
-  'Lien vers un dossier mon opération',
-  'Lire le dossier pour prendre connaissances des diverses informations',
+  'Lien vers une page dédiée aux ligaments croisés',
+  'Lire le contenu du lien pour prendre connaissances des informations sur cette opération.',
   '1'
 ),
 (
-  'Carte nationale didentité',
+  'Passeport ou Carte Nationale Identité',
   'Document nécessaire le jour de lintervention',
-  '3'
+  '2'
 ),
 (
   'Carte vitale',
   'Document nécessaire le jour de lintervention',
+  '2'
+),
+(
+  'Une photo didentité',
+  'Document nécessaire le jour de lintervention',
+  '2'
+),
+(
+  'Un R.I.B',
+  'Document nécessaire le jour de lintervention',
+  '2'
+),
+(
+  'Être agen',
+  'Nécessaire -12h avant lintervention',
   '3'
+),
+(
+  'Être négatif au COVID',
+  'Amener le test négatif le jour de lintervention',
+  '3'
+),
+(
+  'Avoir prit une douche avec un savon antiséptique (ex: Bétadine)',
+  'À faire le jour de lintervention',
+  '3'
+),
+(
+  'Lien vers une page dédiée aux ligaments croisés',
+  'Lire le contenu du lien pour prendre connaissances des informations sur cette opération.',
+  '4'
+),
+(
+  'Passeport ou Carte Nationale Identité',
+  'Document nécessaire le jour de lintervention',
+  '5'
+),
+(
+  'Carte vitale',
+  'Document nécessaire le jour de lintervention',
+  '5'
+),
+(
+  'Une photo didentité',
+  'Document nécessaire le jour de lintervention',
+  '5'
+),
+(
+  'Un R.I.B',
+  'Document nécessaire le jour de lintervention',
+  '5'
+),
+(
+  'Être agen',
+  'Nécessaire -12h avant lintervention',
+  '6'
+),
+(
+  'Être négatif au COVID',
+  'Amener le test négatif le jour de lintervention',
+  '6'
+),
+(
+  'Avoir prit une douche avec un savon antiséptique (ex: Bétadine)',
+  'À faire le jour de lintervention',
+  '6'
 );
 
 CREATE TABLE preparing (
