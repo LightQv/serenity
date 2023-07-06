@@ -32,15 +32,16 @@ export default function AdminInterventions() {
           Gestion des interventions
         </h3>
       </div>
-      <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
-        <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
+      <div className="flex w-full flex-col justify-center rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
+        <div className="hidden w-full items-center justify-between border-b-[1px] border-slate-200 lg:grid lg:h-12 lg:grid-cols-5 lg:border-gray-300 lg:px-4">
           <p className="text-sm">Nom de l'intervention</p>
-          {/* <div className="flex items-center gap-2 lg:pr-3"> */}
-          <p className="text-sm lg:pr-7">Date de l'intervention</p>
-          <p className="text-sm lg:pr-7">Nom du chirurgien</p>
-          <p className="text-sm lg:pr-7">Nom du patient</p>
-          <p className="text-xs italic text-gray-500">Interactions</p>
-          {/* </div> */}
+
+          <p className=" text-sm lg:pr-7">Date de l'intervention</p>
+          <p className=" text-sm lg:pr-7">Nom du chirurgien</p>
+          <p className=" text-sm lg:pr-7">Nom du patient</p>
+          <div className="flex items-center gap-2 lg:pr-3">
+            <p className=" text-xs italic text-gray-500 ">Interactions</p>
+          </div>
         </div>
         {interventions && interventions.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
@@ -60,7 +61,7 @@ export default function AdminInterventions() {
       </div>
       <button
         type="button"
-        className="my-4 h-fit w-fit self-end rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mr-4 lg:mt-8"
+        className="bottom-0 my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mr-4 lg:mt-8 lg:self-end"
         onClick={() => setIsShow({ modalAdd: true })}
       >
         Ajouter une intervention
