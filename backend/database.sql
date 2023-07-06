@@ -121,10 +121,6 @@ CREATE TABLE intervention (
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
   REFERENCES user(id),
-  protocol_id INT(11) NOT NULL,
-  CONSTRAINT fk_intervention_protocol
-  FOREIGN KEY (protocol_id)
-  REFERENCES protocol(id),
   practitioner_id INT NOT NULL,
   CONSTRAINT fk_intervention_practitioner
   FOREIGN KEY (practitioner_id)
@@ -132,13 +128,12 @@ CREATE TABLE intervention (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
-intervention (date, operation_id, user_id, protocol_id, practitioner_id)
+intervention (date, operation_id, user_id, practitioner_id)
 VALUES
 (
 '2023/07/28',
 '1',
 '2',
-'1',
 '1'
 );
 
@@ -159,7 +154,7 @@ protocol_item (protocol_item_name, protocol_description, protocol_id)
 VALUES
 (
   'Lien vers une page dédiée aux ligaments croisés',
-  'Lire le contenu du lien pour prendre connaissances des informations sur cette opération.',
+  'Lire le contenu du lien pour prendre connaissance des informations sur cette opération.',
   '1'
 ),
 (
@@ -183,7 +178,7 @@ VALUES
   '2'
 ),
 (
-  'Être agen',
+  'Être à jeun',
   'Nécessaire -12h avant lintervention',
   '3'
 ),
@@ -193,13 +188,13 @@ VALUES
   '3'
 ),
 (
-  'Avoir prit une douche avec un savon antiséptique (ex: Bétadine)',
+  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
   'À faire le jour de lintervention',
   '3'
 ),
 (
   'Lien vers une page dédiée aux ligaments croisés',
-  'Lire le contenu du lien pour prendre connaissances des informations sur cette opération.',
+  'Lire le contenu du lien pour prendre connaissance des informations sur cette opération',
   '4'
 ),
 (
@@ -223,7 +218,7 @@ VALUES
   '5'
 ),
 (
-  'Être agen',
+  'Être à jeun',
   'Nécessaire -12h avant lintervention',
   '6'
 ),
@@ -233,7 +228,7 @@ VALUES
   '6'
 ),
 (
-  'Avoir prit une douche avec un savon antiséptique (ex: Bétadine)',
+  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
   'À faire le jour de lintervention',
   '6'
 );

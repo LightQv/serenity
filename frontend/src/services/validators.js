@@ -78,3 +78,12 @@ export const operationSchema = Yup.object({
 export const practitionerSchema = Yup.object({
   surname: Yup.string().required("Le praticien doit être nommé."),
 });
+
+export const interventionSchema = Yup.object({
+  lastname: Yup.string()
+    .min(3, "Le nom de famille doit contenir 3 caractères minimum.")
+    .max(30, "Le nom de famille doit contenir 30 caractères maximum."),
+  firstname: Yup.string()
+    .min(3, "Le prénom doit contenir 3 caractères minimum.")
+    .max(30, "Le prénom doit contenir 30 caractères maximum."),
+});

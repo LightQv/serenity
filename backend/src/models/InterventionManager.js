@@ -7,12 +7,11 @@ class InterventionManager extends AbstractManager {
 
   insert(intervention) {
     return this.database.query(
-      `INSERT INTO ${this.table} (operation_name, date, user_id, protocol_id, practitioner_id) VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (operation_id, date, user_id, practitioner_id) VALUES (?, ?, ?, ?)`,
       [
-        intervention.operation_name,
+        intervention.operation_id,
         intervention.date,
         intervention.user_id,
-        intervention.protocol_id,
         intervention.practitioner_id,
       ]
     );
@@ -24,7 +23,7 @@ class InterventionManager extends AbstractManager {
       JOIN user AS u ON u.id = i.user_id 
       JOIN practitioner AS p ON i.practitioner_id = p.id 
       JOIN operation AS o ON i.operation_id = o.id 
-      JOIN protocol AS pr ON i.protocol_id = pr.id`
+      `
     );
   }
 }
