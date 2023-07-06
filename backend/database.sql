@@ -46,7 +46,7 @@ INSERT INTO
 practitioner (surname)
 VALUES
 (
-  'Richard'
+  'Dr. Richard'
 );
 
 CREATE TABLE operation (
