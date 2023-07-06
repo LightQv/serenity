@@ -42,7 +42,6 @@ export default function InterventionDetails({
           {intervention.lastname} {intervention.firstname}
         </p>
       </div>
-      {/* <div className="grid place-items-end gap-2"> */}
       <div className="mt-2 flex justify-center gap-2 text-end lg:mt-0 lg:justify-end">
         <button
           type="button"
@@ -59,7 +58,6 @@ export default function InterventionDetails({
           <DeleteSvg />
         </button>
       </div>
-      {/* </div> */}
     </li>
   );
 }
