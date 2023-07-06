@@ -59,6 +59,7 @@ export const protocolSchema = Yup.object({
     .required("Le protocole doit être nommé.")
     .min(3, "Nom : minimum 3 caractères"),
   operation_id: Yup.string().required("Une opération doit être sélectionnée."),
+  color_theme: Yup.string().required("Un thème doit être sélectionné."),
 });
 
 export const itemSchema = Yup.object({

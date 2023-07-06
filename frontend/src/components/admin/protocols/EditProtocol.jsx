@@ -19,6 +19,7 @@ export default function EditProtocol({
   const [protocolInfos, setProtocolInfos] = useState({
     protocol_name: "",
     operation_id: null,
+    color_theme: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -29,6 +30,7 @@ export default function EditProtocol({
         setProtocolInfos({
           protocol_name: res.data.protocol_name,
           operation_id: res.data.operation_id,
+          color_theme: res.data.color_theme,
         });
       })
       .catch((err) => {
@@ -160,6 +162,53 @@ export default function EditProtocol({
                   </option>
                 ))}
             </select>
+          </div>
+          <div className="flex w-full flex-col">
+            <h3 className="mb-2 text-base">Choisir un thème</h3>
+            <div className="flex w-full justify-evenly">
+              <input
+                type="button"
+                className={
+                  protocolInfos.color_theme === "#d9b520"
+                    ? "h-8 w-8 cursor-pointer rounded-full border-2 border-violet-dark-0 bg-mustard-dark-0"
+                    : "h-8 w-8 cursor-pointer rounded-full bg-mustard-dark-0"
+                }
+                onClick={() =>
+                  setProtocolInfos({
+                    ...protocolInfos,
+                    color_theme: "#d9b520",
+                  })
+                }
+              />
+              <input
+                type="button"
+                className={
+                  protocolInfos.color_theme === "#079fa5"
+                    ? "h-8 w-8 cursor-pointer rounded-full border-2 border-violet-dark-0 bg-turquoise-dark-0"
+                    : "h-8 w-8 cursor-pointer rounded-full bg-turquoise-dark-0"
+                }
+                onClick={() =>
+                  setProtocolInfos({
+                    ...protocolInfos,
+                    color_theme: "#079fa5",
+                  })
+                }
+              />
+              <input
+                type="button"
+                className={
+                  protocolInfos.color_theme === "#c1486c"
+                    ? "h-8 w-8 cursor-pointer rounded-full border-2 border-violet-dark-0 bg-rose-dark-0"
+                    : "h-8 w-8 cursor-pointer rounded-full bg-rose-dark-0"
+                }
+                onClick={() =>
+                  setProtocolInfos({
+                    ...protocolInfos,
+                    color_theme: "#c1486c",
+                  })
+                }
+              />
+            </div>
           </div>
           <div className="flex items-center justify-center">
             <button

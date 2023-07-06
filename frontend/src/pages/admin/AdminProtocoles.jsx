@@ -36,6 +36,7 @@ export default function AdminProtocoles() {
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
           <p className="text-sm">Nom du protocole</p>
+          <p className="hidden lg:block lg:text-sm">Nombre de contenu(s)</p>
           <div className="flex items-center gap-2 lg:pr-3">
             <p className="text-sm lg:pr-7">Nom de l'opération</p>
             <p className="text-xs italic text-gray-500">Interactions</p>
@@ -67,7 +68,7 @@ export default function AdminProtocoles() {
       <div
         className={
           isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
-            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center overflow-auto bg-black/80 pb-4 pt-28"
+            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center overflow-auto bg-black/80 pb-4 pt-28 lg:p-0"
             : "hidden"
         }
       >
