@@ -27,24 +27,21 @@ export default function AdminInterventions() {
   if (!interventions) return null;
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
-      <div className="flex w-full items-center justify-between">
-        <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
-          Gestion des interventions
-        </h3>
-      </div>
+      <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
+        Gestion des interventions
+      </h3>
       <div className="flex w-full flex-col justify-center rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="hidden w-full items-center justify-between border-b-[1px] border-slate-200 lg:grid lg:h-12 lg:grid-cols-5 lg:border-gray-300 lg:px-4">
-          <p className="text-sm">Nom de l'intervention</p>
-
-          <p className=" text-sm lg:pr-7">Date de l'intervention</p>
-          <p className=" text-sm lg:pr-7">Nom du chirurgien</p>
-          <p className=" text-sm lg:pr-7">Nom du patient</p>
-          <div className="flex items-center gap-2 lg:pr-3">
-            <p className=" text-xs italic text-gray-500 ">Interactions</p>
+          <p className="text-sm lg:pl-2">Nom de l'intervention</p>
+          <p className=" text-sm ">Date de l'intervention</p>
+          <p className=" text-sm ">Nom du chirurgien</p>
+          <p className=" text-sm ">Nom du patient</p>
+          <div className="flex items-center justify-end gap-2 lg:pr-3">
+            <p className="text-xs italic text-gray-500">Interactions</p>
           </div>
         </div>
         {interventions && interventions.length !== 0 ? (
-          <ul className="grid w-full grid-cols-1">
+          <ul className="grid w-full grid-cols-1 gap-2 lg:gap-0">
             {interventions.map((intervention) => (
               <InterventionDetails
                 key={intervention.id}
@@ -58,14 +55,15 @@ export default function AdminInterventions() {
         ) : (
           <p className="self-center text-xs">Aucune intervention disponible.</p>
         )}
+        <button
+          type="button"
+          className="bottom-0 my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mr-4 lg:mt-8"
+          onClick={() => setIsShow({ modalAdd: true })}
+        >
+          Ajouter une intervention
+        </button>
       </div>
-      <button
-        type="button"
-        className="bottom-0 my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mr-4 lg:mt-8 lg:self-end"
-        onClick={() => setIsShow({ modalAdd: true })}
-      >
-        Ajouter une intervention
-      </button>
+
       {/* <div
         className={
           isShow.modalAdd
