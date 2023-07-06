@@ -46,7 +46,7 @@ INSERT INTO
 practitioner (surname)
 VALUES
 (
-  'Richard'
+  'Dr. Richard'
 );
 
 CREATE TABLE operation (
@@ -68,6 +68,7 @@ CREATE TABLE protocol (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   protocol_name VARCHAR(100) NOT NULL,
   operation_id INT(11) NOT NULL,
+  color_theme VARCHAR(7) NOT NULL,
   CONSTRAINT fk_protocol_operation
   FOREIGN KEY (operation_id)
   REFERENCES operation(id)
@@ -75,31 +76,37 @@ CREATE TABLE protocol (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
-protocol (protocol_name, operation_id)
+protocol (protocol_name, operation_id, color_theme)
 VALUES
 (
   'Comprendre mon opération',
-  '1'
+  '1',
+  '#d9b520'
 ),
 (
   'Dossier administratif',
-  '1'
+  '1',
+  '#079fa5'
 ),
 (
   'Checklist',
-  '1'
+  '1',
+  '#c1486c'
 ),
 (
   'Comprendre mon opération',
-  '2'
+  '2',
+  '#d9b520'
 ),
 (
   'Dossier administratif',
-  '2'
+  '2',
+  '#079fa5'
 ),
 (
   'Checklist',
-  '2'
+  '2',
+  '#c1486c'
 );
 
 CREATE TABLE intervention (
