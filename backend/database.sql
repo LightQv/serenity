@@ -46,7 +46,7 @@ INSERT INTO
 practitioner (surname)
 VALUES
 (
-  'Richard'
+  'Dr. Richard'
 );
 
 CREATE TABLE operation (
@@ -104,7 +104,6 @@ VALUES
 
 CREATE TABLE intervention (
   id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  -- intervention_name VARCHAR(100) NOT NULL,
   date DATE NOT NULL,
   operation_id INT NOT NULL,
   CONSTRAINT fk_intervention_operation

@@ -33,7 +33,7 @@ export default function InterventionDetails({
       <div className="flex w-full flex-col lg:flex-none">
         <p className="text-sm lg:hidden">Nom du chirurgien</p>
         <p className="line-clamp-1 text-xs lg:text-base">
-          Dr {intervention.surname}
+          {intervention.surname}
         </p>
       </div>
       <div className="flex w-full flex-col lg:flex-none">
