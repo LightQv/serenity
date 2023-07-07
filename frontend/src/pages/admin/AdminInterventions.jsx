@@ -42,15 +42,17 @@ export default function AdminInterventions() {
         </div>
         {interventions && interventions.length !== 0 ? (
           <ul className="grid w-full grid-cols-1 gap-2 lg:gap-0">
-            {interventions.map((intervention) => (
-              <InterventionDetails
-                key={intervention.id}
-                intervention={intervention}
-                selectedIntervention={selectedIntervention}
-                setSelectedintervention={setSelectedIntervention}
-                setIsShow={setIsShow}
-              />
-            ))}
+            {interventions
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((intervention) => (
+                <InterventionDetails
+                  key={intervention.id}
+                  intervention={intervention}
+                  selectedIntervention={selectedIntervention}
+                  setSelectedintervention={setSelectedIntervention}
+                  setIsShow={setIsShow}
+                />
+              ))}
           </ul>
         ) : (
           <p className="self-center text-xs">Aucune intervention disponible.</p>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { interventionSchema } from "../../../services/validators";
+import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
-import FormError from "../../FormError";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
@@ -12,11 +11,10 @@ export default function AddIntervention() {
   const [users, setUsers] = useState(null);
   const [interventions, setInterventions] = useState({
     operation_id: null,
-    formatted_date: "",
+    date: "",
     practitioner_id: null,
     user_id: null,
   });
-  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     APIService.get(`/operations`)
@@ -50,38 +48,45 @@ export default function AddIntervention() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if (interventionSchema.isValidSync(interventions)) {
-      try {
-        const res = await APIService.post(`/interventions`, interventions);
-        if (res) {
-          notifySuccess("L'intervention a été ajouté'");
-        } else throw new Error();
-      } catch (err) {
-        if (err.request.status === 401) {
-          notifyError(`${err.request.status} : La requete a échouée`);
-        } else {
-          notifyError("Erreur dans l'ajout de l'intervention");
-        }
+
+    try {
+      const res = await APIService.post(`/interventions`, interventions);
+      if (res) {
+        notifySuccess("L'intervention a été ajouté'");
+      } else throw new Error();
+    } catch (err) {
+      if (err.request.status === 401) {
+        notifyError(`${err.request.status} : La requete a échouée`);
+      } else {
+        notifyError("Erreur dans l'ajout de l'intervention");
       }
     }
   };
 
-  const handleChange = async (e) => {
-    setInterventions({
-      ...interventions,
-      [e.target.name]: e.target.value,
-    });
-    console.log(e.target.name, e.target.value);
-    try {
-      const isValid = await interventionSchema.validate(interventions, {
-        abortEarly: false,
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // mise à jour du state avec le nom de famille
+    if (name === "lastname") {
+      setInterventions({
+        ...interventions,
+        [name]: value,
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
-    } catch (err) {
-      setErrors(err.errors);
+      // recherche un utilisateur qui a un nom et prénom correspondant
+    } else if (name === "firstname") {
+      const selectedUser = users.find(
+        (user) =>
+          user.lastname === interventions.lastname && user.firstname === value
+      );
+      // mise à jour du user.id avec l'id de l'utilisateur
+      setInterventions({
+        ...interventions,
+        user_id: selectedUser ? selectedUser.id : null,
+      });
+    } else {
+      setInterventions({
+        ...interventions,
+        [name]: value,
+      });
     }
   };
 
@@ -97,7 +102,6 @@ export default function AddIntervention() {
         className="grid grid-cols-1 content-center items-center p-4 "
         onSubmit={handlesubmit}
       >
-        {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="operation_id" className="mb-2 text-base">
             Sélectionner une intervention
@@ -119,6 +123,19 @@ export default function AddIntervention() {
                 </option>
               ))}
           </select>
+          <div className="flex flex-col">
+            <label htmlFor="operation_id" className="mb-2 text-base">
+              Sélectionner une date
+            </label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
+              required="required"
+              onChange={handleChange}
+            />
+          </div>
           <div className="flex flex-col">
             <label htmlFor="practitioner_id" className="mb-2 text-base">
               Sélectionner un chirurgien
@@ -143,77 +160,53 @@ export default function AddIntervention() {
           </div>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="user_id" className="mb-2 text-base">
+          <label htmlFor="lastname" className="mb-2 text-base">
             Sélectionner le nom du patient
           </label>
           <select
-            name="user_id"
+            name="lastname"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             onChange={handleChange}
           >
             <option value="">---</option>
             {users &&
               users.map((user) => (
-                <option name="user_id" value={user.id} key={user.id}>
+                <option name="lastname" value={user.lastname} key={user.id}>
                   {user.lastname}
                 </option>
               ))}
           </select>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="user_id" className="mb-2 text-base">
+          <label htmlFor="firstname" className="mb-2 text-base">
             Sélectionner le prénom du patient
           </label>
           <select
-            name="user_id"
+            name="firstname"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             onChange={handleChange}
           >
             <option value="">---</option>
             {users &&
-              users.map((user) => (
-                <option name="user_id" value={user.id} key={user.id}>
-                  {user.firstname}
-                </option>
-              ))}
+              users
+                // filtrer le tableau users pour ne récupérer que les utilisateurs dont le nom de famille correspond à la valeur de interventions.lastname
+                .filter((user) => user.lastname === interventions.lastname)
+                .map((user) => (
+                  <option name="firstname" value={user.firstname} key={user.id}>
+                    {user.firstname}
+                  </option>
+                ))}
           </select>
         </div>
-        {/* <div className="flex flex-col">
-          <label htmlFor="user_id" className="text-base font-bold lg:pb-2">
-            Nom du patient
-          </label>
-          <input
-            type="text"
-            name="user_id"
-            id="lastname"
-            required="required"
-            placeholder="nom"
-            className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="user_id" className="text-base font-bold lg:pb-2">
-            Prénom du patient
-          </label>
-          <input
-            type="text"
-            name="user_id"
-            id="firstname"
-            required="required"
-            placeholder="prénom"
-            className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div> */}
+
         <button
-          disabled={!interventionSchema.isValidSync(interventions)}
           type="submit"
           className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
         >
           Ajouter
         </button>
       </form>
+      <ToastContainer limit={1} />
     </div>
   );
 }
