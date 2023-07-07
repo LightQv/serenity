@@ -139,7 +139,7 @@ export default function NavBar() {
         </svg>
 
         <h3 className="text-sm font-semibold">
-          {user.lastname} {user.firstname}
+          {user.user_lastname} {user.user_firstname}
         </h3>
       </div>
     </nav>

@@ -16,10 +16,10 @@ const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.operation
-    .find(id)
+    .findWithProtocolInfos(id)
     .then(([rows]) => {
-      if (rows[0]) {
-        res.send(rows[0]);
+      if (rows) {
+        res.send(rows);
       } else {
         res.status(404).send("Operation not found");
       }

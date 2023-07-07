@@ -5,9 +5,10 @@ class OperationManager extends AbstractManager {
     super({ table: "operation" });
   }
 
-  findWithProtocolName() {
+  findWithProtocolInfos(id) {
     return this.database.query(
-      `SELECT ope.id AS operation_id, ope.operation_name, pro.id AS protocol_id, pro.protocol_name as protocol_name FROM ${this.table} as ope JOIN protocol as pro ON ope.id = pro.operation_id`
+      `SELECT protocol.id as protocol_id, protocol_name, color_theme, operation_id, operation_name from operation JOIN protocol on operation.id = protocol.operation_id where operation.id = ?`,
+      [id]
     );
   }
 
