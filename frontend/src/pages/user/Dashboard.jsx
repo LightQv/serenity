@@ -6,11 +6,8 @@ export default function Dashboard() {
   return (
     <main className="min-w-screen min-h-screen bg-slate-50 font-poppins lg:ml-60">
       <h1>
-        {user.firstname} {user.lastname}
+        {user.user_firstname} {user.user_lastname}
       </h1>
-      <h3>
-        {user.address_streetname}, {user.city}
-      </h3>
       <button
         type="button"
         className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-2 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0"
