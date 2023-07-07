@@ -54,6 +54,11 @@ const ProtocolManager = require("./ProtocolManager");
 models.protocol = new ProtocolManager();
 models.protocol.setDatabase(pool);
 
+const ItemManager = require("./ItemManager");
+
+models.protocolItem = new ItemManager();
+models.protocolItem.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

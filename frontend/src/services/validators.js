@@ -56,9 +56,19 @@ export const patientSchema = Yup.object({
 
 export const protocolSchema = Yup.object({
   protocol_name: Yup.string()
-    .min(3, "Minimum 3 caractères")
-    .required("Le protocole doit être nommé."),
+    .required("Le protocole doit être nommé.")
+    .min(3, "Nom : minimum 3 caractères"),
   operation_id: Yup.string().required("Une opération doit être sélectionnée."),
+  color_theme: Yup.string().required("Un thème doit être sélectionné."),
+});
+
+export const itemSchema = Yup.object({
+  protocol_item_name: Yup.string()
+    .required("Le contenu doit être nommé.")
+    .min(3, "Nom : minimum 3 caractères"),
+  protocol_description: Yup.string()
+    .required("Une description est requise.")
+    .min(10, "Description : minimum 10 caractères"),
 });
 
 export const operationSchema = Yup.object({

@@ -1,8 +1,8 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.protocol
-    .findAllWithOperationNameAndItemCount()
+  models.protocolItem
+    .findAllWithProtocolName()
     .then(([result]) => {
       res.send(result);
     })
@@ -12,16 +12,34 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
+const readByProtocol = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.protocol
-    .findWithOperationName(id)
+  models.protocolItem
+    .findByProtocol(id)
+    .then(([rows]) => {
+      if (rows[0]) {
+        res.send(rows);
+      } else {
+        res.status(404).send("Protocol item not found");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+    });
+};
+
+const readDetails = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.protocolItem
+    .find(id)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
       } else {
-        res.status(404).send("Protocol not found");
+        res.status(404).send("Protocol item not found");
       }
     })
     .catch((err) => {
@@ -31,12 +49,12 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const protocol = req.body;
+  const protocolItem = req.body;
 
-  protocol.id = parseInt(req.params.id, 10);
+  protocolItem.id = parseInt(req.params.id, 10);
 
-  models.protocol
-    .update(protocol)
+  models.protocolItem
+    .update(protocolItem)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -51,14 +69,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const newProtocol = req.body;
+  const newProtocolItem = req.body;
 
-  models.protocol
-    .insert(newProtocol)
+  models.protocolItem
+    .insert(newProtocolItem)
     .then(([result]) => {
-      res
-        .location(`/protocols/${result.insertId}`)
-        .json({ id: result.insertId });
+      res.location(`/items/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -69,7 +85,7 @@ const add = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.protocol
+  models.protocolItem
     .delete(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -86,7 +102,8 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
-  read,
+  readByProtocol,
+  readDetails,
   edit,
   add,
   destroy,
