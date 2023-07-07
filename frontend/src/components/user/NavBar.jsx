@@ -36,7 +36,7 @@ export default function NavBar() {
           <p className="hidden lg:block lg:text-sm">Dashboard</p>
         </NavLink>
         <NavLink
-          to="/operation"
+          to="/operations"
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
@@ -58,7 +58,7 @@ export default function NavBar() {
           <p className="hidden lg:block lg:text-sm">Mon opération</p>
         </NavLink>
         <NavLink
-          to="/administrative"
+          to="/administratives"
           className={({ isActive }) =>
             isActive
               ? "text-turquoise-dark-0 transition-all lg:flex lg:h-12 lg:w-52 lg:items-center lg:gap-2 lg:rounded-lg lg:bg-violet-dark-0 lg:pl-4 lg:text-slate-100"
