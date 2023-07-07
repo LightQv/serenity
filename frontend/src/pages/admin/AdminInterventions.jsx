@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
 import InterventionDetails from "../../components/admin/interventions/InterventionDetails";
-// import AddIntervention from "../../components/admin/interventions/AddIntervention";
-// import Modal from "../../components/admin/Modal";
+import AddIntervention from "../../components/admin/interventions/AddIntervention";
+import Modal from "../../components/admin/Modal";
 
 export default function AdminInterventions() {
   const [interventions, setInterventions] = useState(null);
@@ -42,15 +42,17 @@ export default function AdminInterventions() {
         </div>
         {interventions && interventions.length !== 0 ? (
           <ul className="grid w-full grid-cols-1 gap-2 lg:gap-0">
-            {interventions.map((intervention) => (
-              <InterventionDetails
-                key={intervention.id}
-                intervention={intervention}
-                selectedIntervention={selectedIntervention}
-                setSelectedintervention={setSelectedIntervention}
-                setIsShow={setIsShow}
-              />
-            ))}
+            {interventions
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((intervention) => (
+                <InterventionDetails
+                  key={intervention.id}
+                  intervention={intervention}
+                  selectedIntervention={selectedIntervention}
+                  setSelectedintervention={setSelectedIntervention}
+                  setIsShow={setIsShow}
+                />
+              ))}
           </ul>
         ) : (
           <p className="self-center text-xs">Aucune intervention disponible.</p>
@@ -64,7 +66,7 @@ export default function AdminInterventions() {
         </button>
       </div>
 
-      {/* <div
+      <div
         className={
           isShow.modalAdd
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
@@ -74,30 +76,7 @@ export default function AdminInterventions() {
         {isShow.modalAdd && (
           <Modal component={<AddIntervention />} setIsShow={setIsShow} />
         )}
-        {isShow.modalEdit && (
-          <Modal
-            component={
-              <EditIntervention
-                selectedIntervention={selectedIntervention}
-                setSelectedIntervention={setSelectedIntervention}
-              />
-            }
-            setIsShow={setIsShow}
-          />
-        )}
-        {isShow.modalDelete && (
-          <Modal
-            component={
-              <DeleteIntervention
-                selectedIntervention={selectedIntervention}
-                setSelectedIntervention={setSelectedIntervention}
-                setIsShow={setIsShow}
-              />
-            }
-            setIsShow={setIsShow}
-          />
-        )}
-      </div> */}
+      </div>
     </main>
   );
 }
