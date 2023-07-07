@@ -1,37 +1,36 @@
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
 
-export default function DeletePatient({
-  selectedPatient,
-  setSelectedPatient,
+export default function DeleteIntervention({
+  selectedIntervention,
+  setSelectedIntervention,
   setIsShow,
 }) {
   const handleDelete = async () => {
-    if (selectedPatient !== "") {
-      try {
-        const res = await APIService.delete(`/users/${selectedPatient}`);
-        if (res) {
-          notifySuccess("Le patient a été supprimé");
-          setSelectedPatient();
-          setIsShow({ modalDelete: false });
-        }
-        throw new Error();
-      } catch (error) {
-        if (error.request?.status === 500) {
-          notifyError("La requête a échouée.");
-        }
+    try {
+      const res = await APIService.delete(
+        `/interventions/${selectedIntervention}`
+      );
+      if (res) {
+        notifySuccess("L'intervention a été supprimée");
+        setSelectedIntervention();
+        setIsShow({ modalDelete: false });
+      }
+    } catch (error) {
+      if (error.request?.status === 500) {
+        notifyError("La requête a échouée.");
       }
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
       <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
-        Supprimer ce patient ?
+        Supprimer cette intervention ?
       </h1>
       <div className="flex gap-2">
         <button
@@ -54,8 +53,8 @@ export default function DeletePatient({
   );
 }
 
-DeletePatient.propTypes = {
-  selectedPatient: PropTypes.number.isRequired,
-  setSelectedPatient: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+DeleteIntervention.propTypes = {
+  selectedIntervention: PropTypes.number.isRequired,
+  setSelectedIntervention: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

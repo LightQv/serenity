@@ -18,6 +18,7 @@ export default function AdminPatientDetails() {
     modalDelete: false,
   });
   const [selectedPatient, setSelectedPatient] = useState();
+
   const handleEdit = () => {
     setSelectedPatient(patient.id);
     setIsShow({ modalEdit: true });

@@ -26,6 +26,12 @@ class InterventionManager extends AbstractManager {
       `
     );
   }
+
+  delete(intervention) {
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
+      intervention,
+    ]);
+  }
 }
 
 module.exports = InterventionManager;
