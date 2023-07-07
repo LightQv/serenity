@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.protocol
-    .findAllWithOperationName()
+    .findAllWithOperationNameAndItemCount()
     .then(([result]) => {
       res.send(result);
     })
@@ -59,7 +59,6 @@ const add = (req, res) => {
       res
         .location(`/protocols/${result.insertId}`)
         .json({ id: result.insertId });
-      // .sendStatus(201);
     })
     .catch((err) => {
       console.error(err);

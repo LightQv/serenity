@@ -76,7 +76,8 @@ router.delete("/api/protocols/:id", protocolControllers.destroy);
 const itemControllers = require("./controllers/itemControllers");
 
 router.get("/api/items", itemControllers.browse);
-router.get("/api/items/:id", itemControllers.read);
+router.get("/api/items/:id", itemControllers.readByProtocol);
+router.get("/api/items/details/:id", itemControllers.readDetails);
 router.put("/api/items/:id", itemControllers.edit);
 router.post("/api/items", itemControllers.add);
 router.delete("/api/items/:id", itemControllers.destroy);

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
@@ -8,12 +9,9 @@ import notifySuccess, {
 import APIService from "../../../../services/APIService";
 import FormError from "../../../FormError";
 
-export default function AddItem({
-  itemInfos,
-  setItemInfos,
-  errors,
-  setErrors,
-}) {
+export default function AddItem({ itemInfos, setItemInfos }) {
+  const [errors, setErrors] = useState(null);
+
   // Submit Add Item Request
   const handleSubmitItem = async (e) => {
     e.preventDefault();
@@ -21,7 +19,11 @@ export default function AddItem({
       try {
         const item = await APIService.post(`/items`, itemInfos);
         if (item) {
-          setItemInfos({ protocol_item_name: "", protocol_description: "" });
+          setItemInfos({
+            ...itemInfos,
+            protocol_item_name: "",
+            protocol_description: "",
+          });
           e.target.value = "";
           notifySuccess("Le contenu a été ajouté.");
         } else throw new Error();
@@ -71,7 +73,7 @@ export default function AddItem({
             name="protocol_item_name"
             id="protocol_item_name"
             placeholder="Nom du contenu"
-            value={itemInfos.protocol_item_name}
+            value={itemInfos?.protocol_item_name}
             required=""
             className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChangeItem}
@@ -81,14 +83,15 @@ export default function AddItem({
           <label htmlFor="protocol_description" className="mb-2 text-base">
             Description du contenu
           </label>
-          <input
+          <textarea
             type="text"
             name="protocol_description"
             id="protocol_description"
             placeholder="Description du contenu"
-            value={itemInfos.protocol_description}
+            value={itemInfos?.protocol_description}
             required=""
-            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
+            spellCheck
+            className="h-24 resize-none rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChangeItem}
           />
         </div>
@@ -110,6 +113,4 @@ export default function AddItem({
 AddItem.propTypes = {
   itemInfos: PropTypes.shape().isRequired,
   setItemInfos: PropTypes.func.isRequired,
-  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setErrors: PropTypes.func.isRequired,
 };
