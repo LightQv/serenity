@@ -10,8 +10,10 @@ export default function InsightCard({ title, data, link }) {
   }
   function getSecondaryInfo(item) {
     if (item.email) return item.email;
-    if (item.formatted_date) {
-      return `Le ${item.formatted_date} pratiqué par le ${item.surname}`;
+    if (item.date) {
+      return `Le ${new Date(item.date).toLocaleDateString()} pratiqué par le ${
+        item.surname
+      }`;
     }
     return null;
   }
