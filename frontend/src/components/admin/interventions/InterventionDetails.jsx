@@ -16,6 +16,7 @@ export default function InterventionDetails({
     setSelectedIntervention(intervention);
     setIsShow({ modalDelete: true });
   };
+
   return (
     <li className=" grid h-fit w-full list-none grid-cols-1 items-center gap-4 rounded-xl bg-gray-200 p-6 transition-all  lg:h-20 lg:grid-cols-5 lg:gap-0 lg:rounded-none lg:border-b-[1px] lg:border-gray-300 lg:bg-transparent ">
       <div className="flex w-full flex-col lg:flex-none">
@@ -27,7 +28,7 @@ export default function InterventionDetails({
       <div className="flex w-full flex-col lg:flex-none">
         <p className="text-sm lg:hidden">Date de l'intervention</p>
         <p className="line-clamp-1 text-xs lg:text-base">
-          {intervention.formatted_date}
+          {new Date(intervention.date).toLocaleDateString()}
         </p>
       </div>
       <div className="flex w-full flex-col lg:flex-none">
