@@ -26,6 +26,20 @@ class InterventionManager extends AbstractManager {
       `
     );
   }
+
+  update(intervention) {
+    return this.database.query(
+      `UPDATE ${this.table} SET user_id = ?, date = ?, practitioner_id = ?, operation_id = ? 
+      WHERE id = ?`,
+      [
+        intervention.user_id,
+        intervention.date,
+        intervention.practitioner_id,
+        intervention.operation_id,
+        intervention.id,
+      ]
+    );
+  }
 }
 
 module.exports = InterventionManager;
