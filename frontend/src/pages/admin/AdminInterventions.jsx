@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
 import InterventionDetails from "../../components/admin/interventions/InterventionDetails";
@@ -90,6 +91,7 @@ export default function AdminInterventions() {
           />
         )}
       </div>
+      <ToastContainer limit={1} />
     </main>
   );
 }

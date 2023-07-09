@@ -63,10 +63,8 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
   models.intervention
-    .delete(id)
+    .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
