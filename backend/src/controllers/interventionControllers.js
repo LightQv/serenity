@@ -31,8 +31,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const intervention = req.body;
 
-  // TODO validations (length, format...)
-
   intervention.id = parseInt(req.params.id, 10);
 
   models.intervention
@@ -52,8 +50,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const intervention = req.body;
-
-  // TODO validations (length, format...)
 
   models.intervention
     .insert(intervention)
