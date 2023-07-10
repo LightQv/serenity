@@ -19,7 +19,7 @@ class InterventionManager extends AbstractManager {
 
   findIntervention() {
     return this.database.query(
-      `SELECT u.id AS user_id, u.firstname, u.lastname, date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name FROM ${this.table} AS i 
+      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name FROM ${this.table} AS i 
       JOIN user AS u ON u.id = i.user_id 
       JOIN practitioner AS p ON i.practitioner_id = p.id 
       JOIN operation AS o ON i.operation_id = o.id 
@@ -39,6 +39,12 @@ class InterventionManager extends AbstractManager {
         intervention.id,
       ]
     );
+  }
+
+  delete(intervention) {
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
+      intervention,
+    ]);
   }
 }
 

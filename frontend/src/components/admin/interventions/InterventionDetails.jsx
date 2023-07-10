@@ -8,12 +8,12 @@ export default function InterventionDetails({
   setIsShow,
 }) {
   const handleEdit = () => {
-    setSelectedIntervention(intervention);
+    setSelectedIntervention(intervention.id);
     setIsShow({ modalEdit: true });
   };
 
   const handleDelete = () => {
-    setSelectedIntervention(intervention);
+    setSelectedIntervention(intervention.id);
     setIsShow({ modalDelete: true });
   };
 
