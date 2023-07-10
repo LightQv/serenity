@@ -3,6 +3,7 @@ import PatientInsight from "../../components/admin/patients/PatientInsight";
 import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
+import PatientPagination from "../../components/admin/patients/PatientPagination";
 
 export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
@@ -10,6 +11,8 @@ export default function AdminPatients() {
     modalAdd: false,
   });
   const [selectedPatient, setSelectedPatient] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [patientsPerPage] = useState(9);
 
   useEffect(() => {
     APIService.get(`/users`)
@@ -18,6 +21,15 @@ export default function AdminPatients() {
   }, [isShow]);
 
   if (!listPatients) return null;
+
+  // défini le numéro du dernier patient affiché sur la page
+  const indexOfLastPatient = currentPage * patientsPerPage;
+
+  // défini le numéro du premier patient affiché
+  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
+
+  // Permet de passer à une page spécifique
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
@@ -36,6 +48,7 @@ export default function AdminPatients() {
         <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-6">
           {listPatients
             .filter((patient) => patient.roles === "user")
+            .slice(indexOfFirstPatient, indexOfLastPatient)
             .map((patient) => (
               <PatientInsight
                 key={patient.id}
@@ -58,6 +71,14 @@ export default function AdminPatients() {
           <Modal component={<AddPatient />} setIsShow={setIsShow} />
         )}
       </div>
+      <PatientPagination
+        patientsPerPage={patientsPerPage}
+        totalPatients={
+          listPatients.filter((patient) => patient.roles === "user").length
+        }
+        currentPage={currentPage}
+        paginate={paginate}
+      />
     </main>
   );
 }
