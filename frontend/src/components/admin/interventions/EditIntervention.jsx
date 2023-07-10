@@ -51,6 +51,24 @@ export default function EditIntervention({
         }
       });
   }, []);
+
+  useEffect(() => {
+    APIService.get(`/interventions/${selectedIntervention}`)
+      .then((res) =>
+        setIntervention({
+          operation_id: res.data.operation_id,
+          date: res.data.date,
+          practitioner_id: res.data.practitioner_id,
+          user_id: res.data.user_id,
+        })
+      )
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
+  }, []);
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
@@ -92,12 +110,12 @@ export default function EditIntervention({
     } else {
       setIntervention({
         ...intervention,
-        [name]: value,
+        [e.target.name]: e.target.value,
       });
     }
   };
 
-  if (!intervention) return null;
+  if (!intervention.operation_id) return null;
   return (
     <div className="flex flex-col justify-between p-10 align-middle">
       <div className="flex">
@@ -111,37 +129,22 @@ export default function EditIntervention({
         onSubmit={handlesubmit}
       >
         <div className="flex flex-col">
-          <label htmlFor="operation_id" className="mb-2 text-base">
+          <label htmlFor="operation_name" className="mb-2 text-base">
             Modifier l'intervention
           </label>
           <select
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-            defaultValue={intervention && intervention.operation_id}
+            value={intervention.operation_id}
+            onChange={handleChange}
           >
-            <option
-              value=""
-              onClick={(e) =>
-                setIntervention({
-                  ...intervention,
-                  operation_id: e.target.value,
-                })
-              }
-            >
-              ---
-            </option>
+            <option value="">---</option>
             {operations &&
               operations.map((operation) => (
                 <option
                   name="operation_id"
                   value={operation.id}
                   key={operation.id}
-                  onClick={(e) =>
-                    setIntervention({
-                      ...intervention,
-                      operation_id: e.target.value,
-                    })
-                  }
                 >
                   {operation.operation_name}
                 </option>
@@ -155,6 +158,7 @@ export default function EditIntervention({
               type="date"
               name="date"
               id="date"
+              value={intervention.date}
               className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               required="required"
               onChange={handleChange}
@@ -167,6 +171,7 @@ export default function EditIntervention({
             <select
               name="practitioner_id"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+              value={intervention.practitioner_id}
               onChange={handleChange}
             >
               <option value="">---</option>
@@ -190,6 +195,7 @@ export default function EditIntervention({
           <select
             name="lastname"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            value={intervention.user_id}
             onChange={handleChange}
           >
             <option value="">---</option>
@@ -208,6 +214,7 @@ export default function EditIntervention({
           <select
             name="firstname"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            value={intervention.user_id}
             onChange={handleChange}
           >
             <option value="">---</option>

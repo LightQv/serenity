@@ -181,6 +181,7 @@ export default function AddIntervention() {
           <label htmlFor="firstname" className="mb-2 text-base">
             Sélectionner le prénom du patient
           </label>
+
           <select
             name="firstname"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
