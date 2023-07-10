@@ -35,6 +35,8 @@ function App() {
       {/* User routes */}
       <Route element={<RequireAuth allowedRoles="user" />}>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="protocols/:id" element={<Dashboard />} />
+        <Route path="contact" element={<Dashboard />} />
         <Route path="operations" element={<Operations />} />
         <Route path="administratives" element={<Administratives />} />
         <Route path="checklist" element={<Checklist />} />

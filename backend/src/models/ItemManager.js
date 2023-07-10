@@ -25,10 +25,11 @@ class ItemManager extends AbstractManager {
 
   update(protocolItem) {
     return this.database.query(
-      `UPDATE ${this.table} set protocol_item_name = ?, protocol_description = ? where id = ?`,
+      `UPDATE ${this.table} set protocol_item_name = ?, protocol_description = ?, is_complete = ? where id = ?`,
       [
         protocolItem.protocol_item_name,
         protocolItem.protocol_description,
+        protocolItem.is_complete,
         protocolItem.id,
       ]
     );

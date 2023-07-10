@@ -63,9 +63,7 @@ export default function ItemDetails({ selectedProtocol }) {
                   <h4 className="font-semibold text-violet-dark-0">
                     {item.protocol_item_name}
                   </h4>
-                  <p className="line-clamp-2 italic">
-                    {item.protocol_description}
-                  </p>
+                  <p className="w-64 italic">{item.protocol_description}</p>
                 </div>
               </div>
               <div className="ml-2 flex gap-2">
