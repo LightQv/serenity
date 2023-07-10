@@ -7,11 +7,11 @@ class OperationManager extends AbstractManager {
 
   findWithProtocolInfos(id) {
     return this.database.query(
-      `SELECT protocol.id as protocol_id, protocol_name, color_theme, operation_id, operation_name, COUNT(*) as item_count  
-      FROM operation 
+      `SELECT protocol.id as protocol_id, protocol_name, color_theme, operation_id, operation_name, COUNT(item.id) as item_count, COUNT(case when is_complete then 1 end) as item_complete
+      FROM ${this.table} 
       JOIN protocol on operation.id = protocol.operation_id 
       JOIN protocol_item as item on protocol.id = item.protocol_id 
-      where operation.id = ? 
+      WHERE operation.id = ?
       GROUP BY protocol_id ORDER BY protocol_id ASC`,
       [id]
     );

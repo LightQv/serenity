@@ -79,7 +79,7 @@ INSERT INTO
 protocol (protocol_name, operation_id, color_theme)
 VALUES
 (
-  'Comprendre mon opération',
+  'Mon opération',
   '1',
   '#d9b520'
 ),
@@ -89,12 +89,12 @@ VALUES
   '#079fa5'
 ),
 (
-  'Checklist',
+  'Ma checklist',
   '1',
   '#c1486c'
 ),
 (
-  'Comprendre mon opération',
+  'Mon opération',
   '2',
   '#d9b520'
 ),
@@ -104,7 +104,7 @@ VALUES
   '#079fa5'
 ),
 (
-  'Checklist',
+  'Ma checklist',
   '2',
   '#c1486c'
 );

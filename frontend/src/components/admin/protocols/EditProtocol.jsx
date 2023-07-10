@@ -119,7 +119,7 @@ export default function EditProtocol({
               type="text"
               name="protocol_name"
               id="protocol_name"
-              defaultValue={protocolInfos.protocol_name}
+              value={protocolInfos?.protocol_name}
               required=""
               className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
@@ -132,7 +132,7 @@ export default function EditProtocol({
             <select
               name="operation_name"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-              defaultValue={protocolInfos && protocolInfos.operation_id}
+              value={protocolInfos?.operation_id}
             >
               <option
                 value=""

@@ -38,7 +38,10 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
     e.preventDefault();
     if (itemSchema.isValidSync(itemInfos)) {
       try {
-        const res = await APIService.put(`/items/${selectedItem}`, itemInfos);
+        const res = await APIService.put(
+          `/items/details/${selectedItem}`,
+          itemInfos
+        );
         if (res) {
           notifySuccess("Le contenu a été modifié.");
           setSelectedItem();
