@@ -6,9 +6,12 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminPractitioners from "./pages/admin/AdminPractitioners";
 import AdminPatients from "./pages/admin/AdminPatients";
 import AdminInterventions from "./pages/admin/AdminInterventions";
-import AdminOperation from "./pages/admin/AdminOperation";
+import AdminOperations from "./pages/admin/AdminOperations";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
+import Operations from "./pages/user/Operations";
+import Administratives from "./pages/user/Administratives";
+import Checklist from "./pages/user/Checklist";
 import AdminPatientDetails from "./pages/admin/AdminPatientDetails";
 
 function App() {
@@ -26,12 +29,17 @@ function App() {
         <Route path="/admin/patients" element={<AdminPatients />} />
         <Route path="/admin/patients/:id" element={<AdminPatientDetails />} />
         <Route path="/admin/interventions" element={<AdminInterventions />} />
-        <Route path="/admin/operations" element={<AdminOperation />} />
+        <Route path="/admin/operations" element={<AdminOperations />} />
         <Route path="/admin/protocols" element={<AdminProtocoles />} />
       </Route>
       {/* User routes */}
       <Route element={<RequireAuth allowedRoles="user" />}>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="protocols/:id" element={<Dashboard />} />
+        <Route path="contact" element={<Dashboard />} />
+        <Route path="operations" element={<Operations />} />
+        <Route path="administratives" element={<Administratives />} />
+        <Route path="checklist" element={<Checklist />} />
       </Route>
     </Routes>
   );

@@ -14,8 +14,8 @@ export function UserContextProvider({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user.id) navigate("/");
-  }, [user.id]);
+    if (!user.user_id) navigate("/");
+  }, [user.user_id]);
 
   const login = (_user) => {
     setUser(_user);

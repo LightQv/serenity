@@ -5,6 +5,7 @@ import AddOperation from "../../components/admin/operations/AddOperation";
 import EditOperation from "../../components/admin/operations/EditOperation";
 import DeleteOperation from "../../components/admin/operations/DeleteOperation";
 import APIService from "../../services/APIService";
+import { notifyError } from "../../services/ToastNotificationService";
 
 export default function AdminOperations() {
   const [operations, setOperations] = useState(null);
@@ -17,7 +18,11 @@ export default function AdminOperations() {
   useEffect(() => {
     APIService.get(`/operations`)
       .then((res) => setOperations(res.data))
-      .catch((error) => console.warn(error));
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
   }, [isShow]);
 
   if (!operations) return null;
@@ -31,9 +36,12 @@ export default function AdminOperations() {
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
           <p className="text-sm lg:pr-[7.5rem]">Nom de l'opération</p>
-          <p className="text-xs italic text-gray-500">Interactions</p>
+          <div className="flex items-center gap-2 lg:pr-3">
+            <p className="text-sm lg:pr-7">Protocole(s)</p>
+            <p className="text-xs italic text-gray-500">Interactions</p>
+          </div>
         </div>
-        {operations.length !== 0 ? (
+        {operations && operations.length !== 0 ? (
           <ul className="grid w-full grid-cols-1">
             {operations.map((operation) => (
               <OperationDetails
@@ -42,6 +50,12 @@ export default function AdminOperations() {
                 selectedOperation={selectedOperation}
                 setSelectedOperation={setSelectedOperation}
                 setIsShow={setIsShow}
+                protocols={operations
+                  .filter((op) => op.operation_id === operation.operation_id)
+                  .map((op) => ({
+                    protocol_id: op.protocol_id,
+                    protocol_name: op.protocol_name,
+                  }))}
               />
             ))}
           </ul>
