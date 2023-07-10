@@ -63,31 +63,11 @@ export default function AddIntervention() {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    // mise à jour du state avec le nom de famille
-    if (name === "lastname") {
-      setInterventions({
-        ...interventions,
-        [name]: value,
-      });
-      // recherche un utilisateur qui a un nom et prénom correspondant
-    } else if (name === "firstname") {
-      const selectedUser = users.find(
-        (user) =>
-          user.lastname === interventions.lastname && user.firstname === value
-      );
-      // mise à jour du user.id avec l'id de l'utilisateur
-      setInterventions({
-        ...interventions,
-        user_id: selectedUser ? selectedUser.id : null,
-      });
-    } else {
-      setInterventions({
-        ...interventions,
-        [name]: value,
-      });
-    }
+  const handleChange = async (e) => {
+    setInterventions({
+      ...interventions,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -161,42 +141,20 @@ export default function AddIntervention() {
         </div>
         <div className="flex flex-col">
           <label htmlFor="lastname" className="mb-2 text-base">
-            Sélectionner le nom du patient
+            Sélectionner le patient
           </label>
           <select
-            name="lastname"
+            name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             onChange={handleChange}
           >
             <option value="">---</option>
             {users &&
               users.map((user) => (
-                <option name="lastname" value={user.lastname} key={user.id}>
-                  {user.lastname}
+                <option name="user_id" value={user.id} key={user.id}>
+                  {user.lastname} {user.firstname}
                 </option>
               ))}
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="firstname" className="mb-2 text-base">
-            Sélectionner le prénom du patient
-          </label>
-
-          <select
-            name="firstname"
-            className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-            onChange={handleChange}
-          >
-            <option value="">---</option>
-            {users &&
-              users
-                // filtrer le tableau users pour ne récupérer que les utilisateurs dont le nom de famille correspond à la valeur de interventions.lastname
-                .filter((user) => user.lastname === interventions.lastname)
-                .map((user) => (
-                  <option name="firstname" value={user.firstname} key={user.id}>
-                    {user.firstname}
-                  </option>
-                ))}
           </select>
         </div>
 

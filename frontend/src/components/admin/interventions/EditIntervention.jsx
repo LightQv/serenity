@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
+import { editInterventionSchema } from "../../../services/validators";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
 import "react-toastify/dist/ReactToastify.css";
+import FormError from "../../FormError";
 
 export default function EditIntervention({
   selectedIntervention,
@@ -21,6 +23,7 @@ export default function EditIntervention({
     practitioner_id: null,
     user_id: null,
   });
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     APIService.get(`/operations`)
@@ -71,47 +74,41 @@ export default function EditIntervention({
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await APIService.put(
-        `/interventions/${selectedIntervention}`,
-        intervention
-      );
+    if (editInterventionSchema.isValidSync(intervention)) {
+      try {
+        const res = await APIService.put(
+          `/interventions/${selectedIntervention}`,
+          intervention
+        );
 
-      if (res) {
-        notifySuccess("L'intervention a été modifiée");
-        setSelectedIntervention();
-        setIsShow({ modalEdit: false });
-      } else throw new Error();
-    } catch (err) {
-      if (err.request?.status === 500) {
-        notifyError(`${err.request.status} : La requete a échouée.`);
+        if (res) {
+          notifySuccess("L'intervention a été modifiée");
+          setSelectedIntervention();
+          setIsShow({ modalEdit: false });
+        } else throw new Error();
+      } catch (err) {
+        if (err.request?.status === 500) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
       }
-    }
+    } else notifyError("Une erreur dans la saisie.");
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    // mise à jour du state avec le nom de famille
-    if (name === "lastname") {
-      setIntervention({
-        ...intervention,
-        [name]: value,
+
+  const handleChange = async (e) => {
+    setIntervention({
+      ...intervention,
+      [e.target.name]: e.target.value,
+    });
+    try {
+      const isValid = await editInterventionSchema.validate(intervention, {
+        abortEarly: false,
       });
-      // recherche un utilisateur qui a un nom et prénom correspondant
-    } else if (name === "firstname") {
-      const selectedUser = users.find(
-        (user) =>
-          user.lastname === intervention.lastname && user.firstname === value
-      );
-      // mise à jour du user.id avec l'id de l'utilisateur
-      setIntervention({
-        ...intervention,
-        user_id: selectedUser ? selectedUser.id : null,
-      });
-    } else {
-      setIntervention({
-        ...intervention,
-        [e.target.name]: e.target.value,
-      });
+      if (isValid) {
+        setErrors(null);
+      }
+      throw new Error();
+    } catch (err) {
+      setErrors(err.errors);
     }
   };
 
@@ -128,9 +125,10 @@ export default function EditIntervention({
         className="grid grid-cols-1 content-center items-center p-4 "
         onSubmit={handlesubmit}
       >
+        {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="operation_name" className="mb-2 text-base">
-            Modifier l'intervention
+            Sélectionner l'intervention
           </label>
           <select
             name="operation_id"
@@ -193,7 +191,7 @@ export default function EditIntervention({
             Sélectionner le nom du patient
           </label>
           <select
-            name="lastname"
+            name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             value={intervention.user_id}
             onChange={handleChange}
@@ -201,32 +199,10 @@ export default function EditIntervention({
             <option value="">---</option>
             {users &&
               users.map((user) => (
-                <option name="lastname" value={user.lastname} key={user.id}>
-                  {user.lastname}
+                <option name="user_id" value={user.id} key={user.id}>
+                  {user.lastname} {user.firstname}
                 </option>
               ))}
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="firstname" className="mb-2 text-base">
-            Sélectionner le prénom du patient
-          </label>
-          <select
-            name="firstname"
-            className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-            value={intervention.user_id}
-            onChange={handleChange}
-          >
-            <option value="">---</option>
-            {users &&
-              users
-                // filtrer le tableau users pour ne récupérer que les utilisateurs dont le nom de famille correspond à la valeur de interventions.lastname
-                .filter((user) => user.lastname === intervention.lastname)
-                .map((user) => (
-                  <option name="firstname" value={user.firstname} key={user.id}>
-                    {user.firstname}
-                  </option>
-                ))}
           </select>
         </div>
 

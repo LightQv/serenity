@@ -35,10 +35,10 @@ export default function AdminInterventions() {
       </h3>
       <div className="flex w-full flex-col justify-center rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="hidden w-full items-center justify-between border-b-[1px] border-slate-200 lg:grid lg:h-12 lg:grid-cols-5 lg:border-gray-300 lg:px-4">
-          <p className="text-sm lg:pl-2">Nom de l'intervention</p>
-          <p className=" text-sm ">Date de l'intervention</p>
-          <p className=" text-sm ">Nom du chirurgien</p>
-          <p className=" text-sm ">Nom du patient</p>
+          <p className="text-sm lg:pl-2">Intervention</p>
+          <p className=" text-sm ">Date</p>
+          <p className=" text-sm ">Chirurgien</p>
+          <p className=" text-sm ">Patient</p>
           <div className="flex items-center justify-end gap-2 lg:pr-3">
             <p className="text-xs italic text-gray-500">Interactions</p>
           </div>

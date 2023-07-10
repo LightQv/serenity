@@ -78,3 +78,17 @@ export const operationSchema = Yup.object({
 export const practitionerSchema = Yup.object({
   surname: Yup.string().required("Le praticien doit être nommé."),
 });
+
+export const addInterventionSchema = Yup.object({
+  operation_id: Yup.string().required("Une opération doit être sélectionnée."),
+  date: Yup.string().required("Une date doit être sélectionnée."),
+  practitioner_id: Yup.string().required("Un praticien doit être sélectionné."),
+  user_id: Yup.string().required("Un patient doit être sélectionné."),
+});
+
+export const editInterventionSchema = Yup.object({
+  operation_id: Yup.string().required("Une opération doit être sélectionnée."),
+  date: Yup.string().required("Une date doit être sélectionnée."),
+  practitioner_id: Yup.string().required("Un praticien doit être sélectionné."),
+  user_id: Yup.string().required("Un patient doit être sélectionné."),
+});
