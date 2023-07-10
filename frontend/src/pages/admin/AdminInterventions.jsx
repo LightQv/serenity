@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
 import InterventionDetails from "../../components/admin/interventions/InterventionDetails";
 import AddIntervention from "../../components/admin/interventions/AddIntervention";
 import Modal from "../../components/admin/Modal";
+import DeleteIntervention from "../../components/admin/interventions/DeleteIntervention";
 
 export default function AdminInterventions() {
   const [interventions, setInterventions] = useState(null);
@@ -49,7 +51,7 @@ export default function AdminInterventions() {
                   key={intervention.id}
                   intervention={intervention}
                   selectedIntervention={selectedIntervention}
-                  setSelectedintervention={setSelectedIntervention}
+                  setSelectedIntervention={setSelectedIntervention}
                   setIsShow={setIsShow}
                 />
               ))}
@@ -68,7 +70,7 @@ export default function AdminInterventions() {
 
       <div
         className={
-          isShow.modalAdd
+          isShow.modalAdd || isShow.modalDelete
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
@@ -76,7 +78,20 @@ export default function AdminInterventions() {
         {isShow.modalAdd && (
           <Modal component={<AddIntervention />} setIsShow={setIsShow} />
         )}
+        {isShow.modalDelete && (
+          <Modal
+            component={
+              <DeleteIntervention
+                selectedIntervention={selectedIntervention}
+                setSelectedIntervention={setSelectedIntervention}
+                setIsShow={setIsShow}
+              />
+            }
+            setIsShow={setIsShow}
+          />
+        )}
       </div>
+      <ToastContainer limit={1} />
     </main>
   );
 }
