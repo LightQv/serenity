@@ -76,19 +76,18 @@ export default function Operations() {
         } `}
       >
         {filteredHeadings.map((heading) => (
-          <li
-            className={`cursor-pointer text-white lg:text-black ${
-              mobileView ? "mb-4" : "mr-4"
-            } rounded p-4 lg:p-8 ${
-              activeHeading === heading.name ? heading.color : " bg-gray-200"
-            }`}
-            key={heading.id}
-          >
+          <li>
             <button
+              key={heading.id}
               onClick={() =>
                 handleTabClick(heading.name, heading.borderColor, heading.url)
               }
               type="button"
+              className={`cursor-pointer text-white lg:text-black ${
+                mobileView ? "mb-4" : "mr-4"
+              } rounded p-4 lg:p-8 ${
+                activeHeading === heading.name ? heading.color : " bg-gray-200"
+              }`}
             >
               <a href={heading.url}>{heading.label}</a>
             </button>
