@@ -117,15 +117,31 @@ export default function EditIntervention({
           <select
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
-            onChange={handleChange}
+            defaultValue={intervention && intervention.operation_id}
           >
-            <option value="">---</option>
+            <option
+              value=""
+              onClick={(e) =>
+                setIntervention({
+                  ...intervention,
+                  operation_id: e.target.value,
+                })
+              }
+            >
+              ---
+            </option>
             {operations &&
               operations.map((operation) => (
                 <option
                   name="operation_id"
                   value={operation.id}
                   key={operation.id}
+                  onClick={(e) =>
+                    setIntervention({
+                      ...intervention,
+                      operation_id: e.target.value,
+                    })
+                  }
                 >
                   {operation.operation_name}
                 </option>
