@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { addInterventionSchema } from "../../../services/validators";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
+import FormError from "../../FormError";
 
 export default function AddIntervention() {
   const [operations, setOperations] = useState(null);
@@ -15,6 +17,7 @@ export default function AddIntervention() {
     practitioner_id: null,
     user_id: null,
   });
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     APIService.get(`/operations`)
@@ -48,19 +51,20 @@ export default function AddIntervention() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await APIService.post(`/interventions`, interventions);
-      if (res) {
-        notifySuccess("L'intervention a été ajouté'");
-      } else throw new Error();
-    } catch (err) {
-      if (err.request.status === 401) {
-        notifyError(`${err.request.status} : La requete a échouée`);
-      } else {
-        notifyError("Erreur dans l'ajout de l'intervention");
+    if (addInterventionSchema.isValidSync(interventions)) {
+      try {
+        const res = await APIService.post(`/interventions`, interventions);
+        if (res) {
+          notifySuccess("L'intervention a été ajouté'");
+        } else throw new Error();
+      } catch (err) {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée`);
+        } else {
+          notifyError("Erreur dans l'ajout de l'intervention");
+        }
       }
-    }
+    } else notifyError("Une erreur dans la saisie.");
   };
 
   const handleChange = async (e) => {
@@ -68,6 +72,17 @@ export default function AddIntervention() {
       ...interventions,
       [e.target.name]: e.target.value,
     });
+    try {
+      const isValid = await addInterventionSchema.validate(interventions, {
+        abortEarly: false,
+      });
+      if (isValid) {
+        setErrors(null);
+      }
+      throw new Error();
+    } catch (err) {
+      setErrors(err.errors);
+    }
   };
 
   return (
@@ -82,6 +97,7 @@ export default function AddIntervention() {
         className="grid grid-cols-1 content-center items-center p-4 "
         onSubmit={handlesubmit}
       >
+        {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="operation_id" className="mb-2 text-base">
             Sélectionner une intervention
