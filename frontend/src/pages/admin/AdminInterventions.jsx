@@ -5,6 +5,7 @@ import { notifyError } from "../../services/ToastNotificationService";
 import InterventionDetails from "../../components/admin/interventions/InterventionDetails";
 import AddIntervention from "../../components/admin/interventions/AddIntervention";
 import Modal from "../../components/admin/Modal";
+import EditIntervention from "../../components/admin/interventions/EditIntervention";
 import DeleteIntervention from "../../components/admin/interventions/DeleteIntervention";
 
 export default function AdminInterventions() {
@@ -34,10 +35,10 @@ export default function AdminInterventions() {
       </h3>
       <div className="flex w-full flex-col justify-center rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="hidden w-full items-center justify-between border-b-[1px] border-slate-200 lg:grid lg:h-12 lg:grid-cols-5 lg:border-gray-300 lg:px-4">
-          <p className="text-sm lg:pl-2">Nom de l'intervention</p>
-          <p className=" text-sm ">Date de l'intervention</p>
-          <p className=" text-sm ">Nom du chirurgien</p>
-          <p className=" text-sm ">Nom du patient</p>
+          <p className="text-sm lg:pl-2">Intervention</p>
+          <p className=" text-sm ">Date</p>
+          <p className=" text-sm ">Chirurgien</p>
+          <p className=" text-sm ">Patient</p>
           <div className="flex items-center justify-end gap-2 lg:pr-3">
             <p className="text-xs italic text-gray-500">Interactions</p>
           </div>
@@ -70,13 +71,24 @@ export default function AdminInterventions() {
 
       <div
         className={
-          isShow.modalAdd || isShow.modalDelete
+          isShow.modalAdd || isShow.modalEdit || isShow.modalDelete
             ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
             : "hidden"
         }
       >
         {isShow.modalAdd && (
           <Modal component={<AddIntervention />} setIsShow={setIsShow} />
+        )}
+        {isShow.modalEdit && (
+          <Modal
+            component={
+              <EditIntervention
+                selectedIntervention={selectedIntervention}
+                setSelectedIntervention={setSelectedIntervention}
+              />
+            }
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalDelete && (
           <Modal
