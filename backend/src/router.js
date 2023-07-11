@@ -53,7 +53,7 @@ const interventionControllers = require("./controllers/interventionControllers")
 
 router.get("/api/interventions", interventionControllers.browse);
 router.get("/api/interventions/:id", interventionControllers.read);
-router.put("/api/interventions/:id", interventionControllers.edit);
+router.put("/api/interventions/:id", verifyAdmin, interventionControllers.edit);
 router.post("/api/interventions", verifyAdmin, interventionControllers.add);
 router.delete("/api/interventions/:id", interventionControllers.destroy);
 
