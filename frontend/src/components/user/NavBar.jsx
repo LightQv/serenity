@@ -22,7 +22,7 @@ export default function NavBar() {
         alt="logo"
         className="hidden lg:mx-auto lg:mb-8 lg:mt-8 lg:block lg:h-16"
       />
-      <ul className="flex h-full w-full items-center justify-evenly lg:h-2/6 lg:flex-col lg:justify-center lg:gap-4">
+      <ul className="flex h-full w-full items-center justify-evenly lg:h-2/5 lg:flex-col">
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>

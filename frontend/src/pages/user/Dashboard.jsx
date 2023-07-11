@@ -3,27 +3,11 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useInterventionContext } from "../../contexts/InterventionContext";
 import LogoutSvg from "../../components/svg/LogoutSvg";
 import ProtocolCard from "../../components/user/dashboard/ProtocolCard";
+import countdown from "../../services/utils";
 
 export default function Dashboard() {
   const { user, logout } = useUserContext();
   const { protocols } = useInterventionContext();
-
-  function countdown(meet) {
-    // Setting time variables
-    const second = 1000;
-    const minute = 60 * second;
-    const hour = 60 * minute;
-    const day = 24 * hour;
-
-    // Now's date
-    const now = new Date();
-
-    // Gap between Appointment and Today's date
-    const distance = new Date(meet) - now;
-
-    if (distance <= 0) return 0;
-    return Math.ceil(distance / day);
-  }
 
   return (
     <main className="min-w-screen relative mb-6 flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:mb-0 lg:py-16 lg:pl-72 lg:pr-12">

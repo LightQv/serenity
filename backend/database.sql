@@ -157,38 +157,38 @@ VALUES
   '1'
 ),
 (
-  'Passeport ou Carte Nationale Identité',
-  'Document nécessaire le jour de lintervention',
+  'Passeport ou Carte Nationale d''Identité',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Carte vitale',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
-  'Une photo didentité',
-  'Document nécessaire le jour de lintervention',
+  'Une photo d''identité',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Un R.I.B',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Être à jeun',
-  'Nécessaire -12h avant lintervention',
+  'Nécessaire -12h avant l''intervention',
   '3'
 ),
 (
   'Être négatif au COVID',
-  'Amener le test négatif le jour de lintervention',
+  'Amener le test négatif le jour de l''intervention',
   '3'
 ),
 (
-  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
-  'À faire le jour de lintervention',
+  'Avoir pris une douche avec un savon antiseptique',
+  'À faire le jour de l''intervention',
   '3'
 ),
 (
@@ -198,37 +198,37 @@ VALUES
 ),
 (
   'Passeport ou Carte Nationale Identité',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Carte vitale',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Une photo didentité',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Un R.I.B',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Être à jeun',
-  'Nécessaire -12h avant lintervention',
+  'Nécessaire -12h avant l''intervention',
   '6'
 ),
 (
   'Être négatif au COVID',
-  'Amener le test négatif le jour de lintervention',
+  'Amener le test négatif le jour de l''intervention',
   '6'
 ),
 (
-  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
-  'À faire le jour de lintervention',
+  'Avoir pris une douche avec un savon antiseptique',
+  'À faire le jour de l''intervention',
   '6'
 );
 

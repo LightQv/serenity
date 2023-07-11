@@ -1,29 +1,24 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import {
+  getProgressionPercentage,
+  getProgressionBackground,
+} from "../../../services/utils";
 
 export default function ProtocolCard({ data }) {
-  // Calculate Progression Bar Width based on how many content are completed
-  function getProgressionWidth(actual, total) {
-    return parseInt((actual * 100) / total, 10);
-  }
-
-  function getProgressionBackground(theme) {
-    if (theme === "#d9b520") return "#f5d23f";
-    if (theme === "#079fa5") return "#4fd5b8";
-    if (theme === "#c1486c") return "#f85585";
-    return null;
-  }
-
   return (
     <li
       className="relative flex h-20 w-full items-center justify-between overflow-hidden rounded-lg text-slate-100 hover:opacity-80 lg:h-24"
       style={{ backgroundColor: `${data.color_theme}` }}
     >
       <div
-        className="absolute left-0 top-0 h-full"
+        className="absolute left-0 top-0 h-full transition-all"
         style={{
           backgroundColor: `${getProgressionBackground(data.color_theme)}`,
-          width: `${getProgressionWidth(data.item_complete, data.item_count)}%`,
+          width: `${getProgressionPercentage(
+            data.item_complete,
+            data.item_count
+          )}`,
         }}
       />
       <NavLink

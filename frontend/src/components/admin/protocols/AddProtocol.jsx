@@ -16,13 +16,9 @@ export default function AddProtocol() {
     operation_id: null,
     color_theme: "",
   });
-  const [itemInfos, setItemInfos] = useState({
-    protocol_item_name: "",
-    protocol_description: "",
-    protocol_id: null,
-  });
   const [errors, setErrors] = useState(null);
   const [protocolCreate, setProtocolCreate] = useState(false);
+  const [newProtocolId, setNewProtocolId] = useState(null);
 
   // Fetch Operations data
   useEffect(() => {
@@ -44,7 +40,7 @@ export default function AddProtocol() {
       try {
         const protocol = await APIService.post(`/protocols`, protocolInfos);
         if (protocol) {
-          setItemInfos({ ...itemInfos, protocol_id: protocol.data.id });
+          setNewProtocolId(protocol.data.id);
           setProtocolCreate(true);
           notifySuccess("Le protocole a été ajouté.");
         } else throw new Error();
@@ -78,7 +74,7 @@ export default function AddProtocol() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       {protocolCreate ? (
-        <AddItem itemInfos={itemInfos} setItemInfos={setItemInfos} />
+        <AddItem protocolId={newProtocolId} />
       ) : (
         <div>
           <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
