@@ -19,11 +19,6 @@ export default function ItemDetails({ selectedProtocol }) {
     { modalDelete: false }
   );
   const [selectedItem, setSelectedItem] = useState();
-  const [itemInfos, setItemInfos] = useState({
-    protocol_item_name: "",
-    protocol_description: "",
-    protocol_id: selectedProtocol,
-  });
 
   // Fetch Protocols data
   useEffect(() => {
@@ -56,7 +51,7 @@ export default function ItemDetails({ selectedProtocol }) {
       <ul className="w-full gap-4 space-y-4 px-4 pb-1 pt-2 lg:p-8">
         {itemList && itemList.length !== 0 ? (
           itemList.map((item, index) => (
-            <li className="flex justify-start gap-1">
+            <li className="flex flex-col justify-start gap-1 lg:flex-row">
               <div className="flex w-full justify-start gap-1">
                 <h3 className="text-sm font-semibold">{index + 1}.</h3>
                 <div className="text-sm">
@@ -104,9 +99,7 @@ export default function ItemDetails({ selectedProtocol }) {
       >
         {isShow.modalAdd && (
           <Modal
-            component={
-              <AddItem itemInfos={itemInfos} setItemInfos={setItemInfos} />
-            }
+            component={<AddItem protocolId={selectedProtocol} />}
             setIsShow={setIsShow}
           />
         )}
