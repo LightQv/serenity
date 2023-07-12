@@ -1,16 +1,36 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.practitioner
+  models.user
     .findAll()
     .then(([result]) => {
-      res.json(result);
+      res.send(result);
     })
     .catch((err) => {
       console.error(err);
       res.status(500);
     });
 };
+
+const browseList = async (req, res) => {
+  const { page } = req.query;
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [[{ total }]] = await models.practitioner.countPractitioners();
+
+    const [practitioners] = await models.practitioner.findAllList(
+      limit,
+      offset
+    );
+    res.send({ total, datas: practitioners });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur interne");
+  }
+};
+
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -77,6 +97,7 @@ const destroy = async (req, res) => {
 };
 module.exports = {
   browse,
+  browseList,
   read,
   edit,
   add,
