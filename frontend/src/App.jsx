@@ -11,6 +11,7 @@ import AdminOperations from "./pages/admin/AdminOperations";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
 import Protocols from "./pages/user/Protocols";
+import Contact from "./pages/user/Contact";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
       <Route element={<RequireAuth allowedRoles="user" />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="protocols/:id" element={<Protocols />} />
-        <Route path="contact" element={<Dashboard />} />
+        <Route path="contact" element={<Contact />} />
       </Route>
     </Routes>
   );

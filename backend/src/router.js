@@ -16,7 +16,7 @@ const {
 // Public Routes (Auth)
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-// nécessité d'être authentifié
+// Auth requiered
 router.use(verifyToken);
 router.get("/api/logout", logout);
 
