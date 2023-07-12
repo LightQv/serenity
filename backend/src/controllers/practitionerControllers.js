@@ -1,10 +1,10 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.user
+  models.practitioner
     .findAll()
     .then(([result]) => {
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.error(err);
