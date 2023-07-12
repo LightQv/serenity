@@ -78,7 +78,7 @@ export default function AddPatient() {
       <div>
         {errors && <FormError errors={errors} />}
         <form
-          className="lg grid grid-cols-1 content-center items-center p-4 lg:grid-cols-2 lg:gap-8 lg:p-8"
+          className="grid grid-cols-1 content-center items-center p-4 lg:grid-cols-2 lg:gap-8 lg:p-8"
           onSubmit={handlesubmit}
         >
           <div className="flex flex-col">

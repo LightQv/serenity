@@ -36,7 +36,7 @@ export default function AdminPractitioners() {
       return params;
     });
 
-    APIService.get(`/practitionersList?page=${currentPage}`)
+    APIService.get(`/practitioners-list?page=${currentPage}`)
       .then((res) => {
         // on récupère data = total des practitioner et datas = tableau des pracitioner
         setPractitioners(res.data.datas);

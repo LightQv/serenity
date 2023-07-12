@@ -15,7 +15,7 @@ export default function PatientInsight({ patient }) {
         <Link
           to={`${patient.id}`}
           type="button"
-          className="g:p-2 h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0"
+          className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 lg:p-2"
         >
           <ViewSvg />
         </Link>
