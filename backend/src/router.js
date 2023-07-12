@@ -44,6 +44,7 @@ router.delete("/api/users/:id", verifyAdmin, userControllers.destroy);
 const practitionerControllers = require("./controllers/practitionerControllers");
 
 router.get("/api/practitioners", practitionerControllers.browse);
+router.get("/api/practitionersList", practitionerControllers.browseList);
 router.get("/api/practitioners/:id", practitionerControllers.read);
 router.put("/api/practitioners/:id", practitionerControllers.edit);
 router.post("/api/practitioners", practitionerControllers.add);
