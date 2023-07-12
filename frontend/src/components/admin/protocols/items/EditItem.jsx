@@ -14,6 +14,7 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
     protocol_item_name: "",
     protocol_description: "",
     protocol_id: selectedItem,
+    is_complete: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -24,6 +25,7 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
         setItemInfos({
           protocol_item_name: res.data.protocol_item_name,
           protocol_description: res.data.protocol_description,
+          is_complete: res.data.is_complete,
         });
       })
       .catch((err) => {

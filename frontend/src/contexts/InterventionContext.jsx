@@ -10,16 +10,17 @@ export default InterventionContext;
 export function InterventionContextProvider({ children }) {
   const { user } = useUserContext();
   const [protocols, setProtocols] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     APIService.get(`/operations/${user.operation_id}`)
       .then((res) => setProtocols(res.data))
       .catch((err) => console.error(err));
-  }, []);
+  }, [update]);
 
   const memo = useMemo(() => {
-    return { protocols };
-  }, [protocols]);
+    return { protocols, update, setUpdate };
+  }, [protocols, update]);
 
   return (
     <InterventionContext.Provider value={memo}>

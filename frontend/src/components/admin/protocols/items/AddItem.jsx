@@ -9,8 +9,14 @@ import notifySuccess, {
 import APIService from "../../../../services/APIService";
 import FormError from "../../../FormError";
 
-export default function AddItem({ itemInfos, setItemInfos }) {
+export default function AddItem({ protocolId }) {
   const [errors, setErrors] = useState(null);
+  const [itemInfos, setItemInfos] = useState({
+    protocol_item_name: "",
+    protocol_description: "",
+    protocol_id: protocolId,
+    is_complete: 0,
+  });
 
   // Submit Add Item Request
   const handleSubmitItem = async (e) => {
@@ -111,6 +117,5 @@ export default function AddItem({ itemInfos, setItemInfos }) {
 }
 
 AddItem.propTypes = {
-  itemInfos: PropTypes.shape().isRequired,
-  setItemInfos: PropTypes.func.isRequired,
+  protocolId: PropTypes.number.isRequired,
 };
