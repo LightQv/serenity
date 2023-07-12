@@ -4,6 +4,7 @@ import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
 import PatientPagination from "../../components/admin/patients/PatientPagination";
+import { notifyError } from "../../services/ToastNotificationService";
 
 export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
@@ -17,7 +18,11 @@ export default function AdminPatients() {
   useEffect(() => {
     APIService.get(`/users`)
       .then((response) => setListPatients(response.data))
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
   }, [isShow]);
 
   if (!listPatients) return null;
