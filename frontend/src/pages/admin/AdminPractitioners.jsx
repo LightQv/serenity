@@ -7,8 +7,7 @@ import DeletePractitioner from "../../components/admin/practitioners/DeletePract
 import EditPractitioner from "../../components/admin/practitioners/EditPractitioner";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
-
-// import PractitionerPagination from "../../components/admin/practitioners/PractitionerPagination";
+import PractitionerPagination from "../../components/admin/practitioners/PractitionerPagination";
 
 export default function AdminPractitioners() {
   const [practitioners, setPractitioners] = useState(null);
@@ -25,6 +24,8 @@ export default function AdminPractitioners() {
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page"), 10) || defaultPage
   );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     setSearchParams((params) => {
@@ -118,30 +119,12 @@ export default function AdminPractitioners() {
           />
         )}
       </div>
-
-      <li>
-        <button
-          type="button"
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`mx-1.5 flex h-6 w-6 items-center justify-center rounded-md ${
-            currentPage === 1 ? "bg-violet-dark-0 text-white" : ""
-          } bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg`}
-        >
-          {1}
-        </button>
-      </li>
-
-      <li>
-        <button
-          type="button"
-          onClick={() => setCurrentPage(currentPage + 1)}
-          className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
-          disabled={currentPage === maxPage}
-        >
-          &gt;
-        </button>
-      </li>
+      <PractitionerPagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        paginate={paginate}
+        maxPage={maxPage}
+      />
     </main>
   );
 }

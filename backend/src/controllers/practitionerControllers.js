@@ -11,6 +11,7 @@ const browse = (req, res) => {
       res.status(500);
     });
 };
+
 const browseList = async (req, res) => {
   const { page } = req.query;
   const limit = 5;

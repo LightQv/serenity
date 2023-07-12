@@ -2,42 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function PractitionerPagination({
-  practitionersPerPage,
-  totalPractitioners,
   currentPage,
+  setCurrentPage,
   paginate,
+  maxPage,
 }) {
   const pageNumbers = [];
 
   // Calcul du nombre de pages
-  for (
-    let i = 1;
-    i <= Math.ceil(totalPractitioners / practitionersPerPage);
-    i += 1
-  ) {
+  for (let i = 1; i <= maxPage; i += 1) {
     pageNumbers.push(i);
   }
 
-  // fonction pour aller à la page précédente
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      paginate(currentPage - 1);
-    }
-  };
-
-  // fonction pour aller à la page suivante
-  const goToNextPage = () => {
-    if (currentPage < pageNumbers.length) {
-      paginate(currentPage + 1);
-    }
-  };
-
   return (
     <ul className="mt-3 flex justify-center">
-      <li>
+      <li className="list-none">
         <button
           type="button"
-          onClick={goToPreviousPage}
+          onClick={() => setCurrentPage(currentPage - 1)}
           className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
           disabled={currentPage === 1}
         >
@@ -45,7 +27,7 @@ export default function PractitionerPagination({
         </button>
       </li>
       {pageNumbers.map((number) => (
-        <li key={number}>
+        <li key={number} className="list-none">
           <button
             type="button"
             onClick={() => paginate(number)}
@@ -57,12 +39,12 @@ export default function PractitionerPagination({
           </button>
         </li>
       ))}
-      <li>
+      <li className="list-none">
         <button
           type="button"
-          onClick={goToNextPage}
+          onClick={() => setCurrentPage(currentPage + 1)}
           className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
-          disabled={currentPage === pageNumbers.length}
+          disabled={currentPage === maxPage}
         >
           &gt;
         </button>
@@ -72,8 +54,8 @@ export default function PractitionerPagination({
 }
 
 PractitionerPagination.propTypes = {
-  practitionersPerPage: PropTypes.number.isRequired,
-  totalPractitioners: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  maxPage: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
 };
