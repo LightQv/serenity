@@ -76,11 +76,11 @@ export default function AddPatient() {
         </h1>
       </div>
       <div>
+        {errors && <FormError errors={errors} />}
         <form
-          className="grid grid-cols-1 content-center items-center p-4 lg:grid-cols-2 lg:gap-8 lg:p-8"
+          className="lg grid grid-cols-1 content-center items-center p-4 lg:grid-cols-2 lg:gap-8 lg:p-8"
           onSubmit={handlesubmit}
         >
-          {errors && <FormError errors={errors} />}
           <div className="flex flex-col">
             <label htmlFor="name" className="text-base font-bold lg:pb-2">
               Nom
