@@ -26,6 +26,7 @@ const userControllers = require("./controllers/userControllers");
 
 router.get("/api/users", verifyAdmin, userControllers.browse);
 router.get("/api/users/:id", verifyAdmin, userControllers.read);
+router.get("/api/users/search/:term", verifyAdmin, userControllers.search);
 router.put(
   "/api/users/:id",
   verifyAdmin,
@@ -40,7 +41,6 @@ router.post(
   userControllers.add
 );
 router.delete("/api/users/:id", verifyAdmin, userControllers.destroy);
-router.get("/api/users/search/:term", verifyAdmin, userControllers.search);
 
 const practitionerControllers = require("./controllers/practitionerControllers");
 

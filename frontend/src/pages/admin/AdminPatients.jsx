@@ -5,7 +5,7 @@ import Modal from "../../components/admin/Modal";
 import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
-import SearchBar from "../../components/admin/patients/SearchBar";
+import SearchBar from "../../components/admin/SearchBar";
 
 export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
@@ -42,7 +42,6 @@ export default function AdminPatients() {
     setSearchParams({ term: value });
   };
 
-  if (!listPatients) return null;
   return (
     <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
@@ -52,11 +51,14 @@ export default function AdminPatients() {
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
         <div className="flex w-full flex-col-reverse justify-between lg:flex-row lg:items-center lg:px-4">
-          <SearchBar value={searchValue} onChange={handleSearchChange} />
-
+          <SearchBar
+            value={searchValue}
+            onChange={handleSearchChange}
+            type="patient"
+          />
           <button
             type="button"
-            className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 lg:my-1   lg:self-end"
+            className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 lg:my-1 lg:mt-4 lg:self-end"
             onClick={() => setIsShow({ modalAdd: true })}
           >
             Ajouter un patient
@@ -68,19 +70,25 @@ export default function AdminPatients() {
             <p className="text-xs italic text-gray-500">Voir plus</p>
           </div>
         </div>
-        <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-2">
-          {listPatients
-            .filter((patient) => patient.roles === "user")
-            .map((patient) => (
-              <PatientInsight
-                key={patient.id}
-                patient={patient}
-                selectedPatient={selectedPatient}
-                setSelectedPatient={setSelectedPatient}
-                setIsShow={setIsShow}
-              />
-            ))}
-        </ul>
+        {listPatients && listPatients.length !== 0 ? (
+          <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-2">
+            {listPatients
+              .filter((patient) => patient.roles === "user")
+              .map((patient) => (
+                <PatientInsight
+                  key={patient.id}
+                  patient={patient}
+                  selectedPatient={selectedPatient}
+                  setSelectedPatient={setSelectedPatient}
+                  setIsShow={setIsShow}
+                />
+              ))}
+          </ul>
+        ) : (
+          <p className="mt-2 self-center text-xs lg:mb-4 lg:mt-8 lg:text-base">
+            Aucun patient disponible.
+          </p>
+        )}
         {/* Ici mettre le composant pagination */}
       </div>
       <div
