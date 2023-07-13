@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
 import InterventionDetails from "../../components/admin/interventions/InterventionDetails";
@@ -7,6 +8,7 @@ import AddIntervention from "../../components/admin/interventions/AddInterventio
 import Modal from "../../components/admin/Modal";
 import EditIntervention from "../../components/admin/interventions/EditIntervention";
 import DeleteIntervention from "../../components/admin/interventions/DeleteIntervention";
+import Pagination from "../../components/admin/Pagination";
 
 export default function AdminInterventions() {
   const [interventions, setInterventions] = useState(null);
@@ -16,16 +18,35 @@ export default function AdminInterventions() {
     modalDelete: false,
   });
   const [selectedIntervention, setSelectedIntervention] = useState();
+  const limitPerPage = 5;
+  const defaultPage = 1;
+  const [maxPage, setMaxPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(searchParams.get("page"), 10) || defaultPage
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    APIService.get(`/interventions`)
-      .then((response) => setInterventions(response.data))
+    setSearchParams((params) => {
+      searchParams.set("page", currentPage);
+      if (currentPage === 1) {
+        return undefined;
+      }
+      return params;
+    });
+    APIService.get(`/interventions-list?page=${currentPage}`)
+      .then((response) => {
+        setInterventions(response.data.datas);
+        setMaxPage(Math.ceil(response.data.total / limitPerPage));
+      })
       .catch((err) => {
         if (err.request.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
-  }, [isShow]);
+  }, [currentPage, isShow]);
 
   if (!interventions) return null;
   return (
@@ -73,7 +94,12 @@ export default function AdminInterventions() {
         ) : (
           <p className="self-center text-xs">Aucune intervention disponible.</p>
         )}
-        {/* Ici mettre le composant pagination */}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          paginate={paginate}
+          maxPage={maxPage}
+        />
       </div>
       <div
         className={
