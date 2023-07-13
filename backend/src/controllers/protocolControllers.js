@@ -12,6 +12,22 @@ const browse = (req, res) => {
     });
 };
 
+const browseList = async (req, res) => {
+  const { page } = req.query;
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [[{ total }]] = await models.protocol.countProtocols();
+    const [protocols] = await models.protocol.findAllList(limit, offset);
+
+    res.send({ total, data: protocols });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur interne");
+  }
+};
+
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -86,6 +102,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseList,
   read,
   edit,
   add,

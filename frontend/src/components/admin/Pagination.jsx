@@ -8,7 +8,6 @@ export default function PractitionerPagination({
   maxPage,
 }) {
   const pageNumbers = [];
-
   // Calcul du nombre de pages
   for (let i = 1; i <= maxPage; i += 1) {
     pageNumbers.push(i);
