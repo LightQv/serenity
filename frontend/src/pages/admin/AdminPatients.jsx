@@ -51,7 +51,7 @@ export default function AdminPatients() {
         </h3>
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
-        <div className="lg:ml-3 lg:mr-4  lg:flex lg:items-center lg:justify-between ">
+        <div className="flex w-full flex-col-reverse justify-between lg:flex-row lg:items-center lg:px-4">
           <SearchBar value={searchValue} onChange={handleSearchChange} />
 
           <button
