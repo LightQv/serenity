@@ -53,10 +53,15 @@ router.delete("/api/practitioners/:id", practitionerControllers.delete);
 const interventionControllers = require("./controllers/interventionControllers");
 
 router.get("/api/interventions", interventionControllers.browse);
+router.get("/api/interventions-list", interventionControllers.browseList);
 router.get("/api/interventions/:id", interventionControllers.read);
 router.put("/api/interventions/:id", verifyAdmin, interventionControllers.edit);
 router.post("/api/interventions", verifyAdmin, interventionControllers.add);
-router.delete("/api/interventions/:id", interventionControllers.destroy);
+router.delete(
+  "/api/interventions/:id",
+  verifyAdmin,
+  interventionControllers.destroy
+);
 
 const operationControllers = require("./controllers/operationControllers");
 
