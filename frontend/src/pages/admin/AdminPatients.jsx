@@ -62,7 +62,7 @@ export default function AdminPatients() {
       <div
         className={
           isShow.modalAdd
-            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
+            ? "absolute left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center overflow-auto bg-black/80 p-4"
             : "hidden"
         }
       >

@@ -59,7 +59,7 @@ export default function AdminDashboard() {
   }, []);
 
   return (
-    <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
+    <main className="relative mb-12 flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:mb-0 lg:py-12 lg:pl-72 lg:pr-12">
       <div className="mb-4 mt-2 flex h-fit w-full items-center justify-between lg:mb-8">
         <h3 className="text-2xl font-semibold lg:text-4xl">
           Bonjour, {user.user_firstname}
