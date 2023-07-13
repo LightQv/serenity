@@ -1,19 +1,5 @@
 const models = require("../models");
 
-const search = (req, res) => {
-  const searchTerm = req.params.term;
-
-  models.practitioner
-    .search(searchTerm)
-    .then(([result]) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 const browse = (req, res) => {
   models.practitioner
     .findAll()
@@ -28,9 +14,9 @@ const browse = (req, res) => {
 
 const browseList = async (req, res) => {
   const { page } = req.query;
+  const { term } = req.query;
   const limit = 5;
   const offset = (page - 1) * limit;
-  const { term } = req.query;
 
   try {
     if (term) {
@@ -122,7 +108,6 @@ const destroy = async (req, res) => {
   }
 };
 module.exports = {
-  search,
   browse,
   browseList,
   read,

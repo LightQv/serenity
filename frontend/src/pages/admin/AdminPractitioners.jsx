@@ -39,7 +39,7 @@ export default function AdminPractitioners() {
 
   useEffect(() => {
     setSearchParams((params) => {
-      if (searchValue !== "") {
+      if (searchValue.length > 1) {
         setCurrentPage(1);
       }
       searchParams.set("page", currentPage);
@@ -114,7 +114,7 @@ export default function AdminPractitioners() {
             Aucun praticien disponible.
           </p>
         )}
-        {practitioners.length !== 0 && (
+        {practitioners && practitioners.length !== 0 && (
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

@@ -66,7 +66,7 @@ export default function Notification() {
             </svg>
           </button>
           <ul className="w-full px-6 py-8">
-            {messageList.length > 0 ? (
+            {socketUser && messageList.length > 0 ? (
               messageList
                 .filter((notification, index) => {
                   return messageList.indexOf(notification) === index;
