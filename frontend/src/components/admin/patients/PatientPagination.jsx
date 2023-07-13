@@ -29,12 +29,12 @@ function PatientPagination({
   };
 
   return (
-    <ul className="mt-3 flex justify-center">
+    <ul className="flex justify-between gap-4">
       <li>
         <button
           type="button"
           onClick={goToPreviousPage}
-          className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
+          className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
           disabled={currentPage === 1}
         >
           &lt;
@@ -45,9 +45,11 @@ function PatientPagination({
           <button
             type="button"
             onClick={() => paginate(number)}
-            className={`mx-1.5 flex h-6 w-6 items-center justify-center rounded-md ${
-              currentPage === number ? "bg-violet-dark-0 text-white" : ""
-            } bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg`}
+            className={`flex h-6 w-6 items-center justify-center rounded-lg p-2 text-sm font-semibold shadow-lg transition-all disabled:bg-slate-300 ${
+              currentPage === number
+                ? "bg-violet-dark-0 text-white hover:bg-violet-light-0"
+                : "bg-gray-300 text-violet-dark-0 hover:text-violet-light-0"
+            }`}
           >
             {number}
           </button>
@@ -57,7 +59,7 @@ function PatientPagination({
         <button
           type="button"
           onClick={goToNextPage}
-          className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
+          className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
           disabled={currentPage === pageNumbers.length}
         >
           &gt;

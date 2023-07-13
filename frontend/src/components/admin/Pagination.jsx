@@ -15,12 +15,12 @@ export default function PractitionerPagination({
   }
 
   return (
-    <ul className="mt-3 flex justify-center">
+    <ul className="my-4 flex h-fit w-fit justify-evenly gap-4 self-center rounded-lg px-6 py-3 text-sm lg:my-2 lg:mt-4">
       <li className="list-none">
         <button
           type="button"
           onClick={() => setCurrentPage(currentPage - 1)}
-          className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
+          className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
           disabled={currentPage === 1}
         >
           &lt;
@@ -31,9 +31,11 @@ export default function PractitionerPagination({
           <button
             type="button"
             onClick={() => paginate(number)}
-            className={`mx-1.5 flex h-6 w-6 items-center justify-center rounded-md ${
-              currentPage === number ? "bg-violet-dark-0 text-white" : ""
-            } bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg`}
+            className={`flex h-6 w-6 items-center justify-center rounded-lg p-2 text-sm font-semibold shadow-lg transition-all disabled:bg-slate-300 ${
+              currentPage === number
+                ? "bg-violet-dark-0 text-white hover:bg-violet-light-0"
+                : "bg-gray-300 text-violet-dark-0 hover:text-violet-light-0"
+            }`}
           >
             {number}
           </button>
@@ -43,7 +45,7 @@ export default function PractitionerPagination({
         <button
           type="button"
           onClick={() => setCurrentPage(currentPage + 1)}
-          className="mx-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-slate-300 text-base font-semibold text-violet-dark-0 shadow-lg"
+          className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
           disabled={currentPage === maxPage}
         >
           &gt;
