@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import OperationDetails from "../../components/admin/operations/OperationDetails";
 import Modal from "../../components/admin/Modal";
 import AddOperation from "../../components/admin/operations/AddOperation";
@@ -6,6 +7,7 @@ import EditOperation from "../../components/admin/operations/EditOperation";
 import DeleteOperation from "../../components/admin/operations/DeleteOperation";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
+import Pagination from "../../components/admin/Pagination";
 
 export default function AdminOperations() {
   const [operations, setOperations] = useState(null);
@@ -15,15 +17,36 @@ export default function AdminOperations() {
     modalDelete: false,
   });
   const [selectedOperation, setSelectedOperation] = useState();
+  const limitPerPage = 5;
+  const defaultPage = 1;
+  const [maxPage, setMaxPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(searchParams.get("page"), 10) || defaultPage
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   useEffect(() => {
-    APIService.get(`/operations`)
-      .then((res) => setOperations(res.data))
+    setSearchParams((params) => {
+      searchParams.set("page", currentPage);
+      if (currentPage === 1) {
+        return undefined;
+      }
+      return params;
+    });
+
+    APIService.get(`/operations-list?page=${currentPage}`)
+      .then((res) => {
+        setOperations(res.data.datas);
+        setMaxPage(Math.ceil(res.data.total / limitPerPage));
+      })
       .catch((err) => {
         if (err.request.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
-  }, [isShow]);
+  }, [currentPage, isShow]);
 
   if (!operations) return null;
   return (
@@ -68,7 +91,12 @@ export default function AdminOperations() {
         ) : (
           <p className="self-center text-xs">Aucun opération disponible.</p>
         )}
-        {/* Ici mettre le composant pagination */}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          paginate={paginate}
+          maxPage={maxPage}
+        />
       </div>
       <div
         className={

@@ -67,6 +67,7 @@ router.delete(
 const operationControllers = require("./controllers/operationControllers");
 
 router.get("/api/operations", operationControllers.browse);
+router.get("/api/operations-list", operationControllers.browseList);
 router.get("/api/operations/:id", operationControllers.read);
 router.put("/api/operations/:id", operationControllers.edit);
 router.post("/api/operations", operationControllers.add);
