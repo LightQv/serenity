@@ -24,6 +24,17 @@ class PractitionerManager extends AbstractManager {
       practitioner,
     ]);
   }
+
+  countPractitioners() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(`SELECT * FROM ${this.table} LIMIT ? OFFSET ?`, [
+      limit,
+      offset,
+    ]);
+  }
 }
 
 module.exports = PractitionerManager;

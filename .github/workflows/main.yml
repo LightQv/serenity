@@ -9,10 +9,12 @@ on:
     branches:
       - main
       - master
+    types: [closed]
 
 jobs:
 
   check-secrets: # thx https://stackoverflow.com/a/70249520/6612932
+  
     runs-on: ubuntu-latest
 
     outputs:
@@ -31,7 +33,8 @@ jobs:
           fi
 
   deploy:
-    if: needs.check-secrets.outputs.caprover-server == 'true'
+    # secret checked and action merged or pushed only
+    if: needs.check-secrets.outputs.caprover-server == 'true' && (github.event.pull_request.merged || github.event_name == 'push')
 
     runs-on: ubuntu-latest
 

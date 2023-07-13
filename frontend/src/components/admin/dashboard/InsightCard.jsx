@@ -3,20 +3,17 @@ import PropTypes from "prop-types";
 
 export default function InsightCard({ title, data, link }) {
   function getPrimaryInfo(item) {
-    if (item.surname) return item.surname;
+    if (item.operation_name) return item.operation_name;
     if (item.firstname) return `${item.firstname} ${item.lastname}`;
-    if (item.intervention_name) return item.intervention_name;
+    if (item.surname) return item.surname;
     return null;
   }
   function getSecondaryInfo(item) {
     if (item.email) return item.email;
     if (item.date) {
-      const date = new Date(item.date);
-      return date.toLocaleDateString("fr-FR", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
+      return `Le ${new Date(item.date).toLocaleDateString()} pratiqué par le ${
+        item.surname
+      }`;
     }
     return null;
   }

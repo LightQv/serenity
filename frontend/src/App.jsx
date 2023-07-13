@@ -5,11 +5,13 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminPractitioners from "./pages/admin/AdminPractitioners";
 import AdminPatients from "./pages/admin/AdminPatients";
+import AdminPatientDetails from "./pages/admin/AdminPatientDetails";
 import AdminInterventions from "./pages/admin/AdminInterventions";
-import AdminOperation from "./pages/admin/AdminOperation";
+import AdminOperations from "./pages/admin/AdminOperations";
 import AdminProtocoles from "./pages/admin/AdminProtocoles";
 import Dashboard from "./pages/user/Dashboard";
-import AdminPatientDetails from "./pages/admin/AdminPatientDetails";
+import Protocols from "./pages/user/Protocols";
+import Contact from "./pages/user/Contact";
 
 function App() {
   return (
@@ -26,12 +28,14 @@ function App() {
         <Route path="/admin/patients" element={<AdminPatients />} />
         <Route path="/admin/patients/:id" element={<AdminPatientDetails />} />
         <Route path="/admin/interventions" element={<AdminInterventions />} />
-        <Route path="/admin/operations" element={<AdminOperation />} />
+        <Route path="/admin/operations" element={<AdminOperations />} />
         <Route path="/admin/protocols" element={<AdminProtocoles />} />
       </Route>
       {/* User routes */}
       <Route element={<RequireAuth allowedRoles="user" />}>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="protocols/:id" element={<Protocols />} />
+        <Route path="contact" element={<Contact />} />
       </Route>
     </Routes>
   );

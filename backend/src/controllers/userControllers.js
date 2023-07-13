@@ -1,5 +1,19 @@
 const models = require("../models");
 
+const search = (req, res) => {
+  const searchTerm = req.params.term;
+
+  models.user
+    .search(searchTerm)
+    .then(([result]) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -82,6 +96,7 @@ const destroy = (req, res) => {
     });
 };
 module.exports = {
+  search,
   browse,
   read,
   edit,

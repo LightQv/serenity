@@ -36,7 +36,7 @@ const migrate = async () => {
         .toLowerCase();
       const hashedPassword =
         "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A";
-      const phoneNumber = faker.phone.number("06-##-##-##-##");
+      const phoneNumber = faker.phone.number("06########");
       const addressNumber = faker.location.buildingNumber();
       const addressStreetname = faker.location.street();
       const city = faker.location.city();

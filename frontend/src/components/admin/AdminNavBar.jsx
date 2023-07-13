@@ -90,7 +90,7 @@ export default function AdminNavBar() {
       <div className="hidden lg:absolute lg:bottom-6 lg:left-0 lg:flex lg:w-full lg:items-center lg:justify-center lg:gap-2 lg:text-slate-900">
         <ProfileSvg />
         <h3 className="text-sm font-semibold">
-          {user.lastname} {user.firstname}
+          {user.user_lastname} {user.user_firstname}
         </h3>
       </div>
     </nav>

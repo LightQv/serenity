@@ -33,11 +33,11 @@ export default function AddPatient() {
     if (registerSchema.isValidSync(patientRegister)) {
       try {
         const res = await APIService.post(`/users`, patientRegister);
-        if (res.status === 201) {
+        if (res) {
           notifySuccess("Le patient a été ajouté");
         } else throw new Error();
       } catch (err) {
-        if (err.request.status === 422) {
+        if (err.request.status === 409) {
           notifyDuplicate("Email déjà existant");
         } else {
           notifyError("Erreur dans l'ajout du patient");
@@ -69,20 +69,20 @@ export default function AddPatient() {
   };
 
   return (
-    <div className="flex flex-col justify-between p-10 align-middle">
-      <div className="flex">
+    <div className="grid grid-cols-1 lg:grid-cols-1">
+      <div>
         <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
           Un nouveau patient ?
         </h1>
       </div>
-      <div>
+      <div className="lg:pb-4">
+        {errors && <FormError errors={errors} />}
         <form
-          className="grid grid-cols-1 content-center items-center p-4 lg:grid-cols-2 lg:gap-8 lg:p-8"
+          className="gap-4 space-y-4 p-4 lg:grid lg:grid-cols-2 lg:space-y-0 lg:p-8"
           onSubmit={handlesubmit}
         >
-          {errors && <FormError errors={errors} />}
           <div className="flex flex-col">
-            <label htmlFor="name" className="text-base font-bold lg:pb-2">
+            <label htmlFor="name" className="mb-2 text-base">
               Nom
             </label>
             <input
@@ -90,12 +90,13 @@ export default function AddPatient() {
               name="lastname"
               id="lastname"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Nom"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="firstname" className="text-base font-bold lg:pb-2">
+            <label htmlFor="firstname" className="mb-2 text-base">
               Prénom
             </label>
             <input
@@ -103,15 +104,13 @@ export default function AddPatient() {
               name="firstname"
               id="firstname"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Prénom"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label
-              htmlFor="address_number"
-              className="text-base font-bold lg:pb-2"
-            >
+            <label htmlFor="address_number" className="mb-2 text-base">
               Numéro de rue
             </label>
             <input
@@ -119,15 +118,13 @@ export default function AddPatient() {
               name="address_number"
               id="address_number"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Numéro de rue"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label
-              htmlFor="address_streetname"
-              className="text-base font-bold lg:pb-2"
-            >
+            <label htmlFor="address_streetname" className="mb-2 text-base">
               Adresse
             </label>
             <input
@@ -135,12 +132,13 @@ export default function AddPatient() {
               name="address_streetname"
               id="address_streetname"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Adresse"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="city" className="text-base font-bold lg:pb-2">
+            <label htmlFor="city" className="mb-2 text-base">
               Ville
             </label>
             <input
@@ -148,15 +146,13 @@ export default function AddPatient() {
               name="city"
               id="city"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Ville"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label
-              htmlFor="téléphone"
-              className=" grid text-base font-bold lg:pb-2"
-            >
+            <label htmlFor="téléphone" className="mb-2 text-base">
               Téléphone
             </label>
             <input
@@ -164,12 +160,13 @@ export default function AddPatient() {
               name="phone_number"
               id="phone_number"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="Numéro de téléphone"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="email" className="text-base font-bold lg:pb-2">
+            <label htmlFor="email" className="mb-2 text-base">
               Email
             </label>
             <input
@@ -177,12 +174,13 @@ export default function AddPatient() {
               name="email"
               id="email"
               required="required"
-              className=" mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="adresse@mail.com"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className=" flex flex-col ">
-            <label htmlFor="password" className="text-base font-bold lg:pb-2">
+            <label htmlFor="password" className="mb-2 text-base">
               Mot de passe
             </label>
             <input
@@ -190,15 +188,13 @@ export default function AddPatient() {
               name="password"
               id="password"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="••••••••"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
-            <label
-              htmlFor="password_verify"
-              className="text-base font-bold lg:pb-2"
-            >
+            <label htmlFor="password_verify" className="mb-2 text-base">
               Confirmation du mot de passe
             </label>
             <input
@@ -206,18 +202,20 @@ export default function AddPatient() {
               name="password_verify"
               id="password_verify"
               required="required"
-              className="mb-2 rounded-lg bg-slate-100 p-2 text-base font-medium lg:h-14"
+              placeholder="••••••••"
+              className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               onChange={handleChange}
             />
           </div>
-
-          <button
-            disabled={!registerSchema.isValidSync(patientRegister)}
-            type="submit"
-            className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
-          >
-            Ajouter
-          </button>
+          <div className="flex items-center justify-center lg:h-fit lg:w-full lg:flex-col">
+            <button
+              disabled={!registerSchema.isValidSync(patientRegister)}
+              type="submit"
+              className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mb-0 lg:mt-5 lg:h-full lg:w-full"
+            >
+              Ajouter
+            </button>
+          </div>
         </form>
       </div>
 

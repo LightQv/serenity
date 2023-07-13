@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.protocol
-    .findAllWithOperationName()
+    .findAllWithOperationNameAndItemCount()
     .then(([result]) => {
       res.send(result);
     })
@@ -10,6 +10,22 @@ const browse = (req, res) => {
       console.error(err);
       res.status(500);
     });
+};
+
+const browseList = async (req, res) => {
+  const { page } = req.query;
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [[{ total }]] = await models.protocol.countProtocols();
+    const [protocols] = await models.protocol.findAllList(limit, offset);
+
+    res.send({ total, data: protocols });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur interne");
+  }
 };
 
 const read = (req, res) => {
@@ -52,12 +68,13 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const newProtocol = req.body;
-  console.warn(newProtocol);
 
   models.protocol
     .insert(newProtocol)
     .then(([result]) => {
-      res.location(`/protocols/${result.insertId}`).sendStatus(201);
+      res
+        .location(`/protocols/${result.insertId}`)
+        .json({ id: result.insertId });
     })
     .catch((err) => {
       console.error(err);
@@ -85,6 +102,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseList,
   read,
   edit,
   add,

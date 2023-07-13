@@ -1,34 +1,88 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
+import { useInterventionContext } from "../../contexts/InterventionContext";
+import LogoutSvg from "../../components/svg/LogoutSvg";
+import ProtocolCard from "../../components/user/dashboard/ProtocolCard";
+import countdown from "../../services/utils";
 
 export default function Dashboard() {
   const { user, logout } = useUserContext();
+  const { protocols } = useInterventionContext();
+
   return (
-    <main className="min-w-screen min-h-screen bg-slate-50 font-poppins lg:ml-60">
-      <h1>
-        {user.firstname} {user.lastname}
-      </h1>
-      <h3>
-        {user.address_streetname}, {user.city}
-      </h3>
-      <button
-        type="button"
-        className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-2 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0"
-        onClick={() => logout()}
-      >
-        <svg
-          className="h-6 w-6"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
+    <main className="min-w-screen relative mb-6 flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:mb-0 lg:py-16 lg:pl-72 lg:pr-12">
+      <div className="mb-4 mt-2 flex h-fit w-full items-center justify-between lg:mb-8">
+        <div className="flex flex-col">
+          <h3 className="text-lg font-semibold lg:text-xl">
+            Bonjour, {user.user_firstname}
+          </h3>
+          <h3 className="text-2xl font-semibold lg:text-4xl">
+            Comment allez-vous ?
+          </h3>
+        </div>
+        <div className="ml-auto mr-6 hidden flex-row items-center gap-2 lg:flex">
+          <div className="flex flex-col items-end">
+            <p className="line-clamp-1 text-base font-semibold text-violet-dark-0">
+              {user.operation_name}
+            </p>
+            <p className="text-xs italic">
+              Par {user.practitioner_surname}, le{" "}
+              <span className="font-semibold">
+                {new Date(user.intervention_date).toLocaleDateString()}
+              </span>
+            </p>
+          </div>
+          <div className="flex h-16 w-16 flex-col items-center justify-center rounded-lg bg-red-100">
+            <p className="text-xs italic opacity-60">Jours</p>
+            <p className="text-base font-semibold">
+              {countdown(user.intervention_date)}
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-red-500 hover:bg-red-500 lg:p-2"
+          onClick={() => logout()}
         >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M14.2266 2H19.6562C20.9486 2 22 3.05141 22 4.34375V9.69531H20.0579V4.77249C20.0579 4.34171 19.7075 3.99124 19.2767 3.99124H14.2266V2ZM20.0579 19.2138V14.3828H22V19.6562C22 20.9486 20.9486 22 19.6562 22H14.2266V19.995H19.2767C19.7075 19.995 20.0579 19.6446 20.0579 19.2138ZM22 11.2578H16.2298L18.3337 9.15398L17.2288 8.04914L13.242 12.0359L17.2257 16.0649L18.3368 14.9663L16.2149 12.8203H22V11.2578ZM3.99949 19.2138C3.99949 19.6446 4.34996 19.995 4.78074 19.995H9.77344V22H4.34375C3.05141 22 2 20.9486 2 19.6562V14.3828H3.99949V19.2138ZM4.34375 2C3.05141 2 2 3.05141 2 4.34375V9.69531H3.99949V4.77249C3.99949 4.34171 4.34996 3.99124 4.78074 3.99124H9.77344V2H4.34375ZM5.66633 9.15398L6.77117 8.04914L10.758 12.0359L6.7743 16.0649L5.6632 14.9663L7.78512 12.8203H2V11.2578H7.77016L5.66633 9.15398Z"
-          />
-        </svg>
-      </button>
+          <LogoutSvg />
+        </button>
+      </div>
+      <div className="mb-4 flex flex-row-reverse items-center justify-end gap-2 lg:hidden">
+        <div>
+          <p className="line-clamp-1 text-base font-semibold text-violet-dark-0">
+            {user.operation_name}
+          </p>
+          <p className="text-xs italic">
+            Par {user.practitioner_surname}, le{" "}
+            <span className="font-semibold">
+              {new Date(user.intervention_date).toLocaleDateString()}
+            </span>
+          </p>
+        </div>
+        <div className="flex h-16 w-16 flex-col items-center justify-center rounded-lg bg-red-100">
+          <p className="text-xs italic opacity-60">Jours</p>
+          <p className="text-base font-semibold">
+            {countdown(user.intervention_date)}
+          </p>
+        </div>
+      </div>
+      <ul className="my-2 flex flex-col items-center justify-between gap-4">
+        {protocols &&
+          protocols.map((protocol) => (
+            <ProtocolCard key={protocol.protocol_id} data={protocol} />
+          ))}
+        <li className="items-left flex h-36 w-1/2 justify-between self-start rounded-lg bg-violet-dark-0 text-slate-100 hover:opacity-80 lg:h-24">
+          <NavLink
+            to="/contact"
+            className="items-left flex h-full w-full flex-col justify-center p-4 lg:p-12"
+          >
+            <h3 className="text-sm font-semibold lg:text-lg">Une question ?</h3>
+            <p className="text-sm font-normal lg:text-base">
+              Demandez à être recontacté.
+            </p>
+          </NavLink>
+        </li>
+      </ul>
     </main>
   );
 }

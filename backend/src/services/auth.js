@@ -44,6 +44,7 @@ const verifyPassword = (req, res) => {
 
         delete req.body.password;
         delete req.user.hashedPassword;
+        delete req.user.email;
 
         // Put token in cookie and send user
         res
@@ -76,6 +77,16 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+const verifyAdmin = (req, res, next) => {
+  try {
+    if (req.payloads.sub.roles === "admin") return next();
+    return res.sendStatus(403);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(403);
+  }
+};
+
 const logout = (req, res) => {
   res.clearCookie("access_token").sendStatus(200);
 };
@@ -84,5 +95,6 @@ module.exports = {
   hashPassword,
   verifyPassword,
   verifyToken,
+  verifyAdmin,
   logout,
 };

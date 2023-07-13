@@ -5,9 +5,15 @@ class OperationManager extends AbstractManager {
     super({ table: "operation" });
   }
 
-  findWithProtocolName() {
+  findWithProtocolInfos(id) {
     return this.database.query(
-      `SELECT ope.id AS operation_id, ope.operation_name, pro.id AS protocol_id, pro.protocol_name as protocol_name FROM ${this.table} as ope JOIN protocol as pro ON ope.id = pro.operation_id`
+      `SELECT protocol.id as protocol_id, protocol_name, color_theme, operation_id, operation_name, COUNT(item.id) as item_count, COUNT(case when is_complete then 1 end) as item_complete
+      FROM ${this.table} 
+      JOIN protocol on operation.id = protocol.operation_id 
+      JOIN protocol_item as item on protocol.id = item.protocol_id 
+      WHERE operation.id = ?
+      GROUP BY protocol_id ORDER BY protocol_id ASC`,
+      [id]
     );
   }
 
@@ -23,6 +29,17 @@ class OperationManager extends AbstractManager {
       `UPDATE ${this.table} set operation_name = ? where id = ?`,
       [operation.operation_name, operation.id]
     );
+  }
+
+  countOperations() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(`SELECT * FROM ${this.table} LIMIT ? OFFSET ?`, [
+      limit,
+      offset,
+    ]);
   }
 }
 
