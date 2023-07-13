@@ -30,6 +30,17 @@ class OperationManager extends AbstractManager {
       [operation.operation_name, operation.id]
     );
   }
+
+  countOperations() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(`SELECT * FROM ${this.table} LIMIT ? OFFSET ?`, [
+      limit,
+      offset,
+    ]);
+  }
 }
 
 module.exports = OperationManager;

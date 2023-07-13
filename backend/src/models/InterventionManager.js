@@ -57,6 +57,20 @@ class InterventionManager extends AbstractManager {
       intervention,
     ]);
   }
+
+  countInterventions() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(
+      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, DATE_FORMAT(i.date,"%Y-%m-%d") AS date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name  FROM ${this.table} AS i 
+    JOIN user AS u ON u.id = i.user_id 
+    JOIN practitioner AS p ON i.practitioner_id = p.id 
+    JOIN operation AS o ON i.operation_id = o.id  LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
+  }
 }
 
 module.exports = InterventionManager;
