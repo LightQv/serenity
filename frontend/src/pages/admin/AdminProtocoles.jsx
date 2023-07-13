@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProtocolDetails from "../../components/admin/protocols/ProtocolDetails";
 import Modal from "../../components/admin/Modal";
 import AddProtocol from "../../components/admin/protocols/AddProtocol";
@@ -6,6 +7,7 @@ import EditProtocol from "../../components/admin/protocols/EditProtocol";
 import DeleteProtocol from "../../components/admin/protocols/DeleteProtocol";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
+import Pagination from "../../components/admin/Pagination";
 
 export default function AdminProtocoles() {
   const [protocols, setProtocols] = useState(null);
@@ -15,16 +17,35 @@ export default function AdminProtocoles() {
     modalDelete: false,
   });
   const [selectedProtocol, setSelectedProtocol] = useState();
+  const limitPerPage = 5;
+  const defaultPage = 1;
+  const [maxPage, setMaxPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(searchParams.get("page"), 10) || defaultPage
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    APIService.get(`/protocols`)
-      .then((res) => setProtocols(res.data))
+    setSearchParams((params) => {
+      searchParams.get("page", currentPage);
+      if (currentPage === 1) {
+        return undefined;
+      }
+      return params;
+    });
+    APIService.get(`/protocols-list?page=${currentPage}`)
+      .then((res) => {
+        setProtocols(res.data.data);
+        setMaxPage(Math.ceil(res.data.total / limitPerPage));
+      })
       .catch((err) => {
         if (err.request.status === 401) {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
-  }, [isShow]);
+  }, [currentPage, isShow]);
 
   return (
     <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
@@ -64,6 +85,12 @@ export default function AdminProtocoles() {
         ) : (
           <p className="self-center text-xs">Aucun protocole disponible.</p>
         )}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          paginate={paginate}
+          maxPage={maxPage}
+        />
       </div>
       <div
         className={
