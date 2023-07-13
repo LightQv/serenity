@@ -36,98 +36,81 @@ export default function AdminPatientDetails() {
 
   if (!patient) return null;
   return (
-    <main className="min-w-screen relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-16 lg:pl-72 lg:pr-12">
-      <div className="flex w-full items-center justify-between">
-        <h3 className="mb-2 text-2xl font-semibold lg:mb-8 lg:text-4xl">
-          Fiche du patient
-        </h3>
-      </div>
-      <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-10 lg:shadow-xl">
-        <div className="mb-2 flex w-full items-center justify-between">
-          <h2 className="text-xl font-semibold lg:mb-8 lg:text-3xl ">
+    <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
+      <div className="mb-4 mt-2 flex h-fit w-full items-center justify-between lg:mb-8">
+        <div className="flex flex-col">
+          <h3 className="text-lg font-semibold lg:text-xl">Fiche patient</h3>
+          <h3 className="text-2xl font-semibold lg:text-4xl">
             {patient.firstname} {patient.lastname}
-          </h2>
-          <div className="ml-2 flex gap-2">
-            <button
-              type="button"
-              className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
-              onClick={handleEdit}
-            >
-              <EditSvg />
-            </button>
-            <button
-              type="button"
-              className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
-              onClick={handleDelete}
-            >
-              <DeleteSvg />
-            </button>
-          </div>
+          </h3>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+            onClick={handleEdit}
+          >
+            <EditSvg />
+          </button>
+          <button
+            type="button"
+            className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 disabled:border-slate-300 disabled:bg-slate-300 lg:p-2"
+            onClick={handleDelete}
+          >
+            <DeleteSvg />
+          </button>
+        </div>
+      </div>
+      <div className="flex flex-col justify-center lg:m-auto lg:w-fit lg:rounded-xl lg:bg-gray-200 lg:p-10 lg:shadow-xl">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:mt-0 lg:grid-cols-2 lg:gap-8 lg:p-6">
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">Nom</div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">Nom</h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.lastname}
-            </div>
+            </p>
           </div>
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Prénom
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">Prénom</h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.firstname}
-            </div>
+            </p>
           </div>
-
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Numéro de rue
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">Numéro de rue</h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.address_number}
-            </div>
+            </p>
           </div>
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Adresse
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">Adresse</h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.address_streetname}
-            </div>
+            </p>
           </div>
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Ville
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
-              {patient.city}
-            </div>
+            <h3 className="text-xs font-normal lg:text-base">Ville</h3>
+            <p className="text-base font-semibold lg:text-xl">{patient.city}</p>
           </div>
-
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Email
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">Email</h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.email}
-            </div>
+            </p>
           </div>
-
           <div className="flex flex-col">
-            <div className="text-base font-normal lg:mb-2 lg:text-xl">
-              Téléphone
-            </div>
-            <div className="mb-2 text-lg font-semibold lg:h-14 lg:text-2xl">
+            <h3 className="text-xs font-normal lg:text-base">
+              Numéro de téléphone
+            </h3>
+            <p className="text-base font-semibold lg:text-xl">
               {patient.phone_number}
-            </div>
+            </p>
           </div>
         </div>
       </div>
       <div
         className={
           isShow.modalEdit || isShow.modalDelete
-            ? "fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center bg-black/80"
+            ? "absolute left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center overflow-auto bg-black/80 p-4"
             : "hidden"
         }
       >

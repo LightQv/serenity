@@ -82,20 +82,20 @@ export default function EditPatient({
   };
   if (!patientInfo) return null;
   return (
-    <div className="flex flex-col justify-between p-10 align-middle">
-      <div className="flex">
+    <div className="grid grid-cols-1 lg:grid-cols-1">
+      <div>
         <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
           Modifier ce patient ?
         </h1>
       </div>
       <form
         action="addProtocol"
-        className="grid grid-cols-1 content-center items-center lg:grid-cols-2  lg:gap-8"
+        className="gap-4 space-y-4 p-4 lg:grid lg:grid-cols-2 lg:space-y-0 lg:p-8"
         onSubmit={handleSubmit}
       >
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col ">
-          <label htmlFor="name" className="text-base font-bold">
+          <label htmlFor="name" className="mb-2 text-base">
             Nom
           </label>
           <input
@@ -104,12 +104,12 @@ export default function EditPatient({
             id="lastname"
             defaultValue={patientInfo.lastname}
             required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="firstname" className="text-base font-bold">
+          <label htmlFor="firstname" className="mb-2 text-base">
             Prénom
           </label>
           <input
@@ -118,12 +118,12 @@ export default function EditPatient({
             id="firstname"
             defaultValue={patientInfo.firstname}
             required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="address_number" className="text-base font-bold">
+          <label htmlFor="address_number" className="mb-2 text-base">
             Numéro de rue
           </label>
           <input
@@ -131,12 +131,12 @@ export default function EditPatient({
             name="address_number"
             id="address_number"
             defaultValue={patientInfo.address_number}
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="address_streetname" className="text-base font-bold">
+          <label htmlFor="address_streetname" className="mb-2 text-base">
             Adresse
           </label>
           <input
@@ -145,12 +145,12 @@ export default function EditPatient({
             id="address_streetname"
             defaultValue={patientInfo.address_streetname}
             required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="city" className="text-base font-bold">
+          <label htmlFor="city" className="mb-2 text-base">
             Ville
           </label>
           <input
@@ -159,26 +159,12 @@ export default function EditPatient({
             id="city"
             defaultValue={patientInfo.city}
             required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-base font-bold">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            defaultValue={patientInfo.email}
-            required="required"
-            className=" mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="téléphone" className=" grid text-base font-bold">
+          <label htmlFor="téléphone" className="mb-2 text-base">
             Téléphone
           </label>
           <input
@@ -187,16 +173,32 @@ export default function EditPatient({
             id="phone_number"
             defaultValue={patientInfo.phone_number}
             required="required"
-            className="mb-2 rounded-lg p-2 text-base font-medium lg:h-14"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
         </div>
-        <button
-          type="submit"
-          className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
-        >
-          Modifier
-        </button>
+        <div className="flex flex-col">
+          <label htmlFor="email" className="mb-2 text-base">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            defaultValue={patientInfo.email}
+            required="required"
+            className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex items-center justify-center lg:h-fit lg:w-full lg:flex-col">
+          <button
+            type="submit"
+            className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mb-0 lg:mt-5 lg:h-full lg:w-full"
+          >
+            Modifier
+          </button>
+        </div>
       </form>
       <ToastContainer limit={1} />
     </div>
