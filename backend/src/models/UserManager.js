@@ -68,6 +68,13 @@ class userManager extends AbstractManager {
       [email]
     );
   }
+
+  search(term) {
+    return this.database.query(
+      `SELECT id, firstname, lastname, email, phone_number, address_number, address_streetname, city, roles FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
+      [`%${term}%`, `%${term}%`]
+    );
+  }
 }
 
 module.exports = userManager;
