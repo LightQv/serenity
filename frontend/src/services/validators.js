@@ -4,7 +4,13 @@ export default function handleErrors() {}
 
 export const loginSchema = Yup.object({
   email: Yup.string().email("Un email valide est requis"),
-  password: Yup.string().min(7, "Minimum 7 caractères"),
+  password: Yup.string().test(
+    "password",
+    "Mot de passe : minimum 7 caractères",
+    (value) => {
+      return !value || value.length >= 7;
+    }
+  ),
 });
 
 export const registerSchema = Yup.object({
