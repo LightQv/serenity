@@ -18,28 +18,38 @@ export default function AdminInterventions() {
     modalDelete: false,
   });
   const [selectedIntervention, setSelectedIntervention] = useState();
+
   const limitPerPage = 5;
+  // nombre d'éléments affichés par page
   const defaultPage = 1;
+  // définition de la première page affichée par défaut
   const [maxPage, setMaxPage] = useState(0);
+  // nombre total de pages, initialisé avec la valeur zéro
   const [searchParams, setSearchParams] = useSearchParams();
+  // génération des paramètres d'url
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page"), 10) || defaultPage
   );
-
+  // current page initialisé avec la valeur de l'url correpsondant au paramètre page ou par la page par défaut
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  // met à jour la valeur de currentPage lors d'un clic sur un numéro de page
   useEffect(() => {
     setSearchParams((params) => {
       searchParams.set("page", currentPage);
+      // mise à jour des paramètres d'url
       if (currentPage === 1) {
         return undefined;
       }
       return params;
     });
+
     APIService.get(`/interventions-list?page=${currentPage}`)
+      // currentPage inclu dans l'url pour récupérer la page spécifique demandée
       .then((response) => {
         setInterventions(response.data.datas);
+        // mise à jour du state intervention avec les données data (total) et datas(tableau des interventions)
         setMaxPage(Math.ceil(response.data.total / limitPerPage));
+        // division du total des interventions par le nombre par page pour obtenir le nombre total de pages
       })
       .catch((err) => {
         if (err.request.status === 401) {
