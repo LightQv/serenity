@@ -40,6 +40,7 @@ router.post(
   userControllers.add
 );
 router.delete("/api/users/:id", verifyAdmin, userControllers.destroy);
+router.get("/api/users/search/:term", verifyAdmin, userControllers.search);
 
 const practitionerControllers = require("./controllers/practitionerControllers");
 
