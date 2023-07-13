@@ -58,7 +58,6 @@ export default function AdminInterventions() {
       });
   }, [currentPage, isShow]);
 
-  if (!interventions) return null;
   return (
     <main className="relative mb-12 flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:mb-0 lg:py-12 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">

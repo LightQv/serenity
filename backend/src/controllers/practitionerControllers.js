@@ -1,5 +1,19 @@
 const models = require("../models");
 
+const search = (req, res) => {
+  const searchTerm = req.params.term;
+
+  models.practitioner
+    .search(searchTerm)
+    .then(([result]) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const browse = (req, res) => {
   models.practitioner
     .findAll()
@@ -16,15 +30,27 @@ const browseList = async (req, res) => {
   const { page } = req.query;
   const limit = 5;
   const offset = (page - 1) * limit;
+  const { term } = req.query;
 
   try {
-    const [[{ total }]] = await models.practitioner.countPractitioners();
-
-    const [practitioners] = await models.practitioner.findAllList(
-      limit,
-      offset
-    );
-    res.send({ total, datas: practitioners });
+    if (term) {
+      const [[{ total }]] = await models.practitioner.countPractitionersSearch(
+        term
+      );
+      const [practitioners] = await models.practitioner.searchAllList(
+        term,
+        limit,
+        offset
+      );
+      res.send({ total, datas: practitioners });
+    } else {
+      const [[{ total }]] = await models.practitioner.countPractitioners();
+      const [practitioners] = await models.practitioner.findAllList(
+        limit,
+        offset
+      );
+      res.send({ total, datas: practitioners });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send("Erreur interne");
@@ -96,6 +122,7 @@ const destroy = async (req, res) => {
   }
 };
 module.exports = {
+  search,
   browse,
   browseList,
   read,

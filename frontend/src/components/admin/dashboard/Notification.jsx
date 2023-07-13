@@ -5,7 +5,7 @@ import NotificationSvg from "../../svg/NotificationSvg";
 
 export default function Notification() {
   const [socket, setSocket] = useState(null);
-  const [setSocketUser] = useState(null);
+  const [socketUser, setSocketUser] = useState(null);
   const [show, setShow] = useState(false);
 
   const [messageList, setMessageList] = useState([]);
