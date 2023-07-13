@@ -69,17 +69,18 @@ const operationControllers = require("./controllers/operationControllers");
 router.get("/api/operations", operationControllers.browse);
 router.get("/api/operations-list", operationControllers.browseList);
 router.get("/api/operations/:id", operationControllers.read);
-router.put("/api/operations/:id", operationControllers.edit);
-router.post("/api/operations", operationControllers.add);
-router.delete("/api/operations/:id", operationControllers.destroy);
+router.put("/api/operations/:id", verifyAdmin, operationControllers.edit);
+router.post("/api/operations", verifyAdmin, operationControllers.add);
+router.delete("/api/operations/:id", verifyAdmin, operationControllers.destroy);
 
 const protocolControllers = require("./controllers/protocolControllers");
 
 router.get("/api/protocols", protocolControllers.browse);
+router.get("/api/protocols-list", protocolControllers.browseList);
 router.get("/api/protocols/:id", protocolControllers.read);
-router.put("/api/protocols/:id", protocolControllers.edit);
-router.post("/api/protocols", protocolControllers.add);
-router.delete("/api/protocols/:id", protocolControllers.destroy);
+router.put("/api/protocols/:id", verifyAdmin, protocolControllers.edit);
+router.post("/api/protocols", verifyAdmin, protocolControllers.add);
+router.delete("/api/protocols/:id", verifyAdmin, protocolControllers.destroy);
 
 const itemControllers = require("./controllers/itemControllers");
 
@@ -87,7 +88,7 @@ router.get("/api/items", itemControllers.browse);
 router.get("/api/items/:id", itemControllers.readByProtocol);
 router.get("/api/items/details/:id", itemControllers.readDetails);
 router.put("/api/items/details/:id", itemControllers.edit);
-router.post("/api/items", itemControllers.add);
-router.delete("/api/items/:id", itemControllers.destroy);
+router.post("/api/items", verifyAdmin, itemControllers.add);
+router.delete("/api/items/:id", verifyAdmin, itemControllers.destroy);
 
 module.exports = router;

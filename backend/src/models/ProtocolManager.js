@@ -40,5 +40,20 @@ class ProtocolManager extends AbstractManager {
       ]
     );
   }
+
+  countProtocols() {
+    return this.database.query(`SELECT COUNT(*) as total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(
+      `SELECT p.id AS protocol_id, p.protocol_name, p.color_theme AS protocol_color, o.id AS operation_id, o.operation_name, COUNT(*) as item_count 
+      FROM ${this.table} as p 
+      JOIN operation as o ON p.operation_id = o.id
+      JOIN protocol_item as item ON item.protocol_id = p.id
+      GROUP BY protocol_id ORDER BY protocol_id ASC LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
+  }
 }
 module.exports = ProtocolManager;
