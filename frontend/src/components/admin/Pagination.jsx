@@ -1,39 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function PatientPagination({
-  patientsPerPage,
-  totalPatients,
+export default function PractitionerPagination({
   currentPage,
+  setCurrentPage,
   paginate,
+  maxPage,
 }) {
   const pageNumbers = [];
 
   // Calcul du nombre de pages
-  for (let i = 1; i <= Math.ceil(totalPatients / patientsPerPage); i += 1) {
+  for (let i = 1; i <= maxPage; i += 1) {
     pageNumbers.push(i);
   }
 
-  // fonction pour aller à la page précédente
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      paginate(currentPage - 1);
-    }
-  };
-
-  // fonction pour aller à la page suivante
-  const goToNextPage = () => {
-    if (currentPage < pageNumbers.length) {
-      paginate(currentPage + 1);
-    }
-  };
-
   return (
-    <ul className="flex justify-between gap-4">
-      <li>
+    <ul className="my-4 flex h-fit w-fit justify-evenly gap-4 self-center rounded-lg px-6 py-3 text-sm lg:my-2 lg:mt-4">
+      <li className="list-none">
         <button
           type="button"
-          onClick={goToPreviousPage}
+          onClick={() => setCurrentPage(currentPage - 1)}
           className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
           disabled={currentPage === 1}
         >
@@ -41,7 +27,7 @@ function PatientPagination({
         </button>
       </li>
       {pageNumbers.map((number) => (
-        <li key={number}>
+        <li key={number} className="list-none">
           <button
             type="button"
             onClick={() => paginate(number)}
@@ -55,12 +41,12 @@ function PatientPagination({
           </button>
         </li>
       ))}
-      <li>
+      <li className="list-none">
         <button
           type="button"
-          onClick={goToNextPage}
+          onClick={() => setCurrentPage(currentPage + 1)}
           className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-300 p-2 text-sm font-semibold text-violet-dark-0 shadow-lg transition-all hover:text-violet-light-0 disabled:bg-gray-300 disabled:text-gray-400"
-          disabled={currentPage === pageNumbers.length}
+          disabled={currentPage === maxPage}
         >
           &gt;
         </button>
@@ -69,11 +55,9 @@ function PatientPagination({
   );
 }
 
-PatientPagination.propTypes = {
-  patientsPerPage: PropTypes.number.isRequired,
-  totalPatients: PropTypes.number.isRequired,
+PractitionerPagination.propTypes = {
+  setCurrentPage: PropTypes.func.isRequired,
+  maxPage: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
 };
-
-export default PatientPagination;

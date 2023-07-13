@@ -36,6 +36,39 @@ VALUES
   'Avenue du Bac', 
   'Champigny-sur-Marne', 
   'user'
+),
+(
+  'Marianne', 
+  'Duval', 
+  'marianne55@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0648213789',
+  '12',
+  'Rue du Champs', 
+  'Ecully', 
+  'user'
+),
+(
+  'Pierre', 
+  'Alverède', 
+  'alverede23@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0699875823',
+  '1',
+  'Boulevard St-Pierre', 
+  'Lyon', 
+  'user'
+),
+(
+  'Madeleine', 
+  'Moreau', 
+  'madeleine.moreau@gmail.com@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0622871831',
+  '10',
+  'Grande rue', 
+  'St-Priest', 
+  'user'
 );
 
 CREATE TABLE practitioner (
@@ -47,6 +80,12 @@ practitioner (surname)
 VALUES
 (
   'Dr. Richard'
+),
+(
+  'Dr. Denis'
+),
+(
+  'Dr. Smith'
 );
 
 CREATE TABLE operation (
@@ -62,6 +101,12 @@ VALUES
 ),
 (
   'Canal carpien'
+),
+(
+  'Ostéosynthèse tibiale'
+),
+(
+  'Gastroplastie'
 );
 
 CREATE TABLE protocol (
@@ -133,6 +178,24 @@ VALUES
 '2023/07/28',
 '1',
 '2',
+'1'
+),
+(
+'2023/08/02',
+'3',
+'4',
+'3'
+),
+(
+'2023/08/04',
+'2',
+'3',
+'2'
+),
+(
+'2023/08/08',
+'4',
+'5',
 '1'
 );
 
