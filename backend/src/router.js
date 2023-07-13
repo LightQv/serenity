@@ -16,7 +16,7 @@ const {
 // Public Routes (Auth)
 router.post("/api/login", getUserByEmailMiddleware, verifyPassword);
 
-// nécessité d'être authentifié
+// Auth requiered
 router.use(verifyToken);
 router.get("/api/logout", logout);
 
@@ -45,6 +45,7 @@ router.get("/api/users/search/:term", verifyAdmin, userControllers.search);
 const practitionerControllers = require("./controllers/practitionerControllers");
 
 router.get("/api/practitioners", practitionerControllers.browse);
+router.get("/api/practitioners-list", practitionerControllers.browseList);
 router.get("/api/practitioners/:id", practitionerControllers.read);
 router.put("/api/practitioners/:id", practitionerControllers.edit);
 router.post("/api/practitioners", practitionerControllers.add);
@@ -53,10 +54,15 @@ router.delete("/api/practitioners/:id", practitionerControllers.delete);
 const interventionControllers = require("./controllers/interventionControllers");
 
 router.get("/api/interventions", interventionControllers.browse);
+router.get("/api/interventions-list", interventionControllers.browseList);
 router.get("/api/interventions/:id", interventionControllers.read);
-router.put("/api/interventions/:id", interventionControllers.edit);
+router.put("/api/interventions/:id", verifyAdmin, interventionControllers.edit);
 router.post("/api/interventions", verifyAdmin, interventionControllers.add);
-router.delete("/api/interventions/:id", interventionControllers.destroy);
+router.delete(
+  "/api/interventions/:id",
+  verifyAdmin,
+  interventionControllers.destroy
+);
 
 const operationControllers = require("./controllers/operationControllers");
 
@@ -79,7 +85,7 @@ const itemControllers = require("./controllers/itemControllers");
 router.get("/api/items", itemControllers.browse);
 router.get("/api/items/:id", itemControllers.readByProtocol);
 router.get("/api/items/details/:id", itemControllers.readDetails);
-router.put("/api/items/:id", itemControllers.edit);
+router.put("/api/items/details/:id", itemControllers.edit);
 router.post("/api/items", itemControllers.add);
 router.delete("/api/items/:id", itemControllers.destroy);
 

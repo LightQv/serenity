@@ -12,9 +12,28 @@ const browse = (req, res) => {
     });
 };
 
+const browseList = async (req, res) => {
+  const { page } = req.query;
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [[{ total }]] = await models.intervention.countInterventions();
+
+    const [interventions] = await models.intervention.findAllList(
+      limit,
+      offset
+    );
+    res.send({ total, datas: interventions });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur interne");
+  }
+};
+
 const read = (req, res) => {
   models.intervention
-    .find(req.params.id)
+    .findInterventionById(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -80,6 +99,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseList,
   read,
   edit,
   add,

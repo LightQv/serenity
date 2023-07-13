@@ -36,6 +36,39 @@ VALUES
   'Avenue du Bac', 
   'Champigny-sur-Marne', 
   'user'
+),
+(
+  'Marianne', 
+  'Duval', 
+  'marianne55@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0648213789',
+  '12',
+  'Rue du Champs', 
+  'Ecully', 
+  'user'
+),
+(
+  'Pierre', 
+  'Alverède', 
+  'alverede23@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0699875823',
+  '1',
+  'Boulevard St-Pierre', 
+  'Lyon', 
+  'user'
+),
+(
+  'Madeleine', 
+  'Moreau', 
+  'madeleine.moreau@gmail.com@gmail.com', 
+  '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
+  '0622871831',
+  '10',
+  'Grande rue', 
+  'St-Priest', 
+  'user'
 );
 
 CREATE TABLE practitioner (
@@ -47,6 +80,12 @@ practitioner (surname)
 VALUES
 (
   'Dr. Richard'
+),
+(
+  'Dr. Denis'
+),
+(
+  'Dr. Smith'
 );
 
 CREATE TABLE operation (
@@ -62,6 +101,12 @@ VALUES
 ),
 (
   'Canal carpien'
+),
+(
+  'Ostéosynthèse tibiale'
+),
+(
+  'Gastroplastie'
 );
 
 CREATE TABLE protocol (
@@ -79,7 +124,7 @@ INSERT INTO
 protocol (protocol_name, operation_id, color_theme)
 VALUES
 (
-  'Comprendre mon opération',
+  'Mon opération',
   '1',
   '#d9b520'
 ),
@@ -89,12 +134,12 @@ VALUES
   '#079fa5'
 ),
 (
-  'Checklist',
+  'Ma checklist',
   '1',
   '#c1486c'
 ),
 (
-  'Comprendre mon opération',
+  'Mon opération',
   '2',
   '#d9b520'
 ),
@@ -104,7 +149,7 @@ VALUES
   '#079fa5'
 ),
 (
-  'Checklist',
+  'Ma checklist',
   '2',
   '#c1486c'
 );
@@ -134,6 +179,24 @@ VALUES
 '1',
 '2',
 '1'
+),
+(
+'2023/08/02',
+'3',
+'4',
+'3'
+),
+(
+'2023/08/04',
+'2',
+'3',
+'2'
+),
+(
+'2023/08/08',
+'4',
+'5',
+'1'
 );
 
 CREATE TABLE protocol_item (
@@ -157,38 +220,38 @@ VALUES
   '1'
 ),
 (
-  'Passeport ou Carte Nationale Identité',
-  'Document nécessaire le jour de lintervention',
+  'Passeport ou Carte Nationale d''Identité',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Carte vitale',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
-  'Une photo didentité',
-  'Document nécessaire le jour de lintervention',
+  'Une photo d''identité',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Un R.I.B',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '2'
 ),
 (
   'Être à jeun',
-  'Nécessaire -12h avant lintervention',
+  'Nécessaire -12h avant l''intervention',
   '3'
 ),
 (
   'Être négatif au COVID',
-  'Amener le test négatif le jour de lintervention',
+  'Amener le test négatif le jour de l''intervention',
   '3'
 ),
 (
-  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
-  'À faire le jour de lintervention',
+  'Avoir pris une douche avec un savon antiseptique',
+  'À faire le jour de l''intervention',
   '3'
 ),
 (
@@ -198,37 +261,37 @@ VALUES
 ),
 (
   'Passeport ou Carte Nationale Identité',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Carte vitale',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Une photo didentité',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Un R.I.B',
-  'Document nécessaire le jour de lintervention',
+  'Document nécessaire le jour de l''intervention',
   '5'
 ),
 (
   'Être à jeun',
-  'Nécessaire -12h avant lintervention',
+  'Nécessaire -12h avant l''intervention',
   '6'
 ),
 (
   'Être négatif au COVID',
-  'Amener le test négatif le jour de lintervention',
+  'Amener le test négatif le jour de l''intervention',
   '6'
 ),
 (
-  'Avoir pris une douche avec un savon antiseptique (ex: Bétadine)',
-  'À faire le jour de lintervention',
+  'Avoir pris une douche avec un savon antiseptique',
+  'À faire le jour de l''intervention',
   '6'
 );
 

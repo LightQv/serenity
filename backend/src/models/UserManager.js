@@ -55,9 +55,18 @@ class userManager extends AbstractManager {
   }
 
   findByEmailWithPassword(email) {
-    return this.database.query(`SELECT * FROM ${this.table} where email = ?`, [
-      email,
-    ]);
+    return this.database.query(
+      `SELECT user.id as user_id, user.firstname as user_firstname, user.lastname as user_lastname, user.email, user.hashedPassword, user.roles, 
+    intervention.id as intervention_id, intervention.date as intervention_date,
+    operation.id as operation_id, operation.operation_name, 
+    practitioner.surname as practitioner_surname 
+    FROM ${this.table}
+    LEFT JOIN intervention on intervention.user_id = user.id 
+    LEFT JOIN operation on operation.id = intervention.operation_id
+    LEFT JOIN practitioner on practitioner.id = intervention.practitioner_id
+    where user.email = ?`,
+      [email]
+    );
   }
 
   search(term) {

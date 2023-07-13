@@ -5,6 +5,7 @@ import { notifyError } from "../../services/ToastNotificationService";
 import LogoutSvg from "../../components/svg/LogoutSvg";
 import StatsCard from "../../components/admin/dashboard/StatsCard";
 import InsightCard from "../../components/admin/dashboard/InsightCard";
+import Notification from "../../components/admin/dashboard/Notification";
 
 export default function AdminDashboard() {
   const { user, logout } = useUserContext();
@@ -58,18 +59,21 @@ export default function AdminDashboard() {
   }, []);
 
   return (
-    <main className="min-w-screen relative mb-12 flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:mb-0 lg:py-16 lg:pl-72 lg:pr-12">
+    <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
       <div className="mb-4 mt-2 flex h-fit w-full items-center justify-between lg:mb-8">
         <h3 className="text-2xl font-semibold lg:text-4xl">
-          Bonjour, {user.firstname} {user.lastname}
+          Bonjour, {user.user_firstname}
         </h3>
-        <button
-          type="button"
-          className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-red-500 hover:bg-red-500 lg:p-2"
-          onClick={() => logout()}
-        >
-          <LogoutSvg />
-        </button>
+        <div className="flex items-center gap-2">
+          <Notification />
+          <button
+            type="button"
+            className="h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-red-500 hover:bg-red-500 lg:p-2"
+            onClick={() => logout()}
+          >
+            <LogoutSvg />
+          </button>
+        </div>
       </div>
       <div className="grid w-full grid-cols-3 gap-x-2 gap-y-6 lg:gap-10">
         {practitioners && (

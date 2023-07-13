@@ -19,7 +19,7 @@ class InterventionManager extends AbstractManager {
 
   findIntervention() {
     return this.database.query(
-      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name FROM ${this.table} AS i 
+      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, DATE_FORMAT(i.date,"%Y-%m-%d") AS date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name FROM ${this.table} AS i 
       JOIN user AS u ON u.id = i.user_id 
       JOIN practitioner AS p ON i.practitioner_id = p.id 
       JOIN operation AS o ON i.operation_id = o.id 
@@ -27,10 +27,49 @@ class InterventionManager extends AbstractManager {
     );
   }
 
+  findInterventionById(id) {
+    return this.database.query(
+      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, DATE_FORMAT(i.date,"%Y-%m-%d") AS date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name FROM ${this.table} AS i 
+      JOIN user AS u ON u.id = i.user_id 
+      JOIN practitioner AS p ON i.practitioner_id = p.id 
+      JOIN operation AS o ON i.operation_id = o.id where i.id=?
+      `,
+      [id]
+    );
+  }
+
+  update(intervention) {
+    return this.database.query(
+      `UPDATE ${this.table} SET user_id = ?, date = ?, practitioner_id = ?, operation_id = ? 
+      WHERE id = ?`,
+      [
+        intervention.user_id,
+        intervention.date,
+        intervention.practitioner_id,
+        intervention.operation_id,
+        intervention.id,
+      ]
+    );
+  }
+
   delete(intervention) {
     return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
       intervention,
     ]);
+  }
+
+  countInterventions() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(
+      `SELECT i.id, u.id AS user_id, u.firstname, u.lastname, DATE_FORMAT(i.date,"%Y-%m-%d") AS date, p.id AS practitioner_id, p.surname, o.id AS operation_id, o.operation_name  FROM ${this.table} AS i 
+    JOIN user AS u ON u.id = i.user_id 
+    JOIN practitioner AS p ON i.practitioner_id = p.id 
+    JOIN operation AS o ON i.operation_id = o.id  LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
   }
 }
 

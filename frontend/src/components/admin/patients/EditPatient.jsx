@@ -46,7 +46,6 @@ export default function EditPatient({
     e.preventDefault();
     if (patientSchema.isValidSync(patientInfo))
       try {
-        // delete patientInfo.hashedPassword;
         const res = await APIService.put(
           `/users/${selectedPatient}`,
           patientInfo

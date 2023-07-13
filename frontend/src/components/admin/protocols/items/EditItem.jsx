@@ -14,6 +14,7 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
     protocol_item_name: "",
     protocol_description: "",
     protocol_id: selectedItem,
+    is_complete: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -24,6 +25,7 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
         setItemInfos({
           protocol_item_name: res.data.protocol_item_name,
           protocol_description: res.data.protocol_description,
+          is_complete: res.data.is_complete,
         });
       })
       .catch((err) => {
@@ -38,7 +40,10 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
     e.preventDefault();
     if (itemSchema.isValidSync(itemInfos)) {
       try {
-        const res = await APIService.put(`/items/${selectedItem}`, itemInfos);
+        const res = await APIService.put(
+          `/items/details/${selectedItem}`,
+          itemInfos
+        );
         if (res) {
           notifySuccess("Le contenu a été modifié.");
           setSelectedItem();

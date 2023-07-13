@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.protocolItem
-    .findAllWithProtocolName()
+    .findAll()
     .then(([result]) => {
       res.send(result);
     })

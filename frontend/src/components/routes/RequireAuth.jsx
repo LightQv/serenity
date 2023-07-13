@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useUserContext } from "../../contexts/UserContext";
 import AdminNavBar from "../admin/AdminNavBar";
 import NavBar from "../user/NavBar";
+import { InterventionContextProvider } from "../../contexts/InterventionContext";
 
 export default function RequireAuth({ allowedRoles }) {
   const { user } = useUserContext();
@@ -19,10 +20,10 @@ export default function RequireAuth({ allowedRoles }) {
       );
     }
     return (
-      <>
+      <InterventionContextProvider>
         <NavBar />
         <Outlet />
-      </>
+      </InterventionContextProvider>
     );
   }
 
