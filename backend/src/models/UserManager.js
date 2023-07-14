@@ -75,6 +75,17 @@ class userManager extends AbstractManager {
       [`%${term}%`, `%${term}%`]
     );
   }
+
+  countPatients() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE roles <> 'admin' LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
+  }
 }
 
 module.exports = userManager;
