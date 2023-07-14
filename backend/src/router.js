@@ -26,6 +26,7 @@ const userControllers = require("./controllers/userControllers");
 
 router.get("/api/users", verifyAdmin, userControllers.browse);
 router.get("/api/users/:id", verifyAdmin, userControllers.read);
+router.get("/api/users/search/:term", verifyAdmin, userControllers.search);
 router.put(
   "/api/users/:id",
   verifyAdmin,

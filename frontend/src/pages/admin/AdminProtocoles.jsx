@@ -83,7 +83,9 @@ export default function AdminProtocoles() {
             ))}
           </ul>
         ) : (
-          <p className="self-center text-xs">Aucun protocole disponible.</p>
+          <p className="mt-2 self-center text-xs lg:mb-4 lg:mt-8 lg:text-base">
+            Aucun protocole disponible.
+          </p>
         )}
         <Pagination
           currentPage={currentPage}
