@@ -26,6 +26,22 @@ const browse = (req, res) => {
     });
 };
 
+const browseList = async (req, res) => {
+  const { page } = req.query;
+  const limit = 9;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [[{ total }]] = await models.user.countPatients();
+
+    const [users] = await models.user.findAllList(limit, offset);
+    res.send({ total, datas: users });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur interne");
+  }
+};
+
 const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -98,6 +114,7 @@ const destroy = (req, res) => {
 module.exports = {
   search,
   browse,
+  browseList,
   read,
   edit,
   add,

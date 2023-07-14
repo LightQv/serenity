@@ -6,6 +6,7 @@ import AddPatient from "../../components/admin/patients/AddPatient";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
 import SearchBar from "../../components/admin/patients/SearchBar";
+import Pagination from "../../components/admin/Pagination";
 
 export default function AdminPatients() {
   const [listPatients, setListPatients] = useState(null);
@@ -16,6 +17,14 @@ export default function AdminPatients() {
   const [searchValue, setSearchValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const term = searchParams.get("term");
+  const limitPerPage = 9;
+  const defaultPage = 1;
+  const [maxPage, setMaxPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(searchParams.get("page"), 10) || defaultPage
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     if (term) {
@@ -34,8 +43,19 @@ export default function AdminPatients() {
             notifyError(`${err.request.status} : La requete a échouée.`);
           }
         });
+      APIService.get(`/users-list?page=${currentPage}`)
+        .then((res) => {
+          // on récupère data = total des patients et datas = tableau des patients
+          setListPatients(res.data.datas);
+          setMaxPage(Math.ceil(res.data.total / limitPerPage));
+        })
+        .catch((err) => {
+          if (err.request.status === 401) {
+            notifyError(`${err.request.status} : La requete a échouée.`);
+          }
+        });
     }
-  }, [term, isShow]);
+  }, [currentPage, term, isShow]);
 
   const handleSearchChange = (value) => {
     setSearchValue(value);
@@ -70,7 +90,7 @@ export default function AdminPatients() {
         </div>
         <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-2">
           {listPatients
-            .filter((patient) => patient.roles === "user")
+            .filter((patient) => patient.roles !== "admin")
             .map((patient) => (
               <PatientInsight
                 key={patient.id}
@@ -81,7 +101,12 @@ export default function AdminPatients() {
               />
             ))}
         </ul>
-        {/* Ici mettre le composant pagination */}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          paginate={paginate}
+          maxPage={maxPage}
+        />
       </div>
       <div
         className={
