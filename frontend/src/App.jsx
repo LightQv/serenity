@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import RequireAuth from "./components/routes/RequireAuth";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
@@ -17,9 +18,9 @@ function App() {
   return (
     <Routes>
       {/* Public routes */}
+      {/* <Route index element={<ToastContainer limit={1} />} /> */}
       <Route path="/" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
-
       {/* Private routes */}
       {/* Admin routes */}
       <Route element={<RequireAuth allowedRoles="admin" />}>
