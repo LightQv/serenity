@@ -71,12 +71,16 @@ export default function AddPatient() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       <div>
-        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+        <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
           Un nouveau patient ?
         </h1>
       </div>
       <div className="lg:pb-4">
-        {errors && <FormError errors={errors} />}
+        {errors && (
+          <div className="p-4 lg:px-8">
+            <FormError errors={errors} />
+          </div>
+        )}
         <form
           className="gap-4 space-y-4 p-4 lg:grid lg:grid-cols-2 lg:space-y-0 lg:p-8"
           onSubmit={handlesubmit}

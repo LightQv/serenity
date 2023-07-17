@@ -9,52 +9,49 @@ import SearchBar from "../../components/admin/SearchBar";
 import Pagination from "../../components/admin/Pagination";
 
 export default function AdminPatients() {
-  const [listPatients, setListPatients] = useState(null);
+  const [patients, setPatients] = useState(null);
   const [isShow, setIsShow] = useState({
     modalAdd: false,
   });
   const [selectedPatient, setSelectedPatient] = useState();
-  const [searchValue, setSearchValue] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
-  const term = searchParams.get("term");
-  const limitPerPage = 9;
+  const limitPerPage = 12;
   const defaultPage = 1;
+  const defaultSearch = "";
   const [maxPage, setMaxPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: defaultPage,
+    term: "",
+  });
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page"), 10) || defaultPage
   );
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get("term") || defaultSearch
+  );
+
+  const term = searchParams.get("term");
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    if (term) {
-      APIService.get(`/users/search/${term}`)
-        .then((response) => {
-          setListPatients(response.data);
-        })
-        .catch((err) => console.error(err));
-    } else {
-      APIService.get(`/users`)
-        .then((response) => {
-          setListPatients(response.data);
-        })
-        .catch((err) => {
-          if (err.request.status === 401) {
-            notifyError(`${err.request.status} : La requete a échouée.`);
-          }
-        });
-      APIService.get(`/users-list?page=${currentPage}`)
-        .then((res) => {
-          // on récupère data = total des patients et datas = tableau des patients
-          setListPatients(res.data.datas);
-          setMaxPage(Math.ceil(res.data.total / limitPerPage));
-        })
-        .catch((err) => {
-          if (err.request.status === 401) {
-            notifyError(`${err.request.status} : La requete a échouée.`);
-          }
-        });
-    }
+    setSearchParams((params) => {
+      if (searchValue.length > 1) {
+        setCurrentPage(1);
+      }
+      searchParams.set("page", currentPage);
+      return params;
+    });
+
+    APIService.get(`/users-list?page=${currentPage}&term=${searchValue}`)
+      .then((res) => {
+        setPatients(res.data.datas);
+        setMaxPage(Math.ceil(res.data.total / limitPerPage));
+      })
+      .catch((err) => {
+        if (err.request.status === 401) {
+          notifyError(`${err.request.status} : La requete a échouée.`);
+        }
+      });
   }, [currentPage, term, isShow]);
 
   const handleSearchChange = (value) => {
@@ -70,7 +67,7 @@ export default function AdminPatients() {
         </h3>
       </div>
       <div className="flex flex-col justify-center lg:rounded-xl lg:bg-gray-200 lg:p-4 lg:shadow-xl">
-        <div className="flex w-full flex-col-reverse justify-between lg:flex-row lg:items-center lg:px-4">
+        <div className="flex w-full flex-col-reverse justify-between lg:my-1 lg:mt-4 lg:flex-row lg:items-center lg:px-4">
           <SearchBar
             value={searchValue}
             onChange={handleSearchChange}
@@ -90,9 +87,9 @@ export default function AdminPatients() {
             <p className="text-xs italic text-gray-500">Voir plus</p>
           </div>
         </div>
-        {listPatients && listPatients.length !== 0 ? (
+        {patients && patients.length !== 0 ? (
           <ul className="grid w-full grid-cols-1 lg:grid-cols-3 lg:gap-2">
-            {listPatients
+            {patients
               .filter((patient) => patient.roles === "user")
               .map((patient) => (
                 <PatientInsight
