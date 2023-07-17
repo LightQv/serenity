@@ -32,8 +32,6 @@ export default function AdminPractitioners() {
   const [searchValue, setSearchValue] = useState(
     searchParams.get("term") || defaultSearch
   );
-  // const [searchParams, setSearchParams] = useSearchParams();
-  const term = searchParams.get("term");
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -62,7 +60,7 @@ export default function AdminPractitioners() {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
-  }, [term, currentPage, isShow]);
+  }, [searchValue, currentPage, isShow]);
 
   const handleSearchChange = (value) => {
     setSearchValue(value);
