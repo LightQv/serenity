@@ -1,19 +1,5 @@
 const models = require("../models");
 
-const search = (req, res) => {
-  const searchTerm = req.params.term;
-
-  models.user
-    .search(searchTerm)
-    .then(([result]) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -28,14 +14,20 @@ const browse = (req, res) => {
 
 const browseList = async (req, res) => {
   const { page } = req.query;
-  const limit = 9;
+  const { term } = req.query;
+  const limit = 12;
   const offset = (page - 1) * limit;
 
   try {
-    const [[{ total }]] = await models.user.countPatients();
-
-    const [users] = await models.user.findAllList(limit, offset);
-    res.send({ total, datas: users });
+    if (term) {
+      const [[{ total }]] = await models.user.countUsersSearch(term);
+      const [users] = await models.user.searchAllList(term, limit, offset);
+      res.send({ total, datas: users });
+    } else {
+      const [[{ total }]] = await models.user.countUsers();
+      const [users] = await models.user.findAllList(limit, offset);
+      res.send({ total, datas: users });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send("Erreur interne");
@@ -112,7 +104,6 @@ const destroy = (req, res) => {
     });
 };
 module.exports = {
-  search,
   browse,
   browseList,
   read,
