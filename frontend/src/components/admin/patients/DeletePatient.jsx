@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
@@ -10,6 +11,7 @@ export default function DeletePatient({
   setSelectedPatient,
   setIsShow,
 }) {
+  const navigate = useNavigate();
   const handleDelete = async () => {
     if (selectedPatient !== "") {
       try {
@@ -18,6 +20,7 @@ export default function DeletePatient({
           notifySuccess("Le patient a été supprimé");
           setSelectedPatient();
           setIsShow({ modalDelete: false });
+          navigate("/admin/patients");
         }
         throw new Error();
       } catch (error) {

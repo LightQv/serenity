@@ -164,7 +164,8 @@ CREATE TABLE intervention (
   user_id INT NOT NULL,
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
-  REFERENCES user(id),
+  REFERENCES user(id)
+  ON DELETE CASCADE,
   practitioner_id INT NOT NULL,
   CONSTRAINT fk_intervention_practitioner
   FOREIGN KEY (practitioner_id)
