@@ -114,15 +114,13 @@ export default function EditIntervention({
 
   if (!intervention.operation_id) return null;
   return (
-    <div className="flex flex-col justify-between p-10 align-middle">
-      <div className="flex">
-        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
-          Modifier cette intervention ?
-        </h1>
-      </div>
+    <div className="grid grid-cols-1">
+      <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
+        Modifier cette intervention ?
+      </h1>
       <form
         action="editIntervention"
-        className="grid grid-cols-1 content-center items-center p-4 "
+        className="gap-4 space-y-4 p-4 lg:p-8"
         onSubmit={handlesubmit}
       >
         {errors && <FormError errors={errors} />}
@@ -205,13 +203,14 @@ export default function EditIntervention({
               ))}
           </select>
         </div>
-
-        <button
-          type="submit"
-          className="mt-2 rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 p-2 px-6 py-3 text-sm font-bold text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300 lg:mt-6 lg:h-14"
-        >
-          Modifier
-        </button>
+        <div className="flex items-center justify-center">
+          <button
+            type="submit"
+            className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
+          >
+            Modifier
+          </button>
+        </div>
       </form>
       <ToastContainer limit={1} />
     </div>

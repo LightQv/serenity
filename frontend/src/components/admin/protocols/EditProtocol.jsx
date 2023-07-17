@@ -102,7 +102,7 @@ export default function EditProtocol({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       <div>
-        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+        <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
           Modifier ce protocole ?
         </h1>
         <form
