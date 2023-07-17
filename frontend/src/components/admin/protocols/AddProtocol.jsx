@@ -77,7 +77,7 @@ export default function AddProtocol() {
         <AddItem protocolId={newProtocolId} />
       ) : (
         <div>
-          <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+          <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
             Un nouveau protocole ?
           </h1>
           <form

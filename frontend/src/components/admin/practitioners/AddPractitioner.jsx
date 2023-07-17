@@ -49,7 +49,7 @@ export default function AddPractitioner() {
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+      <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
         Un nouveau praticien ?
       </h1>
       <form
