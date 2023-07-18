@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
-import "react-toastify/dist/ReactToastify.css";
 import { patientSchema } from "../../../services/validators";
 import FormError from "../../FormError";
 
@@ -200,7 +198,6 @@ export default function EditPatient({
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }

@@ -69,10 +69,28 @@ class userManager extends AbstractManager {
     );
   }
 
-  search(term) {
+  countUsers() {
+    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+  }
+
+  findAllList(limit, offset) {
     return this.database.query(
-      `SELECT id, firstname, lastname, email, phone_number, address_number, address_streetname, city, roles FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
+      `SELECT * FROM ${this.table} WHERE roles <> 'admin' LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
+  }
+
+  countUsersSearch(term) {
+    return this.database.query(
+      `SELECT COUNT(*) AS total FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
       [`%${term}%`, `%${term}%`]
+    );
+  }
+
+  searchAllList(term, limit, offset) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
+      [`%${term}%`, `%${term}%`, limit, offset]
     );
   }
 }

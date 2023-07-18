@@ -1,5 +1,3 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import notifySuccess, {
   notifyError,
@@ -51,7 +49,6 @@ export default function DeleteProtocol({
           Non
         </button>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

@@ -62,7 +62,7 @@ VALUES
 (
   'Madeleine', 
   'Moreau', 
-  'madeleine.moreau@gmail.com@gmail.com', 
+  'madeleine.moreau@gmail.com', 
   '$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A', 
   '0622871831',
   '10',
@@ -164,7 +164,8 @@ CREATE TABLE intervention (
   user_id INT NOT NULL,
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
-  REFERENCES user(id),
+  REFERENCES user(id)
+  ON DELETE CASCADE,
   practitioner_id INT NOT NULL,
   CONSTRAINT fk_intervention_practitioner
   FOREIGN KEY (practitioner_id)

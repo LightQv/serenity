@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
@@ -30,7 +28,7 @@ export default function DeleteIntervention({
   };
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+      <h1 className="text-lg font-semibold lg:text-xl">
         Supprimer cette intervention ?
       </h1>
       <div className="flex gap-2">
@@ -49,7 +47,6 @@ export default function DeleteIntervention({
           Non
         </button>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

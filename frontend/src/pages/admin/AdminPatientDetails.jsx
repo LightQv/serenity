@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import { notifyError } from "../../services/ToastNotificationService";
 import APIService from "../../services/APIService";
 import EditSvg from "../../components/svg/EditSvg";
@@ -32,7 +30,7 @@ export default function AdminPatientDetails() {
     APIService.get(`/users/${id}`)
       .then((response) => setPatient(response.data))
       .catch((error) => notifyError(`${error}"La requête a échoué"}`));
-  }, [isShow]);
+  }, [isShow.modalEdit]);
 
   if (!patient) return null;
   return (
@@ -138,7 +136,6 @@ export default function AdminPatientDetails() {
           />
         )}
       </div>
-      <ToastContainer limit={1} />
     </main>
   );
 }

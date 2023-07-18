@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { protocolSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -102,7 +100,7 @@ export default function EditProtocol({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       <div>
-        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+        <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
           Modifier ce protocole ?
         </h1>
         <form
@@ -222,7 +220,6 @@ export default function EditProtocol({
         </form>
       </div>
       <ItemDetails selectedProtocol={selectedProtocol} />
-      <ToastContainer limit={1} />
     </div>
   );
 }

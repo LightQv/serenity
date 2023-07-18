@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 import { operationSchema } from "../../../services/validators";
 import notifySuccess, {
   notifyError,
@@ -8,7 +7,7 @@ import notifySuccess, {
 import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
 
-export default function AddOperation() {
+export default function AddOperation({ setIsShow }) {
   const [operationInfos, setOperationInfos] = useState({
     operation_name: "",
   });
@@ -22,6 +21,7 @@ export default function AddOperation() {
         const res = await APIService.post(`/operations`, operationInfos);
         if (res) {
           notifySuccess("L'opération a été ajouté.");
+          setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
         if (err.request.status === 401) {
@@ -51,7 +51,7 @@ export default function AddOperation() {
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+      <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
         Une nouvelle operation ?
       </h1>
       <form
@@ -84,7 +84,10 @@ export default function AddOperation() {
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }
+
+AddOperation.propTypes = {
+  setIsShow: PropTypes.func.isRequired,
+};

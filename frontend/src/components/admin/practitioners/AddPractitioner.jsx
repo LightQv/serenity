@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 import { practitionerSchema } from "../../../services/validators";
 import notifySuccess, {
   notifyError,
@@ -8,7 +7,7 @@ import notifySuccess, {
 import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
 
-export default function AddPractitioner() {
+export default function AddPractitioner({ setIsShow }) {
   const [surname, setSurname] = useState({
     surname: "",
   });
@@ -20,6 +19,7 @@ export default function AddPractitioner() {
         const res = await APIService.post(`/practitioners`, surname);
         if (res) {
           notifySuccess("Le praticien a été ajouté.");
+          setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
         if (err.request.status === 401) {
@@ -49,7 +49,7 @@ export default function AddPractitioner() {
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+      <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
         Un nouveau praticien ?
       </h1>
       <form
@@ -82,7 +82,10 @@ export default function AddPractitioner() {
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }
+
+AddPractitioner.propTypes = {
+  setIsShow: PropTypes.func.isRequired,
+};

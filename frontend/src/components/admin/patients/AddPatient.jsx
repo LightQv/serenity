@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
@@ -9,7 +8,7 @@ import APIService from "../../../services/APIService";
 import { registerSchema } from "../../../services/validators";
 import FormError from "../../FormError";
 
-export default function AddPatient() {
+export default function AddPatient({ setIsShow }) {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [patientRegister, setPatientRegister] = useState({
     firstname: "",
@@ -35,6 +34,7 @@ export default function AddPatient() {
         const res = await APIService.post(`/users`, patientRegister);
         if (res) {
           notifySuccess("Le patient a été ajouté");
+          setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
         if (err.request.status === 409) {
@@ -71,12 +71,16 @@ export default function AddPatient() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       <div>
-        <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+        <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
           Un nouveau patient ?
         </h1>
       </div>
       <div className="lg:pb-4">
-        {errors && <FormError errors={errors} />}
+        {errors && (
+          <div className="p-4 lg:px-8">
+            <FormError errors={errors} />
+          </div>
+        )}
         <form
           className="gap-4 space-y-4 p-4 lg:grid lg:grid-cols-2 lg:space-y-0 lg:p-8"
           onSubmit={handlesubmit}
@@ -218,8 +222,10 @@ export default function AddPatient() {
           </div>
         </form>
       </div>
-
-      <ToastContainer limit={1} />
     </div>
   );
 }
+
+AddPatient.propTypes = {
+  setIsShow: PropTypes.func.isRequired,
+};

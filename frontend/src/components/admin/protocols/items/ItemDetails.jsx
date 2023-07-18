@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { notifyError } from "../../../../services/ToastNotificationService";
 import APIService from "../../../../services/APIService";
@@ -128,7 +126,6 @@ export default function ItemDetails({ selectedProtocol }) {
           />
         )}
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

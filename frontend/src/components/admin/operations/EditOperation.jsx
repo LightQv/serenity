@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { operationSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -61,7 +59,7 @@ export default function EditOperation({
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+      <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
         Modifier cette opération ?
       </h1>
       <form
@@ -94,7 +92,6 @@ export default function EditOperation({
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }

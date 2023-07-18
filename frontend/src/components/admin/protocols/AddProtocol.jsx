@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { protocolSchema } from "../../../services/validators";
 import notifySuccess, {
   notifyError,
@@ -77,7 +75,7 @@ export default function AddProtocol() {
         <AddItem protocolId={newProtocolId} />
       ) : (
         <div>
-          <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
+          <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
             Un nouveau protocole ?
           </h1>
           <form
@@ -181,7 +179,6 @@ export default function AddProtocol() {
           </form>
         </div>
       )}
-      <ToastContainer limit={1} />
     </div>
   );
 }
