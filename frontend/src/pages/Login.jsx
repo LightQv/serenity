@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import logo from "../assets/logo.svg";
 import practitioner from "../assets/images/welcome.jpg";
@@ -14,6 +14,7 @@ export default function Login() {
   const { login } = useUserContext();
   const [userInfos, setUserInfos] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -52,6 +53,15 @@ export default function Login() {
       setErrors(err.errors);
     }
   };
+
+  useEffect(() => {
+    if (searchParams.has("expired")) {
+      notifyError("Session expirée, veuillez vous reconnecter.");
+      setSearchParams(() => {
+        return undefined;
+      });
+    }
+  }, []);
 
   return (
     <main className="relative z-10 flex h-screen w-screen flex-col justify-center bg-gradient-to-bl from-turquoise-light-0 to-turquoise-dark-0 font-poppins lg:flex-row-reverse">

@@ -48,7 +48,6 @@ export default function AdminOperations() {
       });
   }, [currentPage, isShow]);
 
-  if (!operations) return null;
   return (
     <main className="relative flex min-h-screen flex-col bg-slate-50 p-4 font-poppins lg:py-12 lg:pl-72 lg:pr-12">
       <div className="flex w-full items-center justify-between">
@@ -89,14 +88,18 @@ export default function AdminOperations() {
             ))}
           </ul>
         ) : (
-          <p className="self-center text-xs">Aucun opération disponible.</p>
+          <p className="mt-2 self-center text-xs lg:mb-4 lg:mt-8 lg:text-base">
+            Aucun opération disponible.
+          </p>
         )}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          paginate={paginate}
-          maxPage={maxPage}
-        />
+        {operations && operations.length !== 0 && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            paginate={paginate}
+            maxPage={maxPage}
+          />
+        )}
       </div>
       <div
         className={
@@ -106,7 +109,10 @@ export default function AdminOperations() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddOperation />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddOperation setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalEdit && (
           <Modal

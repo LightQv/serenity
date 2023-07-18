@@ -75,7 +75,7 @@ export default function AdminPatients() {
           />
           <button
             type="button"
-            className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 lg:my-1 lg:mt-4 lg:self-end"
+            className="my-4 h-fit w-fit self-center rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 lg:my-0"
             onClick={() => setIsShow({ modalAdd: true })}
           >
             Ajouter un patient
@@ -106,12 +106,14 @@ export default function AdminPatients() {
             Aucun patient disponible.
           </p>
         )}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          paginate={paginate}
-          maxPage={maxPage}
-        />
+        {patients && patients.length !== 0 && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            paginate={paginate}
+            maxPage={maxPage}
+          />
+        )}
       </div>
       <div
         className={
@@ -121,7 +123,10 @@ export default function AdminPatients() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddPatient />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddPatient setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
       </div>
     </main>

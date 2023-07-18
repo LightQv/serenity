@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/ToastNotificationService";
@@ -101,14 +100,18 @@ export default function AdminInterventions() {
               ))}
           </ul>
         ) : (
-          <p className="self-center text-xs">Aucune intervention disponible.</p>
+          <p className="mt-2 self-center text-xs lg:mb-4 lg:mt-8 lg:text-base">
+            Aucune intervention disponible.
+          </p>
         )}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          paginate={paginate}
-          maxPage={maxPage}
-        />
+        {interventions && interventions.length !== 0 && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            paginate={paginate}
+            maxPage={maxPage}
+          />
+        )}
       </div>
       <div
         className={
@@ -118,7 +121,10 @@ export default function AdminInterventions() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddIntervention />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddIntervention setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalEdit && (
           <Modal
@@ -144,7 +150,6 @@ export default function AdminInterventions() {
           />
         )}
       </div>
-      <ToastContainer limit={1} />
     </main>
   );
 }

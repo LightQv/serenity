@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { protocolSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -222,7 +220,6 @@ export default function EditProtocol({
         </form>
       </div>
       <ItemDetails selectedProtocol={selectedProtocol} />
-      <ToastContainer limit={1} />
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { practitionerSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -98,7 +96,6 @@ export default function EditPractitioner({
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }
