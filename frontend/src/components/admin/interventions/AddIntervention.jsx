@@ -68,22 +68,45 @@ export default function AddIntervention() {
   };
 
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setInterventions({
       ...interventions,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
     try {
-      const isValid = await addInterventionSchema.validate(interventions, {
-        abortEarly: false,
+      await addInterventionSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ qui a été modifé
+      setErrors((prevErrors) => {
+        // prevErrors = valeur actuelle du state
+        if (!prevErrors) return null;
+        // si la validation réussit on retourne null
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        // supprime newErrors= nom du champs en cours de validation
+        return Object.keys(newErrors).length ? newErrors : null;
+        // vérifie si l'objet a encore des erreurs et renvoie un tableau contenant toutes les clés (erreurs) de newErrors, et .length donne le nombre de clés sinon null
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
+
+  //   try {
+  //     const isValid = await addInterventionSchema.validate(interventions, {
+  //       abortEarly: false,
+  //     });
+  //     if (isValid) {
+  //       setErrors(null);
+  //     }
+  //     throw new Error();
+  //   } catch (err) {
+  //     setErrors(err.errors);
+  //   }
+  // };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
@@ -106,6 +129,8 @@ export default function AddIntervention() {
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             onChange={handleChange}
+            // déclenche le message d'erreur sur le select
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {operations &&
@@ -130,6 +155,7 @@ export default function AddIntervention() {
               className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               required="required"
               onChange={handleChange}
+              onFocus={handleChange}
             />
           </div>
           <div className="flex flex-col">
@@ -140,6 +166,7 @@ export default function AddIntervention() {
               name="practitioner_id"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
               onChange={handleChange}
+              onFocus={handleChange}
             >
               <option value="">---</option>
               {practitioners &&
@@ -163,6 +190,7 @@ export default function AddIntervention() {
             name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
             onChange={handleChange}
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {users &&

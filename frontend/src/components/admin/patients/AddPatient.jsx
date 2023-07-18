@@ -47,26 +47,57 @@ export default function AddPatient() {
   };
 
   const handleChange = async (e) => {
-    if (e.target.name === "password_verify") {
-      setPasswordVerify(e.target.value);
+    const { name, value } = e.target;
+
+    if (name === "password_verify") {
+      setPasswordVerify(value);
     } else {
       setPatientRegister({
         ...patientRegister,
-        [e.target.name]: e.target.value,
+        [name]: value,
       });
+
       try {
-        const isValid = await registerSchema.validate(patientRegister, {
-          abortEarly: false,
+        await registerSchema.validateAt(name, { [name]: value });
+        // valide uniquement le champ qui a été modifé
+        setErrors((prevErrors) => {
+          // prevErrors = valeur actuelle du state
+          if (!prevErrors) return null;
+          // si la validation réussit on retourne null
+          const newErrors = { ...prevErrors };
+          delete newErrors[name];
+          // supprime newErrors= nom du champs en cours de validation
+          return Object.keys(newErrors).length ? newErrors : null;
+          // vérifie si l'objet a encore des erreurs et renvoie un tableau contenant toutes les clés (erreurs) de newErrors, et .length donne le nombre de clés sinon null
         });
-        if (isValid) {
-          setErrors(null);
-        }
-        throw new Error();
       } catch (err) {
-        setErrors(err.errors);
+        setErrors((prevErrors) => ({
+          ...(prevErrors || {}),
+          [name]: err.errors[0],
+        }));
       }
     }
   };
+
+  // if (e.target.name === "password_verify") {
+  //   setPasswordVerify(e.target.value);
+  // } else {
+  //   setPatientRegister({
+  //     ...patientRegister,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   try {
+  //     const isValid = await registerSchema.validate(patientRegister, {
+  //       abortEarly: false,
+  //     });
+  //     if (isValid) {
+  //       setErrors(null);
+  //     }
+  //     throw new Error();
+  //   } catch (err) {
+  //     setErrors(err.errors);
+  //   }
+  // }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
