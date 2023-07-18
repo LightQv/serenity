@@ -121,7 +121,10 @@ export default function AdminInterventions() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddIntervention />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddIntervention setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalEdit && (
           <Modal

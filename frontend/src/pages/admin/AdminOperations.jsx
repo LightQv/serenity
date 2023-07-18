@@ -109,7 +109,10 @@ export default function AdminOperations() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddOperation />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddOperation setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalEdit && (
           <Modal

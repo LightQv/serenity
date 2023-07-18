@@ -123,7 +123,10 @@ export default function AdminPatients() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddPatient />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddPatient setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
       </div>
     </main>
