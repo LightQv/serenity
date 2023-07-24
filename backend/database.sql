@@ -170,6 +170,7 @@ CREATE TABLE intervention (
   CONSTRAINT fk_intervention_practitioner
   FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
+  ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO
