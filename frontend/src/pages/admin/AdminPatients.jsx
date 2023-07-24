@@ -29,8 +29,6 @@ export default function AdminPatients() {
     searchParams.get("term") || defaultSearch
   );
 
-  const term = searchParams.get("term");
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -52,11 +50,11 @@ export default function AdminPatients() {
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       });
-  }, [currentPage, term, isShow]);
+  }, [currentPage, searchValue, isShow]);
 
   const handleSearchChange = (value) => {
     setSearchValue(value);
-    setSearchParams({ term: value });
+    setSearchParams(searchParams.set("term", value));
   };
 
   return (
