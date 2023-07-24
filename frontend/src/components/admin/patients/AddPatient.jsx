@@ -48,27 +48,23 @@ export default function AddPatient({ setIsShow }) {
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
-
-    if (name === "password_verify") {
-      setPasswordVerify(value);
+    if (e.target.name === "password_verify") {
+      setPasswordVerify(e.target.value);
     } else {
       setPatientRegister({
         ...patientRegister,
-        [name]: value,
+        [e.target.name]: e.target.value,
       });
-
       try {
         await registerSchema.validateAt(name, { [name]: value });
-        // valide uniquement le champ qui a été modifé
+        // valide uniquement le champ qui est en cours de modification
         setErrors((prevErrors) => {
-          // prevErrors = valeur actuelle du state
           if (!prevErrors) return null;
-          // si la validation réussit on retourne null
+
           const newErrors = { ...prevErrors };
           delete newErrors[name];
-          // supprime newErrors= nom du champs en cours de validation
+
           return Object.keys(newErrors).length ? newErrors : null;
-          // vérifie si l'objet a encore des erreurs et renvoie un tableau contenant toutes les clés (erreurs) de newErrors, et .length donne le nombre de clés sinon null
         });
       } catch (err) {
         setErrors((prevErrors) => ({
