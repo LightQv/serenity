@@ -69,20 +69,26 @@ export default function AddIntervention({ setIsShow }) {
   };
 
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setInterventions({
       ...interventions,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
     try {
-      const isValid = await addInterventionSchema.validate(interventions, {
-        abortEarly: false,
+      await addInterventionSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ en cours de modification
+      setErrors((prevErrors) => {
+        if (!prevErrors) return null;
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        return Object.keys(newErrors).length ? newErrors : null;
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
 
@@ -106,7 +112,10 @@ export default function AddIntervention({ setIsShow }) {
           <select
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
+            // déclenche le message d'erreur sur le select
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {operations &&
@@ -131,6 +140,7 @@ export default function AddIntervention({ setIsShow }) {
               className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               required="required"
               onChange={handleChange}
+              onFocus={handleChange}
             />
           </div>
           <div className="flex flex-col">
@@ -140,7 +150,9 @@ export default function AddIntervention({ setIsShow }) {
             <select
               name="practitioner_id"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+              required="required"
               onChange={handleChange}
+              onFocus={handleChange}
             >
               <option value="">---</option>
               {practitioners &&
@@ -163,7 +175,9 @@ export default function AddIntervention({ setIsShow }) {
           <select
             name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {users &&

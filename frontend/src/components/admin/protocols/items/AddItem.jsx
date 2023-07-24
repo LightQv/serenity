@@ -41,22 +41,32 @@ export default function AddItem({ protocolId }) {
 
   // Change Item Form Part
   const handleChangeItem = async (e) => {
+    const { name, value } = e.target;
+
     setItemInfos({
       ...itemInfos,
       [e.target.name]: e.target.value,
     });
+
     try {
-      const isValid = await itemSchema.validate(itemInfos, {
-        abortEarly: false,
+      await itemSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ en cours de modification
+      setErrors((prevErrors) => {
+        if (!prevErrors) return null;
+
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+
+        return Object.keys(newErrors).length ? newErrors : null;
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
+
   return (
     <div>
       <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">

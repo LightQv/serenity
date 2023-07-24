@@ -52,20 +52,28 @@ export default function AddProtocol() {
 
   // Change Protocol Form Part
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setProtocolInfos({
       ...protocolInfos,
       [e.target.name]: e.target.value,
     });
+
     try {
-      const isValid = await protocolSchema.validate(protocolInfos, {
-        abortEarly: false,
+      await protocolSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ en cours de modification
+      setErrors((prevErrors) => {
+        if (!prevErrors) return null;
+
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+
+        return Object.keys(newErrors).length ? newErrors : null;
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
 
@@ -106,6 +114,7 @@ export default function AddProtocol() {
                 name="operation_id"
                 className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
                 onChange={handleChange}
+                onFocus={handleChange}
               >
                 <option value="">---</option>
                 {operations &&
@@ -153,6 +162,7 @@ export default function AddProtocol() {
                 />
                 <input
                   type="button"
+                  required="required"
                   className={
                     protocolInfos.color_theme === "#c1486c"
                       ? "h-8 w-8 cursor-pointer rounded-full border-2 border-violet-dark-0 bg-rose-dark-0"
