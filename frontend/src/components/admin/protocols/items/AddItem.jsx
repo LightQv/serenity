@@ -43,22 +43,34 @@ export default function AddItem({ protocolId }) {
 
   // Change Item Form Part
   const handleChangeItem = async (e) => {
+    const { name, value } = e.target;
+
     setItemInfos({
       ...itemInfos,
       [e.target.name]: e.target.value,
     });
+
     try {
-      const isValid = await itemSchema.validate(itemInfos, {
-        abortEarly: false,
+      await itemSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ qui a été modifé
+      setErrors((prevErrors) => {
+        // prevErrors = valeur actuelle du state
+        if (!prevErrors) return null;
+        // si la validation réussit on retourne null
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        // supprime newErrors= nom du champs en cours de validation
+        return Object.keys(newErrors).length ? newErrors : null;
+        // vérifie si l'objet a encore des erreurs et renvoie un tableau contenant toutes les clés (erreurs) de newErrors, et .length donne le nombre de clés sinon null
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
+
   return (
     <div>
       <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">

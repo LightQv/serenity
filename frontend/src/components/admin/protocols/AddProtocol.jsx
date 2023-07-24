@@ -54,20 +54,41 @@ export default function AddProtocol() {
 
   // Change Protocol Form Part
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setProtocolInfos({
       ...protocolInfos,
       [e.target.name]: e.target.value,
     });
+    //   try {
+    //     const isValid = await protocolSchema.validate(protocolInfos, {
+    //       abortEarly: false,
+    //     });
+    //     if (isValid) {
+    //       setErrors(null);
+    //     }
+    //     throw new Error();
+    //   } catch (err) {
+    //     setErrors(err.errors);
+    //   }
+    // };
     try {
-      const isValid = await protocolSchema.validate(protocolInfos, {
-        abortEarly: false,
+      await protocolSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ qui a été modifé
+      setErrors((prevErrors) => {
+        // prevErrors = valeur actuelle du state
+        if (!prevErrors) return null;
+        // si la validation réussit on retourne null
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        // supprime newErrors= nom du champs en cours de validation
+        return Object.keys(newErrors).length ? newErrors : null;
+        // vérifie si l'objet a encore des erreurs et renvoie un tableau contenant toutes les clés (erreurs) de newErrors, et .length donne le nombre de clés sinon null
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
 
@@ -108,6 +129,7 @@ export default function AddProtocol() {
                 name="operation_id"
                 className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
                 onChange={handleChange}
+                onFocus={handleChange}
               >
                 <option value="">---</option>
                 {operations &&
@@ -155,6 +177,7 @@ export default function AddProtocol() {
                 />
                 <input
                   type="button"
+                  required="required"
                   className={
                     protocolInfos.color_theme === "#c1486c"
                       ? "h-8 w-8 cursor-pointer rounded-full border-2 border-violet-dark-0 bg-rose-dark-0"

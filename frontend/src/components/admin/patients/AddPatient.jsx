@@ -79,26 +79,6 @@ export default function AddPatient() {
     }
   };
 
-  // if (e.target.name === "password_verify") {
-  //   setPasswordVerify(e.target.value);
-  // } else {
-  //   setPatientRegister({
-  //     ...patientRegister,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   try {
-  //     const isValid = await registerSchema.validate(patientRegister, {
-  //       abortEarly: false,
-  //     });
-  //     if (isValid) {
-  //       setErrors(null);
-  //     }
-  //     throw new Error();
-  //   } catch (err) {
-  //     setErrors(err.errors);
-  //   }
-  // }
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       <div>

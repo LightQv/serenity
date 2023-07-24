@@ -95,19 +95,6 @@ export default function AddIntervention() {
     }
   };
 
-  //   try {
-  //     const isValid = await addInterventionSchema.validate(interventions, {
-  //       abortEarly: false,
-  //     });
-  //     if (isValid) {
-  //       setErrors(null);
-  //     }
-  //     throw new Error();
-  //   } catch (err) {
-  //     setErrors(err.errors);
-  //   }
-  // };
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
       <div>
@@ -128,6 +115,7 @@ export default function AddIntervention() {
           <select
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
             // déclenche le message d'erreur sur le select
             onFocus={handleChange}
@@ -165,6 +153,7 @@ export default function AddIntervention() {
             <select
               name="practitioner_id"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+              required="required"
               onChange={handleChange}
               onFocus={handleChange}
             >
@@ -189,6 +178,7 @@ export default function AddIntervention() {
           <select
             name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
             onFocus={handleChange}
           >
