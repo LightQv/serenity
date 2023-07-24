@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
@@ -69,7 +68,6 @@ export default function ItemCard({ data }) {
           </div>
         </button>
       </form>
-      <ToastContainer limit={1} />
     </li>
   );
 }

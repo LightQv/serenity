@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { itemSchema } from "../../../../services/validators";
 import notifySuccess, {
@@ -129,7 +127,6 @@ export default function EditItem({ selectedItem, setSelectedItem, setIsShow }) {
           </div>
         </form>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

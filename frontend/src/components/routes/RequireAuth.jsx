@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useUserContext } from "../../contexts/UserContext";
@@ -16,6 +18,7 @@ export default function RequireAuth({ allowedRoles }) {
         <>
           <AdminNavBar />
           <Outlet />
+          <ToastContainer limit={1} />
         </>
       );
     }
@@ -23,6 +26,7 @@ export default function RequireAuth({ allowedRoles }) {
       <InterventionContextProvider>
         <NavBar />
         <Outlet />
+        <ToastContainer limit={1} />
       </InterventionContextProvider>
     );
   }
