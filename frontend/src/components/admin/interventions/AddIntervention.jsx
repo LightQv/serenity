@@ -58,7 +58,7 @@ export default function AddIntervention({ setIsShow }) {
       try {
         const res = await APIService.post(`/interventions`, interventions);
         if (res) {
-          notifySuccess("L'intervention a été ajouté");
+          notifySuccess("L'intervention a été ajoutée");
           setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
