@@ -82,7 +82,7 @@ export default function AdminPatients() {
         <div className="flex h-12 w-full items-center justify-between border-b-[1px] border-slate-200 lg:h-20 lg:border-gray-300 lg:px-4">
           <p className="text-sm">Nom du patient</p>
           <div className="flex items-center gap-2 lg:pr-3">
-            <p className="text-xs italic text-gray-500">Voir plus</p>
+            <p className="text-xs italic text-gray-500 lg:hidden">Voir plus</p>
           </div>
         </div>
         {patients && patients.length !== 0 ? (
