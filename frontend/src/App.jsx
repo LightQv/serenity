@@ -19,7 +19,6 @@ function App() {
       {/* Public routes */}
       <Route path="/" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
-
       {/* Private routes */}
       {/* Admin routes */}
       <Route element={<RequireAuth allowedRoles="admin" />}>

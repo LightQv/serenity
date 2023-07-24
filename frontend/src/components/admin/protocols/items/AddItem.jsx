@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { itemSchema } from "../../../../services/validators";
 import notifySuccess, {
@@ -123,7 +121,6 @@ export default function AddItem({ protocolId }) {
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }

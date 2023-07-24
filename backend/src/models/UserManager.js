@@ -70,7 +70,9 @@ class userManager extends AbstractManager {
   }
 
   countUsers() {
-    return this.database.query(`SELECT COUNT(*) AS total FROM ${this.table}`);
+    return this.database.query(
+      `SELECT COUNT(*) AS total  FROM ${this.table} WHERE roles!='admin'`
+    );
   }
 
   findAllList(limit, offset) {
@@ -82,14 +84,14 @@ class userManager extends AbstractManager {
 
   countUsersSearch(term) {
     return this.database.query(
-      `SELECT COUNT(*) AS total FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
+      `SELECT COUNT(*) AS total FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?) AND roles != 'admin'`,
       [`%${term}%`, `%${term}%`]
     );
   }
 
   searchAllList(term, limit, offset) {
     return this.database.query(
-      `SELECT * FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?)`,
+      `SELECT * FROM ${this.table} WHERE LOWER(firstname) LIKE LOWER(?) OR LOWER(lastname) LIKE LOWER(?) AND roles != 'admin'  LIMIT ? OFFSET ?`,
       [`%${term}%`, `%${term}%`, limit, offset]
     );
   }

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { operationSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -94,7 +92,6 @@ export default function EditOperation({
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }

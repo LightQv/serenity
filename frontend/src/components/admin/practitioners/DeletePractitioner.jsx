@@ -1,5 +1,3 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import notifySuccess, {
   notifyError,
@@ -10,6 +8,9 @@ export default function DeletePractitioner({
   selectedPractitioner,
   setSelectedPractitioner,
   setIsShow,
+  practitioner,
+  currentPage,
+  setCurrentPage,
 }) {
   const handleDelete = async () => {
     if (selectedPractitioner !== "") {
@@ -18,6 +19,9 @@ export default function DeletePractitioner({
           `/practitioners/${selectedPractitioner}`
         );
         if (res) {
+          if (practitioner.length === 1) {
+            setCurrentPage(currentPage - 1);
+          }
           notifySuccess("Le praticien a bien été supprimé.");
           setSelectedPractitioner(null);
           setIsShow({ modalDelete: false });
@@ -52,7 +56,6 @@ export default function DeletePractitioner({
           Non
         </button>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }
@@ -60,4 +63,7 @@ DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
   setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
+  practitioner: PropTypes.shape().isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };

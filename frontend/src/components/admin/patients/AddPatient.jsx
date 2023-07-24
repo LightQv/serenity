@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
@@ -9,7 +8,7 @@ import APIService from "../../../services/APIService";
 import { registerSchema } from "../../../services/validators";
 import FormError from "../../FormError";
 
-export default function AddPatient() {
+export default function AddPatient({ setIsShow }) {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [patientRegister, setPatientRegister] = useState({
     firstname: "",
@@ -35,6 +34,7 @@ export default function AddPatient() {
         const res = await APIService.post(`/users`, patientRegister);
         if (res) {
           notifySuccess("Le patient a été ajouté");
+          setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
         if (err.request.status === 409) {
@@ -233,8 +233,10 @@ export default function AddPatient() {
           </div>
         </form>
       </div>
-
-      <ToastContainer limit={1} />
     </div>
   );
 }
+
+AddPatient.propTypes = {
+  setIsShow: PropTypes.func.isRequired,
+};

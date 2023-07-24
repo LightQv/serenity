@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { protocolSchema } from "../../../services/validators";
 import notifySuccess, {
   notifyError,
@@ -204,7 +202,6 @@ export default function AddProtocol() {
           </form>
         </div>
       )}
-      <ToastContainer limit={1} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
@@ -52,7 +51,6 @@ export default function DeletePatient({
           Non
         </button>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

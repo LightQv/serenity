@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
@@ -49,7 +47,6 @@ export default function DeleteIntervention({
           Non
         </button>
       </div>
-      <ToastContainer limit={1} />
     </div>
   );
 }

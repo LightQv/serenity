@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { editInterventionSchema } from "../../../services/validators";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
-import "react-toastify/dist/ReactToastify.css";
 import FormError from "../../FormError";
 
 export default function EditIntervention({
@@ -212,7 +210,6 @@ export default function EditIntervention({
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }

@@ -87,12 +87,14 @@ export default function AdminProtocoles() {
             Aucun protocole disponible.
           </p>
         )}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          paginate={paginate}
-          maxPage={maxPage}
-        />
+        {protocols && protocols.length !== 0 && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            paginate={paginate}
+            maxPage={maxPage}
+          />
+        )}
       </div>
       <div
         className={

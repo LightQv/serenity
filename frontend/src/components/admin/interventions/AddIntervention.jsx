@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import PropTypes from "prop-types";
 import { addInterventionSchema } from "../../../services/validators";
 import APIService from "../../../services/APIService";
 import notifySuccess, {
@@ -7,7 +7,7 @@ import notifySuccess, {
 } from "../../../services/ToastNotificationService";
 import FormError from "../../FormError";
 
-export default function AddIntervention() {
+export default function AddIntervention({ setIsShow }) {
   const [operations, setOperations] = useState(null);
   const [practitioners, setPractitioners] = useState(null);
   const [users, setUsers] = useState(null);
@@ -55,7 +55,8 @@ export default function AddIntervention() {
       try {
         const res = await APIService.post(`/interventions`, interventions);
         if (res) {
-          notifySuccess("L'intervention a été ajouté'");
+          notifySuccess("L'intervention a été ajouté");
+          setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
         if (err.request.status === 401) {
@@ -200,7 +201,10 @@ export default function AddIntervention() {
           </button>
         </div>
       </form>
-      <ToastContainer limit={1} />
     </div>
   );
 }
+
+AddIntervention.propTypes = {
+  setIsShow: PropTypes.func.isRequired,
+};

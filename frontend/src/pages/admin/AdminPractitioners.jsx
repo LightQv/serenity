@@ -24,7 +24,7 @@ export default function AdminPractitioners() {
   const [maxPage, setMaxPage] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams({
     page: defaultPage,
-    term: "",
+    term: defaultSearch,
   });
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page"), 10) || defaultPage
@@ -37,13 +37,11 @@ export default function AdminPractitioners() {
 
   useEffect(() => {
     setSearchParams((params) => {
-      if (searchValue.length > 1) {
+      if (searchValue.length >= 1) {
         setCurrentPage(1);
       }
       searchParams.set("page", currentPage);
-      if (currentPage === 1) {
-        return undefined;
-      }
+      searchParams.set("term", searchValue);
       return params;
     });
 
@@ -129,7 +127,10 @@ export default function AdminPractitioners() {
         }
       >
         {isShow.modalAdd && (
-          <Modal component={<AddPractitioner />} setIsShow={setIsShow} />
+          <Modal
+            component={<AddPractitioner setIsShow={setIsShow} />}
+            setIsShow={setIsShow}
+          />
         )}
         {isShow.modalEdit && (
           <Modal
@@ -150,6 +151,9 @@ export default function AdminPractitioners() {
                 selectedPractitioner={selectedPractitioner}
                 setSelectedPractitioner={setSelectedPractitioner}
                 setIsShow={setIsShow}
+                practitioner={practitioners}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             }
             setIsShow={setIsShow}
