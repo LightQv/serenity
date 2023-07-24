@@ -24,7 +24,7 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 - Express and Socket back servers will be accessible at the address set in the .env of the frontend
 - React frontend will be accessible at the address set in the .env of the backend
 
-- 👉 To try Admin Role, you can log with : marine.dutronc@gmail.com || serenity 👈
+- 👉 To try Admin Role, you can log with : marie.dutronc@gmail.com || serenity 👈
 - 👉 To try Patient Role, you can log with : marianne55@gmail.com || serenity 👈
 
 ### Available Commands
