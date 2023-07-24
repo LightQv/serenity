@@ -151,6 +151,9 @@ export default function AdminPractitioners() {
                 selectedPractitioner={selectedPractitioner}
                 setSelectedPractitioner={setSelectedPractitioner}
                 setIsShow={setIsShow}
+                practitioner={practitioners}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             }
             setIsShow={setIsShow}
