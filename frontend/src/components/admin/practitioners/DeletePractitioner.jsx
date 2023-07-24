@@ -8,6 +8,9 @@ export default function DeletePractitioner({
   selectedPractitioner,
   setSelectedPractitioner,
   setIsShow,
+  practitioner,
+  currentPage,
+  setCurrentPage,
 }) {
   const handleDelete = async () => {
     if (selectedPractitioner !== "") {
@@ -16,6 +19,9 @@ export default function DeletePractitioner({
           `/practitioners/${selectedPractitioner}`
         );
         if (res) {
+          if (practitioner.length === 1) {
+            setCurrentPage(currentPage - 1);
+          }
           notifySuccess("Le praticien a bien été supprimé.");
           setSelectedPractitioner(null);
           setIsShow({ modalDelete: false });
@@ -57,4 +63,7 @@ DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
   setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
+  practitioner: PropTypes.shape().isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
