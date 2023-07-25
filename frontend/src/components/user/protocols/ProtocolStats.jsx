@@ -7,13 +7,13 @@ import {
 
 export default function ProtocolStats({ data }) {
   return (
-    <li className="relative flex h-24 w-full items-center justify-between rounded-2xl bg-gray-200 hover:opacity-80 lg:h-36">
+    <li className="relative flex h-24 w-full items-center justify-between lg:h-36">
       <NavLink
         to={`/protocols/${data.protocol_id}`}
         className={({ isActive }) =>
           isActive
-            ? "relative z-20 flex h-full w-full items-center justify-between rounded-2xl p-4 outline outline-4 lg:p-8"
-            : "relative z-20 flex h-full w-full items-center justify-between p-4 lg:p-8"
+            ? "relative z-20 flex h-full w-full cursor-default items-center justify-between rounded-2xl bg-gray-200 p-4 outline outline-4 lg:p-8"
+            : "relative z-20 flex h-full w-full items-center justify-between rounded-2xl bg-gray-200 p-4  hover:opacity-80 lg:p-8"
         }
         style={({ isActive }) =>
           isActive
