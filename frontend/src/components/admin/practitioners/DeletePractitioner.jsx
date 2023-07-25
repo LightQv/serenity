@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import notifySuccess, {
   notifyError,
 } from "../../../services/ToastNotificationService";
@@ -8,10 +9,8 @@ export default function DeletePractitioner({
   selectedPractitioner,
   setSelectedPractitioner,
   setIsShow,
-  practitioner,
-  currentPage,
-  setCurrentPage,
 }) {
+  const navigate = useNavigate();
   const handleDelete = async () => {
     if (selectedPractitioner !== "") {
       try {
@@ -19,12 +18,10 @@ export default function DeletePractitioner({
           `/practitioners/${selectedPractitioner}`
         );
         if (res) {
-          if (practitioner.length === 1) {
-            setCurrentPage(currentPage - 1);
-          }
           notifySuccess("Le praticien a bien été supprimé.");
           setSelectedPractitioner(null);
           setIsShow({ modalDelete: false });
+          navigate("/admin/practitioners");
         }
         throw new Error();
       } catch (err) {
@@ -63,7 +60,4 @@ DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
   setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
-  practitioner: PropTypes.shape().isRequired,
-  currentPage: PropTypes.number.isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
 };
