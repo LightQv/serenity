@@ -8,6 +8,9 @@ export default function DeleteIntervention({
   selectedIntervention,
   setSelectedIntervention,
   setIsShow,
+  interventions,
+  currentPage,
+  setCurrentPage,
 }) {
   const handleDelete = async () => {
     try {
@@ -15,6 +18,9 @@ export default function DeleteIntervention({
         `/interventions/${selectedIntervention}`
       );
       if (res) {
+        if (interventions.length === 1 && currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        }
         notifySuccess("L'intervention a été supprimée");
         setSelectedIntervention();
         setIsShow({ modalDelete: false });
@@ -55,4 +61,7 @@ DeleteIntervention.propTypes = {
   selectedIntervention: PropTypes.number.isRequired,
   setSelectedIntervention: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
+  interventions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };

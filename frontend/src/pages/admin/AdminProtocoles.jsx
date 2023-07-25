@@ -124,6 +124,9 @@ export default function AdminProtocoles() {
                 selectedProtocol={selectedProtocol}
                 setSelectedProtocol={setSelectedProtocol}
                 setIsShow={setIsShow}
+                protocols={protocols}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             }
             setIsShow={setIsShow}

@@ -8,12 +8,18 @@ export default function DeleteProtocol({
   selectedProtocol,
   setSelectedProtocol,
   setIsShow,
+  protocols,
+  currentPage,
+  setCurrentPage,
 }) {
   // Submit Delete Protocol Request
   const handleDelete = async () => {
     try {
       const res = await APIService.delete(`/protocols/${selectedProtocol}`);
       if (res) {
+        if (protocols.length === 1 && currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        }
         notifySuccess("Le protocole a bien été supprimé.");
         setSelectedProtocol();
         setIsShow({ modalDelete: false });
@@ -60,4 +66,7 @@ DeleteProtocol.propTypes = {
   selectedProtocol: PropTypes.number.isRequired,
   setSelectedProtocol: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
+  protocols: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
