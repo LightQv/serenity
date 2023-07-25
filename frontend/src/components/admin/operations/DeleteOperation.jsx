@@ -28,9 +28,14 @@ export default function DeleteOperation({
 
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
-      <h1 className="self-start text-lg font-semibold lg:text-xl">
-        Supprimer cette operation ?
-      </h1>
+      <div className="self-center text-center">
+        <h1 className="text-lg font-semibold lg:text-xl">
+          Supprimer cette operation ?
+        </h1>
+        <h5 className="text-xs font-normal italic lg:text-sm">
+          (ainsi que toutes les interventions de ce type.)
+        </h5>
+      </div>
       <div className="flex gap-2">
         <button
           type="button"
