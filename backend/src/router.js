@@ -71,6 +71,10 @@ const operationControllers = require("./controllers/operationControllers");
 router.get("/api/operations", operationControllers.browse);
 router.get("/api/operations-list", operationControllers.browseList);
 router.get("/api/operations/:id", operationControllers.read);
+router.get(
+  "/api/operations-protocols/:id",
+  operationControllers.readWithProtocols
+);
 router.put("/api/operations/:id", verifyAdmin, operationControllers.edit);
 router.post("/api/operations", verifyAdmin, operationControllers.add);
 router.delete("/api/operations/:id", verifyAdmin, operationControllers.destroy);

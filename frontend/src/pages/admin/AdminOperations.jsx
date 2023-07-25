@@ -120,6 +120,7 @@ export default function AdminOperations() {
               <EditOperation
                 selectedOperation={selectedOperation}
                 setSelectedOperation={setSelectedOperation}
+                setIsShow={setIsShow}
               />
             }
             setIsShow={setIsShow}
@@ -132,6 +133,9 @@ export default function AdminOperations() {
                 selectedOperation={selectedOperation}
                 setSelectedOperation={setSelectedOperation}
                 setIsShow={setIsShow}
+                operations={operations}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             }
             setIsShow={setIsShow}

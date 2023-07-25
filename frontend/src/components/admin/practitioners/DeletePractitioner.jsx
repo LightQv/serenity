@@ -19,7 +19,7 @@ export default function DeletePractitioner({
           `/practitioners/${selectedPractitioner}`
         );
         if (res) {
-          if (practitioner.length === 1) {
+          if (practitioner.length === 1 && currentPage > 1) {
             setCurrentPage(currentPage - 1);
           }
           notifySuccess("Le praticien a bien été supprimé.");

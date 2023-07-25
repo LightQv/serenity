@@ -32,9 +32,27 @@ const read = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   models.operation
+    .find(id)
+    .then(([rows]) => {
+      if (rows[0]) {
+        res.send(rows[0]);
+      } else {
+        res.status(404).send("Operation not found");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const readWithProtocols = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.operation
     .findWithProtocolInfos(id)
     .then(([rows]) => {
-      if (rows) {
+      if (rows[0]) {
         res.send(rows);
       } else {
         res.status(404).send("Operation not found");
@@ -101,6 +119,7 @@ module.exports = {
   browse,
   browseList,
   read,
+  readWithProtocols,
   edit,
   add,
   destroy,

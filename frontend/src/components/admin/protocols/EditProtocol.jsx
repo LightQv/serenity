@@ -8,11 +8,7 @@ import APIService from "../../../services/APIService";
 import FormError from "../../FormError";
 import ItemDetails from "./items/ItemDetails";
 
-export default function EditProtocol({
-  selectedProtocol,
-  setSelectedProtocol,
-  setIsShow,
-}) {
+export default function EditProtocol({ selectedProtocol, setIsShow }) {
   const [operations, setOperations] = useState(null);
   const [protocolInfos, setProtocolInfos] = useState({
     protocol_name: "",
@@ -67,7 +63,6 @@ export default function EditProtocol({
         );
         if (res) {
           notifySuccess("Le protocole a été modifié.");
-          setSelectedProtocol();
           setIsShow({ modalEdit: false });
         } else throw new Error();
       } catch (err) {
@@ -217,6 +212,5 @@ export default function EditProtocol({
 
 EditProtocol.propTypes = {
   selectedProtocol: PropTypes.number.isRequired,
-  setSelectedProtocol: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
 };

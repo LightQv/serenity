@@ -78,7 +78,10 @@ export const itemSchema = Yup.object({
 });
 
 export const operationSchema = Yup.object({
-  operation_name: Yup.string().required("L'opération doit être nommé."),
+  operation_name: Yup.string()
+    .required("L'opération doit être nommé.")
+    .min(3, "Nom : minimum 3 caractères")
+    .max(50, "L'opération doit contenir moins de 50 caractères."),
 });
 
 export const practitionerSchema = Yup.object({
