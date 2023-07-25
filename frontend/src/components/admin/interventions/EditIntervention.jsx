@@ -91,7 +91,7 @@ export default function EditIntervention({
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
-    } else notifyError("La date doit être utlérieur à celle du jour.");
+    } else notifyError("La date doit être ultérieur à celle du jour.");
   };
 
   const handleChange = async (e) => {
@@ -219,6 +219,6 @@ export default function EditIntervention({
 
 EditIntervention.propTypes = {
   selectedIntervention: PropTypes.number.isRequired,
-  setSelectedIntervention: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedIntervention: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

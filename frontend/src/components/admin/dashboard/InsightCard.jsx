@@ -49,8 +49,6 @@ export default function InsightCard({ title, data, link }) {
 
 InsightCard.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf({
-    surname: PropTypes.string.isRequired,
-  }).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   link: PropTypes.string.isRequired,
 };
