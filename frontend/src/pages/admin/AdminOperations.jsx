@@ -73,7 +73,7 @@ export default function AdminOperations() {
           <ul className="grid w-full grid-cols-1">
             {operations.map((operation) => (
               <OperationDetails
-                key={operation.operation_id}
+                key={operation.id}
                 operation={operation}
                 selectedOperation={selectedOperation}
                 setSelectedOperation={setSelectedOperation}

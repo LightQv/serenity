@@ -53,6 +53,6 @@ export default function DeleteOperation({
 
 DeleteOperation.propTypes = {
   selectedOperation: PropTypes.number.isRequired,
-  setSelectedOperation: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedOperation: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };
