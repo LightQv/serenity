@@ -15,7 +15,7 @@ const browse = (req, res) => {
 const browseList = async (req, res) => {
   const { page } = req.query;
   const { term } = req.query;
-  const limit = 6;
+  const limit = 5;
   const offset = (page - 1) * limit;
 
   try {
