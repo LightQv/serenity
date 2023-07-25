@@ -50,6 +50,7 @@ export default function EditPatient({
         );
 
         if (res) {
+          console.log(res);
           notifySuccess("Le patient a été modifié");
           setSelectedPatient();
           setIsShow({ modalEdit: false });

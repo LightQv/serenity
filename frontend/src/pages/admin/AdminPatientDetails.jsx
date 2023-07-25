@@ -118,6 +118,7 @@ export default function AdminPatientDetails() {
               <EditPatient
                 selectedPatient={selectedPatient}
                 setSelectedPatient={setSelectedPatient}
+                setIsShow={setIsShow}
               />
             }
             setIsShow={setIsShow}
