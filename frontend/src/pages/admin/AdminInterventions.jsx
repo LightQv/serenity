@@ -132,6 +132,7 @@ export default function AdminInterventions() {
               <EditIntervention
                 selectedIntervention={selectedIntervention}
                 setSelectedIntervention={setSelectedIntervention}
+                setIsShow={setIsShow}
               />
             }
             setIsShow={setIsShow}

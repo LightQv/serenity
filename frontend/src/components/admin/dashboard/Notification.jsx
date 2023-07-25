@@ -37,14 +37,17 @@ export default function Notification() {
   };
 
   return (
-    <button
-      type="button"
-      className="relative h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 lg:p-2"
-      onClick={() => handleNotification()}
-    >
-      {messageList.length > 0 && !viewed && (
-        <div className="absolute -right-2 -top-2 h-4 w-4 rounded-full bg-red-500" />
-      )}
+    <>
+      <button
+        type="button"
+        className="relative h-fit w-fit rounded-lg border-2 border-gray-300 bg-gray-300 p-1 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-dark-0 hover:bg-violet-dark-0 lg:p-2"
+        onClick={() => handleNotification()}
+      >
+        {messageList.length > 0 && !viewed && (
+          <div className="absolute -right-2 -top-2 h-4 w-4 rounded-full bg-red-500" />
+        )}
+        <NotificationSvg />
+      </button>
       {show && (
         <div className="fixed right-0 top-0 flex h-fit w-screen flex-col items-center justify-between bg-turquoise-dark-0 shadow-md lg:right-8 lg:top-8 lg:w-[25rem] lg:rounded-lg">
           <button
@@ -72,21 +75,22 @@ export default function Notification() {
                   return messageList.indexOf(notification) === index;
                 })
                 .map((notification) => (
-                  <li className="h-6 w-full">
+                  <li className="h-6 w-full" key={notification.id}>
                     <NavLink to={`/admin/patients/${notification.author_id}`}>
-                      <p className="w-full text-left">{notification.message}</p>
+                      <p className="w-full text-left text-slate-100">
+                        {notification.message}
+                      </p>
                     </NavLink>
                   </li>
                 ))
             ) : (
               <li className="h-6 w-full">
-                <p className="">Aucune notification</p>
+                <p className="text-slate-100">Aucune notification</p>
               </li>
             )}
           </ul>
         </div>
       )}
-      <NotificationSvg />
-    </button>
+    </>
   );
 }

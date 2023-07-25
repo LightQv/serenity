@@ -98,6 +98,6 @@ export default function EditOperation({
 
 EditOperation.propTypes = {
   selectedOperation: PropTypes.number.isRequired,
-  setSelectedOperation: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedOperation: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };
