@@ -40,7 +40,9 @@ export default function AddProtocol() {
         if (protocol) {
           setNewProtocolId(protocol.data.id);
           setProtocolCreate(true);
-          notifySuccess("Le protocole a été ajouté.");
+          notifySuccess(
+            "Première étape validée, merci d'ajouter du contenu pour valider sa création."
+          );
         } else throw new Error();
       } catch (err) {
         if (err.request?.status === 401) {

@@ -145,6 +145,9 @@ export default function AdminInterventions() {
                 selectedIntervention={selectedIntervention}
                 setSelectedIntervention={setSelectedIntervention}
                 setIsShow={setIsShow}
+                interventions={interventions}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             }
             setIsShow={setIsShow}

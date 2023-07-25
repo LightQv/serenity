@@ -69,9 +69,15 @@ export default function AddItem({ protocolId }) {
 
   return (
     <div>
-      <h1 className="self-start pl-4 text-lg font-semibold lg:pl-8 lg:text-xl">
-        Ajouter du contenu ?
-      </h1>
+      <div className="self-start px-4 font-semibold lg:px-8">
+        <h1 className="text-lg font-semibold lg:text-xl">
+          Ajouter du contenu ?
+        </h1>
+        <h5 className="text-xs font-normal italic lg:text-sm">
+          (Vous devez ajouter au moins un contenu pour que la création du
+          protocole soit valide.)
+        </h5>
+      </div>
       <form
         action="addProtocol"
         className="gap-4 space-y-4 p-4 lg:p-8"
