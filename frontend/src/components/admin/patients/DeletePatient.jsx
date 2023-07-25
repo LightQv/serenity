@@ -57,6 +57,6 @@ export default function DeletePatient({
 
 DeletePatient.propTypes = {
   selectedPatient: PropTypes.number.isRequired,
-  setSelectedPatient: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedPatient: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };
