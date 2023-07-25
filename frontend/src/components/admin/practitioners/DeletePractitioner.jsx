@@ -63,7 +63,7 @@ DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
   setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
-  practitioner: PropTypes.shape().isRequired,
+  practitioner: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   currentPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
 };
