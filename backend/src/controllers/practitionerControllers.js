@@ -15,7 +15,7 @@ const browse = (req, res) => {
 const browseList = async (req, res) => {
   const { page } = req.query;
   const { term } = req.query;
-  const limit = 5;
+  const limit = 6;
   const offset = (page - 1) * limit;
 
   try {
@@ -92,20 +92,22 @@ const add = (req, res) => {
       res.sendStatus(500);
     });
 };
-const destroy = async (req, res) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const affectedRows = await models.practitioner.delete(id);
+const destroy = (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-    if (affectedRows === 0) {
-      res.sendStatus(404);
-    } else {
-      res.sendStatus(204);
-    }
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
+  models.practitioner
+    .delete(id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 module.exports = {
   browse,
