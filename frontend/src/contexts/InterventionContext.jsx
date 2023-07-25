@@ -13,7 +13,7 @@ export function InterventionContextProvider({ children }) {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    APIService.get(`/operations/${user.operation_id}`)
+    APIService.get(`/operations-protocols/${user.operation_id}`)
       .then((res) => setProtocols(res.data))
       .catch((err) => console.error(err));
   }, [update]);
