@@ -131,18 +131,9 @@ export default function EditProtocol({
               name="operation_name"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
               defaultValue={protocolInfos?.operation_id}
+              onChange={handleChange}
             >
-              <option
-                value=""
-                onClick={(e) =>
-                  setProtocolInfos({
-                    ...protocolInfos,
-                    operation_id: e.target.value,
-                  })
-                }
-              >
-                ---
-              </option>
+              <option value="">---</option>
               {operations &&
                 operations.map((operation) => (
                   <option

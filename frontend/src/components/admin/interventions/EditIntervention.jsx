@@ -15,12 +15,7 @@ export default function EditIntervention({
   const [operations, setOperations] = useState(null);
   const [practitioners, setPractitioners] = useState(null);
   const [users, setUsers] = useState(null);
-  const [intervention, setIntervention] = useState({
-    operation_id: null,
-    date: "",
-    practitioner_id: null,
-    user_id: null,
-  });
+  const [intervention, setIntervention] = useState();
   const [errors, setErrors] = useState(null);
 
   useEffect(() => {
@@ -99,6 +94,9 @@ export default function EditIntervention({
       ...intervention,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const validateForm = async () => {
     try {
       const isValid = await editInterventionSchema.validate(intervention, {
         abortEarly: false,
@@ -106,13 +104,16 @@ export default function EditIntervention({
       if (isValid) {
         setErrors(null);
       }
-      throw new Error();
     } catch (err) {
       setErrors(err.errors);
     }
   };
 
-  if (!intervention.operation_id) return null;
+  useEffect(() => {
+    if (intervention) validateForm();
+  }, [intervention]);
+
+  if (!intervention) return null;
   return (
     <div className="grid grid-cols-1">
       <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
