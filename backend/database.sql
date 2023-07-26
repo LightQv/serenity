@@ -79,13 +79,13 @@ INSERT INTO
 practitioner (surname)
 VALUES
 (
-  'Dr. Richard'
+  'Dr Richard'
 ),
 (
-  'Dr. Denis'
+  'Dr Denis'
 ),
 (
-  'Dr. Smith'
+  'Dr Smith'
 );
 
 CREATE TABLE operation (

@@ -54,7 +54,7 @@ const migrate = async () => {
 
   const generateRandomPractitioner = (number) => {
     for (let i = 0; i < number; i += 1) {
-      const surname = `${"Dr."} ${faker.person.lastName()}`;
+      const surname = `${"Dr"} ${faker.person.lastName()}`;
       const practitionerQuery = `INSERT INTO practitioner (surname) VALUES ("${surname}")`;
       connection.query(practitionerQuery);
     }
