@@ -27,8 +27,8 @@ export const registerSchema = Yup.object({
     .min(7, "Le mot de passe doit contenir 7 caractères minimum.")
     .max(30, "Le mot de passe doit contenir 30 caractères maximum."),
   phone_number: Yup.string()
-    .min(10, "Le numéro de téléphone doit contenir 10 chiffres.")
-    .max(10, "Numéro de téléphone doit contenir 10 chiffres."),
+    .min(10, "Le numéro de téléphone doit contenir 10 chiffres sans espaces.")
+    .max(10, "Le numéro de téléphone doit contenir 10 chiffres sans espaces."),
   address_number: Yup.string().nullable(),
   address_streetname: Yup.string()
     .min(3, "L'adresse doit contenir au moins 3 caractères.")
@@ -49,8 +49,8 @@ export const patientSchema = Yup.object({
     .max(255, "L'email doit contenir 255 caractères maximum.")
     .email("Un email valide est requis."),
   phone_number: Yup.string()
-    .min(10, "Le numéro de téléphone doit contenir 10 chiffres.")
-    .max(10, "Numéro de téléphone doit contenir 10 chiffres."),
+    .min(10, "Le numéro de téléphone doit contenir 10 chiffres sans espaces.")
+    .max(10, "Le numéro de téléphone doit contenir 10 chiffres sans espaces."),
   address_number: Yup.string().nullable(),
   address_streetname: Yup.string()
     .min(3, "L'adresse doit contenir au moins 3 caractères.")
