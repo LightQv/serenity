@@ -47,6 +47,7 @@ export default function AddPatient({ setIsShow }) {
   };
 
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     if (e.target.name === "password_verify") {
       setPasswordVerify(e.target.value);
     } else {
@@ -55,15 +56,21 @@ export default function AddPatient({ setIsShow }) {
         [e.target.name]: e.target.value,
       });
       try {
-        const isValid = await registerSchema.validate(patientRegister, {
-          abortEarly: false,
+        await registerSchema.validateAt(name, { [name]: value });
+        // valide uniquement le champ qui est en cours de modification
+        setErrors((prevErrors) => {
+          if (!prevErrors) return null;
+
+          const newErrors = { ...prevErrors };
+          delete newErrors[name];
+
+          return Object.keys(newErrors).length ? newErrors : null;
         });
-        if (isValid) {
-          setErrors(null);
-        }
-        throw new Error();
       } catch (err) {
-        setErrors(err.errors);
+        setErrors((prevErrors) => ({
+          ...(prevErrors || {}),
+          [name]: err.errors[0],
+        }));
       }
     }
   };

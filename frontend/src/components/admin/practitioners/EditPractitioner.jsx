@@ -17,11 +17,12 @@ export default function EditPractitioner({
     surname: "",
   });
   const [errors, setErrors] = useState(null);
+
   useEffect(() => {
     APIService.get(`/practitioners/${selectedPractitioner}`).then((res) => {
       setPractitionerInfo(res.data);
     });
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

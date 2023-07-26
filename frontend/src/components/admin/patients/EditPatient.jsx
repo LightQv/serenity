@@ -62,22 +62,30 @@ export default function EditPatient({
   };
 
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setPatientInfo({
       ...patientInfo,
       [e.target.name]: e.target.value,
     });
     try {
-      const isValid = await patientSchema.validate(patientInfo, {
-        abortEarly: false,
+      await patientSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ qui est en cours de modification
+      setErrors((prevErrors) => {
+        if (!prevErrors) return null;
+
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+
+        return Object.keys(newErrors).length ? newErrors : null;
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
+
   if (!patientInfo) return null;
   return (
     <div className="grid grid-cols-1 lg:grid-cols-1">
@@ -204,6 +212,6 @@ export default function EditPatient({
 
 EditPatient.propTypes = {
   selectedPatient: PropTypes.number.isRequired,
-  setSelectedPatient: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedPatient: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

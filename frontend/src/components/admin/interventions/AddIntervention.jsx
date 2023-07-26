@@ -51,11 +51,14 @@ export default function AddIntervention({ setIsShow }) {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if (addInterventionSchema.isValidSync(interventions)) {
+    if (
+      addInterventionSchema.isValidSync(interventions) &&
+      new Date() - new Date(interventions.date) <= 0
+    ) {
       try {
         const res = await APIService.post(`/interventions`, interventions);
         if (res) {
-          notifySuccess("L'intervention a été ajouté");
+          notifySuccess("L'intervention a été ajoutée");
           setIsShow({ modalAdd: false });
         } else throw new Error();
       } catch (err) {
@@ -65,24 +68,30 @@ export default function AddIntervention({ setIsShow }) {
           notifyError("Erreur dans l'ajout de l'intervention");
         }
       }
-    } else notifyError("Une erreur dans la saisie.");
+    } else notifyError("La date doit être utlérieur à celle du jour.");
   };
 
   const handleChange = async (e) => {
+    const { name, value } = e.target;
     setInterventions({
       ...interventions,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
     try {
-      const isValid = await addInterventionSchema.validate(interventions, {
-        abortEarly: false,
+      await addInterventionSchema.validateAt(name, { [name]: value });
+      // valide uniquement le champ en cours de modification
+      setErrors((prevErrors) => {
+        if (!prevErrors) return null;
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        return Object.keys(newErrors).length ? newErrors : null;
       });
-      if (isValid) {
-        setErrors(null);
-      }
-      throw new Error();
     } catch (err) {
-      setErrors(err.errors);
+      setErrors((prevErrors) => ({
+        ...(prevErrors || {}),
+        [name]: err.errors[0],
+      }));
     }
   };
 
@@ -101,12 +110,15 @@ export default function AddIntervention({ setIsShow }) {
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="operation_id" className="mb-2 text-base">
-            Sélectionner une intervention
+            Sélectionner une opération
           </label>
           <select
             name="operation_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
+            // déclenche le message d'erreur sur le select
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {operations &&
@@ -131,6 +143,7 @@ export default function AddIntervention({ setIsShow }) {
               className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
               required="required"
               onChange={handleChange}
+              onFocus={handleChange}
             />
           </div>
           <div className="flex flex-col">
@@ -140,7 +153,9 @@ export default function AddIntervention({ setIsShow }) {
             <select
               name="practitioner_id"
               className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+              required="required"
               onChange={handleChange}
+              onFocus={handleChange}
             >
               <option value="">---</option>
               {practitioners &&
@@ -163,7 +178,9 @@ export default function AddIntervention({ setIsShow }) {
           <select
             name="user_id"
             className="rounded-lg bg-gray-50 p-2 text-sm placeholder:italic"
+            required="required"
             onChange={handleChange}
+            onFocus={handleChange}
           >
             <option value="">---</option>
             {users &&
@@ -177,6 +194,7 @@ export default function AddIntervention({ setIsShow }) {
         <div className="flex items-center justify-center">
           <button
             type="submit"
+            disabled={!addInterventionSchema.isValidSync(interventions)}
             className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
           >
             Ajouter

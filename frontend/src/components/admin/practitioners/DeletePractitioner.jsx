@@ -19,7 +19,7 @@ export default function DeletePractitioner({
           `/practitioners/${selectedPractitioner}`
         );
         if (res) {
-          if (practitioner.length === 1) {
+          if (practitioner.length === 1 && currentPage > 1) {
             setCurrentPage(currentPage - 1);
           }
           notifySuccess("Le praticien a bien été supprimé.");
@@ -37,9 +37,14 @@ export default function DeletePractitioner({
 
   return (
     <div className="flex flex-col items-center justify-between p-4 lg:p-8">
-      <h1 className="self-start text-lg font-semibold lg:text-xl">
-        Supprimer ce praticien ?
-      </h1>
+      <div className="self-center text-center">
+        <h1 className="text-lg font-semibold lg:text-xl">
+          Supprimer ce praticien ?
+        </h1>
+        <h5 className="text-xs font-normal italic lg:text-sm">
+          (ainsi que les interventions qui lui sont associées.)
+        </h5>
+      </div>
       <div className="flex gap-2">
         <button
           type="button"
@@ -63,7 +68,7 @@ DeletePractitioner.propTypes = {
   selectedPractitioner: PropTypes.number.isRequired,
   setSelectedPractitioner: PropTypes.func.isRequired,
   setIsShow: PropTypes.func.isRequired,
-  practitioner: PropTypes.shape().isRequired,
+  practitioner: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   currentPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
 };

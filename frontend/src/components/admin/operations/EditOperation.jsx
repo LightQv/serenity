@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { operationSchema } from "../../../services/validators";
 import notifySuccess, {
@@ -12,10 +12,14 @@ export default function EditOperation({
   setSelectedOperation,
   setIsShow,
 }) {
-  const [operationInfos, setOperationInfos] = useState({
-    operation_name: "",
-  });
+  const [operationInfos, setOperationInfos] = useState(null);
   const [errors, setErrors] = useState(null);
+
+  useEffect(() => {
+    APIService.get(`/operations/${selectedOperation}`).then((res) => {
+      setOperationInfos({ operation_name: res.data.operation_name });
+    });
+  }, []);
 
   // Submit Edit Operation Request
   const handleSubmit = async (e) => {
@@ -78,6 +82,7 @@ export default function EditOperation({
             id="operation_name"
             placeholder="Nom de l'operation"
             required=""
+            value={operationInfos?.operation_name}
             className="rounded-lg p-2 text-sm placeholder:italic placeholder:opacity-50"
             onChange={handleChange}
           />
@@ -98,6 +103,6 @@ export default function EditOperation({
 
 EditOperation.propTypes = {
   selectedOperation: PropTypes.number.isRequired,
-  setSelectedOperation: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedOperation: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

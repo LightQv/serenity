@@ -79,13 +79,13 @@ INSERT INTO
 practitioner (surname)
 VALUES
 (
-  'Dr. Richard'
+  'Dr Richard'
 ),
 (
-  'Dr. Denis'
+  'Dr Denis'
 ),
 (
-  'Dr. Smith'
+  'Dr Smith'
 );
 
 CREATE TABLE operation (
@@ -160,7 +160,8 @@ CREATE TABLE intervention (
   operation_id INT NOT NULL,
   CONSTRAINT fk_intervention_operation
   FOREIGN KEY (operation_id)
-  REFERENCES operation(id),
+  REFERENCES operation(id)
+  ON DELETE CASCADE,
   user_id INT NOT NULL,
   CONSTRAINT fk_intervention_user
   FOREIGN KEY (user_id)
@@ -170,6 +171,7 @@ CREATE TABLE intervention (
   CONSTRAINT fk_intervention_practitioner
   FOREIGN KEY (practitioner_id)
   REFERENCES practitioner(id)
+  ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO

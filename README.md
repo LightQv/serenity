@@ -2,7 +2,6 @@
 
 We present to you our project carried out at the Wild Code School in Lyon by Jawad, Lilian, Vivian and Aurélie. We developed a dynamic application with front and back end for our latest project during our training at the Wild Code School,Lyon in July 2023.
 
-
 ## Concept
 
 This app aims to support patients prior to their surgery using protocols and checklists that they can consult on a dedicated interface. This allows the patient to see the date of his intervention, the various protocols attached to him, and to send a pm notification to the secretariat if he wishes to be contacted. A second interface allows the secretariat to see, add, modify, delete patients, surgeons, interventions, operations, and protocols.
@@ -20,12 +19,13 @@ This app aims to support patients prior to their surgery using protocols and che
 Create `.env` files in /frontend and /backend following `.env.sample` examples.
 
 ## Use
+
 - Run frontend and backend server together : `npm run dev`
 - Express and Socket back servers will be accessible at the address set in the .env of the frontend
 - React frontend will be accessible at the address set in the .env of the backend
 
-- 👉  To try Admin Role, you can log with : marine.dutronc@gmail.com || serenity 👈
-- 👉  To try Patient Role, you can log with : marianne55@gmail.com || serenity 👈
+- 👉 To try Admin Role, you can log with : marie.dutronc@gmail.com || serenity 👈
+- 👉 To try Patient Role, you can log with : marianne55@gmail.com || serenity 👈
 
 ### Available Commands
 
@@ -35,7 +35,6 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 - `dev-back` : Starts the Express backend server
 - `lint` : Runs validation tools, and refuses unclean code (will be executed on every _commit_)
 - `fix` : Fixes linter errors (run it if `lint` growls on your code !)
-
 
 ### Tools
 
@@ -47,3 +46,11 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
 
+### Deployment
+
+For deployment, you have to go to `secrets` → app `actions` on the github repo to insert via `New repository secret` :
+
+- CAPROVER_BACK_APPNAME : name app on caprover
+- CAPROVER_FRONT_APPNAME : name app on caprover
+- CAPROVER_PASSWORD : password caprover
+- CAPROVER_SERVER : link of domain

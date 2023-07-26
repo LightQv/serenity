@@ -15,12 +15,7 @@ export default function EditIntervention({
   const [operations, setOperations] = useState(null);
   const [practitioners, setPractitioners] = useState(null);
   const [users, setUsers] = useState(null);
-  const [intervention, setIntervention] = useState({
-    operation_id: null,
-    date: "",
-    practitioner_id: null,
-    user_id: null,
-  });
+  const [intervention, setIntervention] = useState();
   const [errors, setErrors] = useState(null);
 
   useEffect(() => {
@@ -72,13 +67,15 @@ export default function EditIntervention({
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if (editInterventionSchema.isValidSync(intervention)) {
+    if (
+      editInterventionSchema.isValidSync(intervention) &&
+      new Date() - new Date(intervention.date) <= 0
+    ) {
       try {
         const res = await APIService.put(
           `/interventions/${selectedIntervention}`,
           intervention
         );
-
         if (res) {
           notifySuccess("L'intervention a été modifiée");
           setSelectedIntervention();
@@ -89,7 +86,7 @@ export default function EditIntervention({
           notifyError(`${err.request.status} : La requete a échouée.`);
         }
       }
-    } else notifyError("Une erreur dans la saisie.");
+    } else notifyError("La date doit être ultérieur à celle du jour.");
   };
 
   const handleChange = async (e) => {
@@ -97,6 +94,9 @@ export default function EditIntervention({
       ...intervention,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const validateForm = async () => {
     try {
       const isValid = await editInterventionSchema.validate(intervention, {
         abortEarly: false,
@@ -104,13 +104,16 @@ export default function EditIntervention({
       if (isValid) {
         setErrors(null);
       }
-      throw new Error();
     } catch (err) {
       setErrors(err.errors);
     }
   };
 
-  if (!intervention.operation_id) return null;
+  useEffect(() => {
+    if (intervention) validateForm();
+  }, [intervention]);
+
+  if (!intervention) return null;
   return (
     <div className="grid grid-cols-1">
       <h1 className="self-start px-4 text-lg font-semibold lg:px-8 lg:text-xl">
@@ -124,7 +127,7 @@ export default function EditIntervention({
         {errors && <FormError errors={errors} />}
         <div className="flex flex-col">
           <label htmlFor="operation_name" className="mb-2 text-base">
-            Sélectionner l'intervention
+            Sélectionner l'opération
           </label>
           <select
             name="operation_id"
@@ -204,6 +207,7 @@ export default function EditIntervention({
         <div className="flex items-center justify-center">
           <button
             type="submit"
+            disabled={!editInterventionSchema.isValidSync(intervention)}
             className="mb-4 h-fit w-fit rounded-lg border-2 border-violet-dark-0 bg-violet-dark-0 px-6 py-3 text-sm text-slate-100 shadow-lg transition-all hover:border-violet-light-0 hover:bg-violet-light-0 disabled:border-slate-300 disabled:bg-slate-300"
           >
             Modifier
@@ -216,6 +220,6 @@ export default function EditIntervention({
 
 EditIntervention.propTypes = {
   selectedIntervention: PropTypes.number.isRequired,
-  setSelectedIntervention: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.shape().isRequired,
+  setSelectedIntervention: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

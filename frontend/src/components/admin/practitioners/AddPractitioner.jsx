@@ -32,7 +32,7 @@ export default function AddPractitioner({ setIsShow }) {
   const handleChange = async (e) => {
     setSurname({
       ...surname,
-      [e.target.name]: e.target.value,
+      [e.target.name]: `Dr ${e.target.value}`,
     });
     try {
       const isValid = await practitionerSchema.validate(surname, {
