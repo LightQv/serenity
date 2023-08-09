@@ -61,4 +61,4 @@ Deployement is in progress.
 Here's some screenshot while it's done.
 
 Admin's dashboard :
-![Admin Dashboard](https://ibb.co/TbfXGQM)https://ibb.co/TbfXGQM)
+![Admin Dashboard](https://i.ibb.co/vQF5WN4/admin-dashboard.png)
