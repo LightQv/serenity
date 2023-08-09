@@ -60,5 +60,11 @@ For deployment, you have to go to `secrets` → app `actions` on the github repo
 Deployement is in progress.
 Here's some screenshot while it's done.
 
-Admin's dashboard :
+_Admin's dashboard_
 <img src="https://i.ibb.co/vQF5WN4/admin-dashboard.png" width="1080" title="Admin dashboard">
+
+_Admin's Protocols Page_
+<img src="https://i.ibb.co/6YJH0xS/admin-protocol.png" width="1080" title="Admin protocols">
+
+_Mobile User's dashboard_
+<img src="https://i.ibb.co/jk2MCjw/mobile-dashboard.png" width="350" title="User dashboard">
