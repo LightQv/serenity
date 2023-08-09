@@ -61,4 +61,4 @@ Deployement is in progress.
 Here's some screenshot while it's done.
 
 Admin's dashboard :
-![alt text](https://i.ibb.co/vQF5WN4/admin-dashboard.png "Admin Dashboard)
+<img src="https://i.ibb.co/vQF5WN4/admin-dashboard.png" width="350" title="Admin dashboard">
