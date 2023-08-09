@@ -1,6 +1,6 @@
 ## Introduction
 
-We present to you our project carried out at the Wild Code School in Lyon by Jawad, Lilian, Vivian and Aurélie. We developed a dynamic application with front and back end for our latest project during our training at the Wild Code School, Lyon in July 2023.
+As part of the Web Developer Bootcamp at Wild Code School in Lyon, here is _Serenity_, our last project. With a team of 4 peoples (including me), we developed a dynamic Full-Stack application using React.js, Express.js, mySQL and Tailwind CSS.
 
 ## Concept
 
