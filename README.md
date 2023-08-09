@@ -67,8 +67,19 @@ _Admin's dashboard_
 
 _Admin's Protocols Page_
 
-![Alt text]((https://i.ibb.co/6YJH0xS/admin-protocol.png) "Admin protocols")
+![Alt text](https://i.ibb.co/6YJH0xS/admin-protocol.png "Admin protocols")
+
 
 _Mobile User's dashboard_  
 
 ![Alt text](https://i.ibb.co/jk2MCjw/mobile-dashboard.png "User dashboard")
+
+
+_User's dashboard_
+
+![Alt text](https://i.ibb.co/rG8YSTQ/dashboard.png "User dashboard")
+
+
+_User's Protocols Page_
+
+![Alt text](https://i.ibb.co/xDsxSKD/protocol.png "User protocols")
