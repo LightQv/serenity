@@ -1,6 +1,6 @@
 ## Introduction
 
-We present to you our project carried out at the Wild Code School in Lyon by Jawad, Lilian, Vivian and Aurélie. We developed a dynamic application with front and back end for our latest project during our training at the Wild Code School,Lyon in July 2023.
+We present to you our project carried out at the Wild Code School in Lyon by Jawad, Lilian, Vivian and Aurélie. We developed a dynamic application with front and back end for our latest project during our training at the Wild Code School, Lyon in July 2023.
 
 ## Concept
 
@@ -62,7 +62,7 @@ Here's some screenshot while it's done.
 
 _Admin's dashboard_
 
-![Alt text](https://i.ibb.co/vQF5WN4/admin-dashboard.png "Admin dashboard")
+![Alt text](https://i.imgur.com/GvPKwWi.png "Admin dashboard")
 
 
 _Admin's Protocols Page_
