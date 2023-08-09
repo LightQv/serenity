@@ -77,9 +77,9 @@ _Mobile User's dashboard_
 
 _User's dashboard_
 
-![Alt text](https://i.ibb.co/rG8YSTQ/dashboard.png "User dashboard")
+![Alt text](https://i.imgur.com/Re0K1zk.png "User dashboard")
 
 
 _User's Protocols Page_
 
-![Alt text](https://i.ibb.co/xDsxSKD/protocol.png "User protocols")
+![Alt text](https://i.imgur.com/9CDXmpS.png "User protocols")
