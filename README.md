@@ -61,7 +61,7 @@ Deployement is in progress.
 Here's some screenshot while it's done.
 
 _Admin's dashboard_
-<img src="https://i.ibb.co/vQF5WN4/admin-dashboard.png" width="1080" title="Admin dashboard">
+![Alt text](https://i.ibb.co/vQF5WN4/admin-dashboard.png "Admin dashboard")
 
 _Admin's Protocols Page_
 <img src="https://i.ibb.co/6YJH0xS/admin-protocol.png" width="1080" title="Admin protocols">
