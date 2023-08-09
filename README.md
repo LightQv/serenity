@@ -61,10 +61,14 @@ Deployement is in progress.
 Here's some screenshot while it's done.
 
 _Admin's dashboard_
+
 ![Alt text](https://i.ibb.co/vQF5WN4/admin-dashboard.png "Admin dashboard")
 
+
 _Admin's Protocols Page_
-![Alt text](https://i.ibb.co/6YJH0xS/admin-protocol.png "Admin protocols")
+
+![Alt text]((https://i.ibb.co/6YJH0xS/admin-protocol.png) "Admin protocols")
 
 _Mobile User's dashboard_  
-<img src="https://i.ibb.co/jk2MCjw/mobile-dashboard.png" width="350" title="User dashboard">
+
+![Alt text](https://i.ibb.co/jk2MCjw/mobile-dashboard.png "User dashboard")
