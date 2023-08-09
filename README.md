@@ -66,5 +66,5 @@ _Admin's dashboard_
 _Admin's Protocols Page_
 <img src="https://i.ibb.co/6YJH0xS/admin-protocol.png" width="1080" title="Admin protocols">
 
-_Mobile User's dashboard_
+_Mobile User's dashboard_  
 <img src="https://i.ibb.co/jk2MCjw/mobile-dashboard.png" width="350" title="User dashboard">
