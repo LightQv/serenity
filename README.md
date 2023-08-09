@@ -64,7 +64,7 @@ _Admin's dashboard_
 ![Alt text](https://i.ibb.co/vQF5WN4/admin-dashboard.png "Admin dashboard")
 
 _Admin's Protocols Page_
-<img src="https://i.ibb.co/6YJH0xS/admin-protocol.png" width="1080" title="Admin protocols">
+![Alt text](https://i.ibb.co/6YJH0xS/admin-protocol.png "Admin protocols")
 
 _Mobile User's dashboard_  
 <img src="https://i.ibb.co/jk2MCjw/mobile-dashboard.png" width="350" title="User dashboard">
