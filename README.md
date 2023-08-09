@@ -54,3 +54,11 @@ For deployment, you have to go to `secrets` → app `actions` on the github repo
 - CAPROVER_FRONT_APPNAME : name app on caprover
 - CAPROVER_PASSWORD : password caprover
 - CAPROVER_SERVER : link of domain
+
+### Insight
+
+Deployement is in progress.
+Here's some screenshot while it's done.
+
+Admin's dashboard :
+![Admin Dashboard](https://ibb.co/TbfXGQM)https://ibb.co/TbfXGQM)
